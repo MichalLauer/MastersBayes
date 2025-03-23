@@ -1,0 +1,14 @@
+_book/
+.quarto/
+_freeze/
+index_files/
+index_cache/
+.quarto/
+_manuscript/
+
+*.aux
+*.lol
+
+/.quarto/
+/sw/
+.Rproj.user

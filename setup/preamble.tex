@@ -1,0 +1,65 @@
+\usepackage[top=25mm,bottom=25mm,right=25mm,left=30mm,head=12.5mm,foot=12.5mm]{geometry}
+\let\openright=\clearpage
+
+%%% Pokud tiskneme oboustranně:
+%\documentclass[11pt,a4paper,twoside,openright]{report}
+%\usepackage[top=25mm,bottom=25mm,right=25mm,left=30mm,head=12.5mm,foot=12.5mm]{geometry}
+%\let\openright=\cleardoublepage
+
+%%% DEFINICE ZÁKLADNÍCH PROMĚNNÝCH
+% \def\TypPrace{BP}                % bakalářská práce/bachelor thesis
+\def\TypPrace{DP}               % diplomová práce/master thesis
+\def\Jazyk{eng}                  % čeština/czech
+
+%%% Definice různých užitečných maker (viz popis uvnitř souboru)
+\input{./setup/makra}
+
+%%% Název práce v jazyce práce (přesně podle zadání)
+%%% Title of the thesis in the language used in the text (exact according to assignment)
+\def\NazevPrace{Bayesian analysis of time-varying volatility models}
+
+%%% Jméno autora
+%%% Author's name - First name Surname
+\def\AutorPrace{Bc. et Bc. Michal Lauer}
+
+%%% Rok odevzdání a měsíc (slovně)
+%%% Year of submission and month (verbally) - month YYYY
+\def\DatumOdevzdani{June 2025}
+
+%%% Vedoucí práce: Jméno a příjmení s~tituly
+%%% Supervisor: First name and surname with titles
+\def\Vedouci{Ing. Miroslav Plašil, Ph.D.}
+
+% %%% Konzultant práce: Jméno a příjmení s~tituly
+% %%% Consultant: First name and surname with titles
+\def\Konzultant{}
+
+%%% Studijní program
+%%% Study program
+\def\StudijniProgram{Statistics}
+
+%%% Studijní program - specializace
+%%% Study program - specialization
+\def\Specializace{Econometrics}
+
+%%% Nepovinné poděkování (vedoucímu práce, konzultantovi, tomu, kdo zapůjčil software, literaturu apod.)
+%%% Optional thanks (the supervisor, the consultant, the borrower of software, literature, etc.)
+\def\Podekovani{%
+Poděkování [ENG]
+}
+
+%%% Abstrakt (doporučený rozsah cca 150-250 slov; nejedná se o zadání práce)
+\def\Abstrakt{%
+Abstrakt [CZE]
+}
+\def\AbstraktEN{%
+Abstrakt [ENG]
+}
+
+%%% 3 až 5 klíčových slov (doporučeno)
+\def\KlicovaSlova{Slova [CZE]}
+\def\KlicovaSlovaEN{Slova [ENG]}
+
+% Quarto fixes
+\setcounter{secnumdepth}{2}
+\usepackage[output-decimal-marker={,}]{siunitx}

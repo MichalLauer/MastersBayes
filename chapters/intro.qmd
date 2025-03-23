@@ -1,0 +1,14 @@
+V úvodu diplomové práce byste měli zahrnout několik klíčových prvků:
+
+- Kontext a význam tématu - Proč je téma důležité a aktuální v daném oboru.
+- Vymezení problému - Jaký problém nebo výzkumnou mezeru vaše práce řeší.
+- Cíle práce - Jasně definované cíle, kterých chcete dosáhnout.
+- Výzkumné otázky nebo hypotézy - Konkrétní otázky, na které hledáte odpovědi.
+- Stručný popis metodologie - Jak budete postupovat při řešení problému.
+- Struktura práce - Krátké shrnutí jednotlivých kapitol a jejich obsahu.
+- Očekávaný přínos - Co nového vaše práce přináší do daného oboru.
+
+Úvod by měl být stručný (obvykle 2-3 strany), ale dostatečně informativní, aby čtenář získal jasnou představu o tom, co může od práce očekávat. Měl by zaujmout čtenáře a motivovat ho k dalšímu čtení.
+Důležité je psát úvod jasným a srozumitelným jazykem, bez zbytečných odborných termínů, které by mohly čtenáře odradit.
+
+---

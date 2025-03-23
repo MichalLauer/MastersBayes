@@ -1,0 +1,180 @@
+```{=tex}
+%%% Intro
+\pagestyle{empty}
+\hypersetup{pageanchor=false}
+
+\begin{center}
+\Huge\sffamily
+\VSE\\
+\FIS
+
+\vspace{\stretch{1}}
+
+\includegraphics[width=.5\textwidth]{img/FIS_2_logo_2_rgb_EN}
+
+\vspace{\stretch{2}}
+
+\bfseries\NazevPrace
+
+\vspace{8mm}
+\mdseries\TypPraceText
+
+\vspace{8mm}
+\large
+\begin{tabular}{rl}
+\StudijniProgramText: & \StudijniProgram \\
+\ifthenelse{\equal{\Specializace}{}}{%
+	% empty value
+	}{
+	\rule{0pt}{6mm}%
+	\SpecializaceText: & \Specializace \\
+}
+\end{tabular}
+
+\vspace{\stretch{8}}
+
+\begin{tabular}{rl}
+\AutorText: & \AutorPrace \\
+\noalign{\vspace{2mm}}
+\VedouciText: & \Vedouci \\
+\ifthenelse{\equal{\Konzultant}{}}{%
+	% empty value
+	}{
+	\rule{0pt}{6mm}%
+	\KonzultantText: & \Konzultant \\
+}
+\end{tabular}
+
+\vspace{8mm}
+\Praha, \DatumOdevzdani
+\end{center}
+
+
+%%% Poděkování
+\hypersetup{pageanchor=true}
+\cleardoublepage
+\pagestyle{plain}
+\openright
+\vspace*{\fill}
+\section*{\PodekovaniText}
+\noindent
+\Podekovani
+\vspace{1cm}
+
+
+%%% Povinná informační strana práce
+\openright
+\section*{Abstrakt}
+\noindent
+\Abstrakt
+\subsection*{Klíčová slova}
+\noindent
+\KlicovaSlova
+
+\bigskip\bigskip\bigskip\bigskip\bigskip
+\section*{Abstract}
+\noindent
+\AbstraktEN
+\subsection*{Keywords}
+\noindent
+\KlicovaSlovaEN
+
+\openright
+
+%%% Obsah
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+%%% Seznam obrázků
+\openright
+\listoffigures
+
+%%% Seznam tabulek
+\clearpage
+\listoftables
+
+%%% Seznam kódu
+\clearpage
+\lstlistoflistings
+
+%%% Zkratky
+\chapter*{\SeznamZkratek}
+
+\begin{multicols}{2}
+\raggedright
+\begin{description}
+\item [BUGS] Bayesian inference Using Gibbs Sampling
+\end{description}
+\end{multicols}
+```
+
+```{r setup, include=FALSE}
+
+options(OutDec = ",")
+```
+
+
+```{r hooks, include=FALSE}
+hook_default_source <- knitr::knit_hooks$get("source")
+knitr::knit_hooks$set(source = function(x, options) {
+  if (isTRUE(options$chunk.echo)) {
+    r <- paste0(
+      "\\begin{code}{", 
+        options[["code-lang"]] %||% "R", 
+      "}{", 
+        options[["code-caption"]] %||% "NENÍ CAPTION", 
+      "}{", 
+        options[["code-label"]] %||% "NENÍ LABEL", 
+      "}\n",
+        paste0(x, collapse = "\n"),
+      "\n\\end{code}\n"
+      )
+  } else {
+    r <- hook_default_source(x, options)
+  }
+
+  return(r)
+})
+
+# Hezké modely v appendixu
+hook_default_output <- knitr::knit_hooks$get("output")
+knitr::knit_hooks$set(output = function(x, options) {
+  if (options$results == "model") {
+    r <- paste0(
+      "\\begin{model}{", 
+        options[["model-lang"]] %||% "R", 
+      "}{", 
+        options[["model-caption"]] %||% "NENÍ CAPTION", 
+      "}{", 
+        options[["model-label"]] %||% "NENÍ LABEL", 
+      "}\n",
+        paste0(x, collapse = "\n"),
+      "\n\\end{model}\n"
+  )
+  } else {
+    r <- hook_default_output(x, options)
+  }
+
+  return(r)
+})
+
+knitr::opts_chunk$set(
+  fig.height = 5,
+  fig.width = 5
+)
+```
+
+```{=tex}
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+```
+
+{{< include chapters/intro.qmd >}}
+
+# Analysis of time series data
+
+{{< include chapters/01_ats/intro.qmd >}}
+
+## GARCH
+
+{{< include chapters/01_ats/ts.qmd >}}

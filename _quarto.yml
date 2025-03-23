@@ -1,0 +1,26 @@
+project:
+  type: manuscript
+  post-render:
+   - R/cleanup.r
+   - R/bib-validation.r
+
+execute:
+  echo: false
+
+crossref:
+  tbl-prefix: ""
+  eq-prefix: ""
+  fig-prefix: ""
+
+format:
+  pdf:
+    documentclass: report
+    classoption:
+      - 11pt
+      - a4paper
+    include-in-header:
+      - setup/preamble.tex
+    toc: false
+    lang: en
+    notebook-links: false
+    keep-tex: true
