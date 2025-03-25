@@ -103,7 +103,8 @@
 \begin{multicols}{2}
 \raggedright
 \begin{description}
-\item [BUGS] Bayesian inference Using Gibbs Sampling
+\item [CDS] Cross-Sectional Data
+\item [TSD] Time Series Data
 \end{description}
 \end{multicols}
 ```
@@ -175,6 +176,6 @@ knitr::opts_chunk$set(
 
 {{< include chapters/01_ats/intro.qmd >}}
 
-## GARCH
+## Time series
 
 {{< include chapters/01_ats/ts.qmd >}}

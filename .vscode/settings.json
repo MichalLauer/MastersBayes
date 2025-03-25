@@ -1,0 +1,24 @@
+{
+    "cSpell.enabled": true,
+    "cSpell.enabledFileTypes": {
+        "bibtex": true,
+        "plaintext": true,
+        "quarto": true,
+        "markdown": true,
+        "latex": false
+    },
+    "cSpell.ignoreWords": [
+        "enquote",
+        "indep",
+        "infty",
+        "mathbb",
+        "parencite",
+        "shumway",
+        "wooldridge"
+    ],
+    "cSpell.language": "en",
+    "cSpell.words": [
+        "cyclicity",
+        "stationar"
+    ]
+}

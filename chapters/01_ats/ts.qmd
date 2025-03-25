@@ -1,0 +1,91 @@
+Assume a data sequence $y$ that can be denoted using an index $t$. These indexes
+serve as ordering in time from the beginning $t=1$ to end $t = T$. This data sequence denotes a time series
+
+$$
+y_t \text{ for } t = 1, 2, \dots, T.
+$$
+
+Because TSD are generally dependent, their complete description can be provided by a joint probability distribution
+function $F$. For indexes $t_1, t_2, \dots, t_n$ where $n \in \mathbb{Z}$ and constants $c_1, c_2, \dots, c_n$,
+a general joint distribution function \parencite[chapter 1.3]{shumway_time_2017} is defined as 
+
+$$
+F_{t_1, t_2, \dots, t_n}(c_1, c_2, \dots, c_n) = \text{Pr}(x_1 \leq c_1, x_2 \leq c_2, \dots, x_n \leq c_n).
+$$
+
+Because of the high dimensionality and complexity, these functions usually cannot be evaluated and the marginal
+distributions,
+
+$$
+f_t(x) = \frac{\delta F_t(x)}{\delta x},
+$$
+
+are often more informative. In addition to marginal distributions, a time series at time $t$ can be described by the
+mean function. Provided it exists, the mean function of time series is at time $t$ is defined by
+\parencite[definition 1.1]{shumway_time_2017} as 
+
+$$
+\mu_{x_t} =  E(x_t) = \int_{-\infty}^\infty x f_t(x) \space dx.
+$$
+
+To measure the depends of time series, autocovariance function offers a measure of linear dependence between two
+different points $t$ and $s$. Such function is defined by \parencite[definition 1.2]{shumway_time_2017} as
+
+$$
+\gamma_x(s, t) = E\left[ (x_s - \mu_s)(x_t - x_s)\right].
+$$
+
+If $t = s$, autocovariance measure the variance of time series at time $t$. If the function is the same for
+all indexes $t$, that is $\gamma(t) = \gamma(s)$ $t, s = 1, \dots, n$, the time series has a constant
+variance and is called homoskedastic. Otherwise, the series exhibits different variability at different times, and
+is called heteroskedastic.
+
+### Stationarity
+
+In addition to the mentioned decomposition and characteristics, TSD can be described based on how the data
+distribution changes in time. If the probability distribution is identical at every time point $t$, the distribution 
+is strictly stationary. This means that shifting in any direction by any distance $h \in \mathbb{Z}$ does not change 
+the underlying distribution and
+
+$$
+\text{Pr}(x_s \leq c) = \text{Pr}(x_t \leq c).
+$$
+
+for $c \in \mathbb{R}$ \parencite[definition 1.4]{shumway_time_2017}. Same distribution function at any point
+$t$ implies that 
+
+$$
+\mu_s = \mu_t,
+$$
+
+if the mean function exists. The variance is also the same and the linear dependence, measure by covariance,
+depends only on the time shift $h$. If the function exists, this relationship can be written as
+
+$$
+\gamma(t, s) = \gamma(t + h, s + h).
+$$
+
+Strict stationarity is often too strong to be applied in practical examples. It also defines that the distribution
+is the same for *all* time points $t$, which is often impossible to assess from a single data set. Instead of a
+strictly stationar process, it is often sufficient to have a weakly stationary process. \parencite[Def. 1.7]{shumway_time_2017}
+defines a weakly stationary time series such that
+
+1) the mean value $\mu$ does not depend on time $t$, and
+2) the autocovariance function depends only on the time shift $h$.
+
+The main difference between strict and weak stationarity is that strong stationarity assumes identical distribution 
+functions while weak stationarity assumes only the first two moments to be identical. This also means that if a
+series is strictly stationar, it is also weakly stationar. But the opposite is not true. Because of the hard
+implications imposed by strict stationarity, this thesis will always refer to weak stationarity under the term 
+\enquote{stationarity}.
+
+As an example, figure @fig-intro-ts taken from \parencite[Fig. 1.1]{shumway_time_2017} shows some of these properties o
+n real data.
+
+![Johnson & Johnson quarterly earnings per share, 84 quarters, 1960-I to 1980-IV \parencite{shumway_time_2017}](./img/intro-ts.png){#fig-intro-ts}
+
+At first glance, it can be observed that the series has a positive trend with cyclicality. As time goes, the data are more
+variable and thus, the series suffers from heteroskedasticity. Because the mean $\mu$ is most probably not time-invariant,
+the series can not be stationary under neither definition. Such visual analysis is often beneficial before any
+rigid statistical analysis \parencite[Chap. 1]{shumway_time_2017}.
+

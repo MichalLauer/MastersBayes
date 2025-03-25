@@ -9,7 +9,7 @@ no_kw <- refs[is.na(refs$KEYWORDS), ]
 if (nrow(no_kw) > 0) {
   missing <- paste0(no_kw$BIBTEXKEY, collapse = ", ")
   cat(">> !!",
-      paste(nrow(no_kw), "x záznamů nemá klíčové slovo. Jedná se o:", missing),
+      paste(nrow(no_kw), "x records have missing keyword:", missing),
       "\n")
 }
 
@@ -21,6 +21,6 @@ wrong_kw <- na.omit(wrong_kw)
 if (nrow(wrong_kw) > 0) {
   missing <- paste0(wrong_kw$BIBTEXKEY, collapse = ", ")
   cat(">> !!",
-      paste(nrow(wrong_kw), "x má špatné klíčové slovo. Jedná se o:", missing),
+      paste(nrow(wrong_kw), "x have a wrong keyword assigned:", missing),
       "\n")
 }
