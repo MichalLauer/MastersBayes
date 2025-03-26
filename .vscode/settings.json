@@ -14,9 +14,10 @@
         "mathbb",
         "parencite",
         "shumway",
+        "tsay",
         "wooldridge"
     ],
-    "cSpell.language": "en",
+    "cSpell.language": "en,cs",
     "cSpell.words": [
         "cyclicity",
         "stationar"

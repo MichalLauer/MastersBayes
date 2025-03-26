@@ -25,11 +25,10 @@ tinytex::tlmgr_install("colorprofiles")
 
 - definice časových řad, jejich popis.
 - stacionarita.
-- problém s heteroskedasticitou, "shlukování" variability.
 
 ## Finanční data
 
-- je tam volatilita.
+- problém s heteroskedasticitou, "shlukování" variability.
 - příprava returns.
 
 ## Modely GARCH

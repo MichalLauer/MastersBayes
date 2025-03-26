@@ -105,6 +105,9 @@
 \begin{description}
 \item [CDS] Cross-Sectional Data
 \item [TSD] Time Series Data
+\item [AR] Autoregressive model
+\item [MA] Moving-Averages model
+\item [ARIMA] Autoregressive Integrated Moving-Averages model
 \end{description}
 \end{multicols}
 ```
@@ -179,3 +182,7 @@ knitr::opts_chunk$set(
 ## Time series
 
 {{< include chapters/01_ats/ts.qmd >}}
+
+## Financial time series
+
+{{< include chapters/01_ats/financial-ts.qmd >}}
