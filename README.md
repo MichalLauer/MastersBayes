@@ -28,8 +28,8 @@ tinytex::tlmgr_install("colorprofiles")
 
 ## Finanční data
 
-- problém s heteroskedasticitou, "shlukování" variability.
 - příprava returns.
+- problém s heteroskedasticitou, "shlukování" variability.
 
 ## Modely GARCH
 

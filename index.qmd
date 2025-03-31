@@ -186,3 +186,25 @@ knitr::opts_chunk$set(
 ## Financial time series
 
 {{< include chapters/01_ats/financial-ts.qmd >}}
+
+```{=tex}
+%%% Závěr
+{
+\pagestyle{plain}
+\chapter*{Závěr}
+\addcontentsline{toc}{chapter}{Závěr}
+```
+<!-- Takhle hloupě musí být závěr aby byla dodržena konvence -->
+<!-- {{< include chapters/end.qmd >}} -->
+```{=tex}
+}
+
+%%% Literatura
+\printbibliography[keyword={literatura},title={\bibnamex},heading={bibintoc}]
+\printbibliography[keyword={balicek},title={\bibnamey},heading={bibintoc}]
+
+%%% Přílohy
+\part*{\Prilohy\thispagestyle{empty}}
+\appendix
+```
+# Appendix

@@ -8,12 +8,20 @@
         "latex": false
     },
     "cSpell.ignoreWords": [
+        "addcontentsline",
+        "bibintoc",
+        "bibnamex",
+        "bibnamey",
         "enquote",
         "indep",
         "infty",
         "mathbb",
+        "pagestyle",
         "parencite",
+        "printbibliography",
         "shumway",
+        "teyssiere",
+        "thispagestyle",
         "tsay",
         "wooldridge"
     ],
