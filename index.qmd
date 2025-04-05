@@ -108,6 +108,9 @@
 \item [AR] Autoregressive model
 \item [MA] Moving-Averages model
 \item [ARIMA] Autoregressive Integrated Moving-Averages model
+\item [ARCH] Autoregressive Conditional Heteroskedasticity
+\item [MLE] Maximum Likelihood Estimation
+\item [GARCH] Generalized Autoregressive Conditional Heteroskedasticity
 \end{description}
 \end{multicols}
 ```
@@ -186,6 +189,10 @@ knitr::opts_chunk$set(
 ## Financial time series
 
 {{< include chapters/01_ats/financial-ts.qmd >}}
+
+## ARCH Models
+
+{{< include chapters/01_ats/arch.qmd >}}
 
 ```{=tex}
 %%% Závěr
