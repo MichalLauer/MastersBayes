@@ -30,10 +30,10 @@ where $\epsilon_t$ represents a sequence of identically and independently distri
 and $\sigma^2 = 1$ and $\sigma_t$ is an autoregressive process
 
 $$
-\sigma^2 = \alpha_0 + \alpha_1 a_{t-1}^2 + \dots + \alpha_m a_{t-m}^2.
-$$
+\sigma^2 = \alpha_0 + \sum_{i=1}^m \alpha_i a_{t-i}^2.
+$$ {#eq-var-arch}
 
-Put together, the model is called Autoregressive conditional heteroskedasticity (ARCH) model of order $m$. This equation
+Put together, the model is called Autoregressive conditional heteroskedasticity (ARCH) model of order $m$. Equation @eq-var-arch
 states that the variance at time $t$ is affected by squared variance at the previous $m$ times. This implies
 that, if the volatility has been high, the volatility at time $t$ is expected to be high as well. On the contrary,
 in periods of low volatility, the expected volatility at time $t$ is rather small. It is important to realize
@@ -59,6 +59,24 @@ multiplier test, that is identical to the classic F-test in multiple regression.
 likelihood estimation (MLE) with different likelihood functions is commonly used. Because these thesis focuses 
 primarily on bayesian methods and estimation, these methods will not be leveraged and further description and
 application is offered in \parencite[Chap. 3]{tsay_analysis_2005}.
+
+To use the ARCH(m) model for forecasting, it is necessary to estimate historical residuals. One-step forecast for
+ARCH(m) model is made up of the mean equation that is, in general, not affected by the forecasted volatility. After
+computing historical predictions $\hat\mu_t$, it is necessary to compute residuals, which represent the historical
+shock as
+
+$$
+a_t = y_t - \hat \mu_t.
+$$
+
+These residual shocks are then used in the ARCH(m) model to forecast future volatility as
+
+$$
+\sigma_{t+1}^2 = \alpha_0 + \sum_{i=1}^m \alpha_i a^2_{t - i + 1}.
+$$
+
+Forecasting equation can be generalized for arbitrary $\ell$-step ahead prediction 
+\parencite[Chap. 3.4.3] {tsay_analysis_2005}
 
 In practice, \parencite[Chap. 3.4.2]{tsay_analysis_2005} defines downsides of such models. One of them 
 is the assumption that positive and negative spikes of residuals have the same effect on the current volatility.

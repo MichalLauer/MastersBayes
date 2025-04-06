@@ -16,6 +16,7 @@
         "indep",
         "infty",
         "mathbb",
+        "najjar",
         "pagestyle",
         "parencite",
         "printbibliography",
@@ -27,7 +28,9 @@
     ],
     "cSpell.language": "en,cs",
     "cSpell.words": [
+        "Boreslav",
         "cyclicity",
+        "EGARCH",
         "stationar"
     ]
 }

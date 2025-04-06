@@ -108,9 +108,11 @@
 \item [AR] Autoregressive model
 \item [MA] Moving-Averages model
 \item [ARIMA] Autoregressive Integrated Moving-Averages model
-\item [ARCH] Autoregressive Conditional Heteroskedasticity
+\item [ARCH] Autoregressive Conditional Heteroscedasticity
 \item [MLE] Maximum Likelihood Estimation
-\item [GARCH] Generalized Autoregressive Conditional Heteroskedasticity
+\item [GARCH] Generalized Autoregressive Conditional Heteroscedasticity
+\item [EGARCH] Exponential generalized auto regressive conditional heteroscedasticity
+\item [GARCH-M] GARCH-in-Mean
 \end{description}
 \end{multicols}
 ```
@@ -191,6 +193,10 @@ knitr::opts_chunk$set(
 {{< include chapters/01_ats/financial-ts.qmd >}}
 
 ## ARCH Models
+
+{{< include chapters/01_ats/arch.qmd >}}
+
+## GARCH Models
 
 {{< include chapters/01_ats/arch.qmd >}}
 
