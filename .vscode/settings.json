@@ -28,9 +28,12 @@
     ],
     "cSpell.language": "en,cs",
     "cSpell.words": [
+        "autoregressive",
         "Boreslav",
         "cyclicity",
         "EGARCH",
+        "GARCH",
+        "Kalman",
         "stationar"
     ]
 }
