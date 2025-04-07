@@ -1,0 +1,5 @@
+Another approach to volatility modeling is to leave the assumption that volatility at time $t$ can be deterministically described by previous shocks and conditional variance. Instead, one can model volatility through latent variables
+that are stochastic and unobserved. This idea is employed in Stochastic volatility (SV) models, which are special 
+types of state-space models \parencite[Chap. 11.2]{al-tsay_analysis_2005}.
+
+
