@@ -198,7 +198,7 @@ knitr::opts_chunk$set(
 
 ## GARCH Model
 
-{{< include chapters/01_ats/arch.qmd >}}
+{{< include chapters/01_ats/garch.qmd >}}
 
 ## Model of Stochastic volatility
 

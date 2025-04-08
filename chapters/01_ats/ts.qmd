@@ -7,7 +7,7 @@ $$
 
 Because TSD are generally dependent, their complete description can be provided by a joint probability distribution
 function $F$. For indexes $t_1, t_2, \dots, t_n$ where $n \in \mathbb{Z}$ and constants $c_1, c_2, \dots, c_n$,
-a general joint distribution function \parencite[chapter 1.3]{shumway_time_2017} is defined as 
+a general joint distribution function \parencite[Chap. 1.3]{ShumwayStoffer2017_TimeSeriesAnalysis} is defined as 
 
 $$
 F_{t_1, t_2, \dots, t_n}(c_1, c_2, \dots, c_n) = \text{Pr}(x_1 \leq c_1, x_2 \leq c_2, \dots, x_n \leq c_n).
@@ -22,14 +22,14 @@ $$
 
 are often more informative. In addition to marginal distributions, a time series at time $t$ can be described by the
 mean function. Provided it exists, the mean function at time $t$ is defined by
-\parencite[definition 1.1]{shumway_time_2017} as 
+\parencite[definition 1.1]{ShumwayStoffer2017_TimeSeriesAnalysis} as 
 
 $$
 \mu_{x_t} =  E(x_t) = \int_{-\infty}^\infty x f_t(x) \space dx.
 $$
 
 To measure the dependence of time series, autocovariance function offers a measure of linear dependence between two
-different points $t$ and $s$. Such function is defined by \parencite[definition 1.2]{shumway_time_2017} as
+different points $t$ and $s$. Such function is defined by \parencite[definition 1.2]{ShumwayStoffer2017_TimeSeriesAnalysis} as
 
 $$
 \gamma_x(s, t) = E\left[ (x_s - \mu_s)(x_t - x_s)\right].
@@ -51,7 +51,7 @@ $$
 \text{Pr}(x_s \leq c) = \text{Pr}(x_t \leq c).
 $$
 
-for $c \in \mathbb{R}$ \parencite[definition 1.4]{shumway_time_2017}. Same distribution function at any point
+for $c \in \mathbb{R}$ \parencite[definition 1.4]{ShumwayStoffer2017_TimeSeriesAnalysis}. Same distribution function at any point
 $t$ implies that 
 
 $$
@@ -67,7 +67,7 @@ $$
 
 Strict stationarity is often too strong to be applied in practical examples. It also defines that the distribution
 is the same for *all* time points $t$, which is often impossible to assess from a single data set. Instead of a
-strictly stationar process, it is often sufficient to have a weakly stationary process. \parencite[Def. 1.7]{shumway_time_2017}
+strictly stationar process, it is often sufficient to have a weakly stationary process. \parencite[Def. 1.7]{ShumwayStoffer2017_TimeSeriesAnalysis}
 defines a weakly stationary time series such that
 
 1) the mean value $\mu$ does not depend on time $t$, and
@@ -79,33 +79,33 @@ series is strictly stationar, it is also weakly stationar. But the opposite is n
 implications imposed by strict stationarity, this thesis will always refer to weak stationarity under the term 
 \enquote{stationarity}.
 
-As an example, figure @fig-intro-ts taken from \parencite[Fig. 1.1]{shumway_time_2017} shows some of these properties 
+As an example, figure @fig-intro-ts taken from \parencite[Fig. 1.1]{ShumwayStoffer2017_TimeSeriesAnalysis} shows some of these properties 
 on real data.
 
-![Johnson & Johnson quarterly earnings per share, 84 quarters, 1960-I to 1980-IV \parencite{shumway_time_2017}](./img/intro-ts.png){#fig-intro-ts}
+![Johnson & Johnson quarterly earnings per share, 84 quarters, 1960-I to 1980-IV \parencite{ShumwayStoffer2017_TimeSeriesAnalysis}](./img/intro-ts.png){#fig-intro-ts}
 
 At first glance, it can be observed that the series has a positive trend with cyclicality. As time goes, the data are more
 variable and thus, the series suffers from heteroskedasticity. Because the mean $\mu$ is most probably not time-invariant,
 the series can not be stationary under neither definition. Such visual analysis is often beneficial before any
-rigid statistical analysis \parencite[Chap. 1]{shumway_time_2017}.
+rigid statistical analysis \parencite[Chap. 1]{ShumwayStoffer2017_TimeSeriesAnalysis}.
 
-Stationarity is one of the most important properties that in TSD analysis. As \parencite[Chap. 2.1]{tsay_analysis_2005}
+Stationarity is one of the most important properties that in TSD analysis. As \parencite[Chap. 2.1]{Tsay2005_AnalysisFinancialTime}
 puts is, *\enquote{The foundation of time series analysis is stationarity}*. A lot of models that are frequently 
 used for time series data analysis require stationarity (or some transformation that is stationary).
 An example can be the autoregressive model (AR) which assumes that the observed value at time $t$ is linearly
 dependent on it's past values. If the necessary condition for stationarity[^station] is not met, the model should
 not be used because the time series can explode. Forecasting of such time series would be very difficult. An
 extension of such models is an ARIMA model, that combines the AR process with moving averages model (MA).
-\parencite[Chap. 2.5]{tsay_analysis_2005}. This model employs integration, where the data is transformed
+\parencite[Chap. 2.5]{Tsay2005_AnalysisFinancialTime}. This model employs integration, where the data is transformed
 by differencing. A time series is said to be stationary if after $d$ differences, the transformed series itself
 is stationary. Further properties of AR, MA and ARIMA as well as other, more complex and traditional models are
-described in \parencite{tsay_analysis_2005}.
+described in \parencite{Tsay2005_AnalysisFinancialTime}.
 
-[^station]: Generalized condition for $AR(p)$ process is defined in \parencite[Chap. 2.4.1]{tsay_analysis_2005}
+[^station]: Generalized condition for $AR(p)$ process is defined in \parencite[Chap. 2.4.1]{Tsay2005_AnalysisFinancialTime}
 
 Another issue that is often met in TSD analysis is heteroskedasticity. Different variability at different times
 implies that the time series is not stationar and specific approach must be considered. Heteroskedasticity is also
 very often connected to financial data, because one can find periods of high volatility markets and low volatility 
-markets \parencite[Chap. 3]{tsay_analysis_2005}. Models that can handle such time series are called Conditional 
+markets \parencite[Chap. 3]{Tsay2005_AnalysisFinancialTime}. Models that can handle such time series are called Conditional 
 Heteroskedastic Models and will be the main topic of discussion in this thesis.
 

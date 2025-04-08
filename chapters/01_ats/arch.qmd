@@ -1,12 +1,15 @@
 Log returns in financial TSD analysis are serially uncorrelated, but dependent. Figure @fig-log-ret-dep, taken 
-from \parencite[Fig. 3.1]{tsay_analysis_2005}, shows log returns of Intel Corporation from January 1973 to
+from \parencite[Fig. 3.1]{Tsay2005_AnalysisFinancialTime}, shows log returns of Intel Corporation from January 1973 to
 December 2003.
 
-![Various transformation of log returns of Intel Corporation \parencite{tsay_analysis_2005}](./img/log-ret-dep.png){#fig-log-ret-dep}
+![Various transformation of log returns of Intel Corporation \parencite{Tsay2005_AnalysisFinancialTime}](./img/log-ret-dep.png){#fig-log-ret-dep}
 
 The raw log returns on the top left show that there is no serial autocorrelation, except for some small spikes
 that could be due to randomness. The other two transformations (absolute values, squares) exhibit some type of
-dependence. The log returns could be described by 
+dependence. Since the volatility is not independent, it is viable to try to use the past values for 
+statistical modeling.
+
+The log returns could be described by 
 
 $$
 p_t = \mu_t + a_t,
@@ -15,8 +18,8 @@ $$
 where $p_t$ are the log returns at time $t$, $\mu_t$ is so-called mean equation at time $t$ and $a_t$ is the
 shock[^shock] at time $t$. The mean equation is a model that describes the expected value at time $t$, given
 all information up to $t-1$. It can be a simple $AR(p)$ or $ARIMA(p, d, q)$ process that is stationary. Shock at time
-$t$ describes the volatility at time $t$ as $\sqrt{\sigma^2}$. This shock is the main focus of volatility modeling
-\parencite[Fig. 3.2]{tsay_analysis_2005}.
+$t$ describes the volatility at time $t$ with $\sqrt{\sigma^2}$ and a random noise. This shock is the main focus of volatility 
+modeling \parencite[Fig. 3.2]{Tsay2005_AnalysisFinancialTime}.
 
 [^shock]: Some authors uses also the word *innovation*.
 
@@ -34,16 +37,16 @@ $$
 $$ {#eq-var-arch}
 
 Put together, the model is called Autoregressive conditional heteroskedasticity (ARCH) model of order $m$. Equation @eq-var-arch
-states that the variance at time $t$ is affected by squared variance at the previous $m$ times. This implies
+states that the variance at time $t$ is affected by squared residuals at the previous $m$ times. This implies
 that, if the volatility has been high, the volatility at time $t$ is expected to be high as well. On the contrary,
 in periods of low volatility, the expected volatility at time $t$ is rather small. It is important to realize
 that high volatility does not necessarily imply high realized variability. The probability of very high or very low
-returns is greater, but not guaranteed \parencite[Chap. 3.4]{tsay_analysis_2005}.
+returns is greater, but not guaranteed \parencite[Chap. 3.4]{Tsay2005_AnalysisFinancialTime}.
 
 The random variable $\epsilon_t$ is often assumed to follow standard normal distribution. If the time series
 experiences heavy tails, the student distribution might be more suitable. Since the expected value of such 
 distributions are zero, the expected return at time $t$ is not affected and by it holds \parencite[Chap. 3.4.1]
-{tsay_analysis_2005} that 
+{Tsay2005_AnalysisFinancialTime} that 
 
 $$
 E(p_t) = E(\mu_t) + E(a_t) = E(\mu_t).
@@ -58,7 +61,7 @@ Ljung-Box statistic $Q(m)$ computed from the squared residuals $a_i^2$. Another 
 multiplier test, that is identical to the classic F-test in multiple regression. To estimate such model, maximum
 likelihood estimation (MLE) with different likelihood functions is commonly used. Because these thesis focuses 
 primarily on bayesian methods and estimation, these methods will not be leveraged and further description and
-application is offered in \parencite[Chap. 3]{tsay_analysis_2005}.
+application is offered in \parencite[Chap. 3]{Tsay2005_AnalysisFinancialTime}.
 
 To use the ARCH(m) model for forecasting, it is necessary to estimate historical residuals. One-step forecast for
 ARCH(m) model is made up of the mean equation that is, in general, not affected by the forecasted volatility. After
@@ -76,9 +79,9 @@ $$
 $$
 
 Forecasting equation can be generalized for arbitrary $\ell$-step ahead prediction 
-\parencite[Chap. 3.4.3] {tsay_analysis_2005}
+\parencite[Chap. 3.4.3] {Tsay2005_AnalysisFinancialTime}
 
-In practice, \parencite[Chap. 3.4.2]{tsay_analysis_2005} defines downsides of such models. One of them 
+In practice, \parencite[Chap. 3.4.2]{Tsay2005_AnalysisFinancialTime} defines downsides of such models. One of them 
 is the assumption that positive and negative spikes of residuals have the same effect on the current volatility.
 Research has found that this is not true and squared historical shocks might not correctly reflect the true
 shock. ARCH models also tend to overestimate volatility in cases where a single shock has been observed. Simple ARCH
