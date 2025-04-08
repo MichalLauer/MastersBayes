@@ -192,17 +192,22 @@ knitr::opts_chunk$set(
 
 {{< include chapters/01_ats/financial-ts.qmd >}}
 
-## ARCH Model
+## Conditional heteroskedastic models 
+
+{{< include chapters/01_ats/vol-modeling.qmd >}}
+
+### ARCH Model
 
 {{< include chapters/01_ats/arch.qmd >}}
 
-## GARCH Model
+### GARCH Model
 
 {{< include chapters/01_ats/garch.qmd >}}
 
-## Model of Stochastic volatility
+### Model of Stochastic volatility
 
 {{< include chapters/01_ats/sv.qmd >}}
+
 ```{=tex}
 %%% Závěr
 {
