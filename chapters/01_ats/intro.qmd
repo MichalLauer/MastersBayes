@@ -1,7 +1,7 @@
 In statistical data analysis, there are several types of data that are distinguished by their key structure. Data that 
 are independent of each other are called Cross-Sectional Data (CSD). They are usually obtained at random and one can 
 assume that their order is not important; that is, individual records are independent. CSD often represent records
-(individuals, animal, corporations, workers...) at a specific time period and time dependence is not analyzed
+(individuals, animals, corporations, workers...) at a specific time period and time dependence is not analyzed
 \parencite[Chap. 1-3]{Wooldridge2020_IntroductoryEconometricsModern}.
 
 A lot of economical or financial records contain such time dependence. For example, simple data about unemployment,
@@ -17,7 +17,6 @@ of a time series to grow, shrink or stay the same. Seasonal component refers to 
 around the trend. Seasonality should repeat within one calendar year and can be connected to holidays or the 
 season of the year. In data that spans across multiple years, fluctuation around the trend can be decomposed into a 
 cyclical component. The main difference between them is related to regularity of each component. Seasonality represent 
-regular periodic changes around the trend while cyclicality represent irregular periodicity around the trend that
-spans across multiple years. This decomposition is helpful in determining key characteristics of a time series. 
+regular periodic changes around the trend while cyclicality represent irregular periodicity around the trend. This decomposition is helpful in determining key characteristics of a time series. 
 Identifying different components can help with forecasting and statistical inference
 \parencite[chap. 5.2]{HindlsEtAl2018_StatistikaEkonomii}.

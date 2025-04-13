@@ -1,5 +1,5 @@
 Financial data and time series analysis can be loosely defined as *analysis that is concerned with the theory and 
-practice of asset valuation over time.* \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}. Key feature that distinguishes 
+practice of asset valuation over time* \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}. Key feature that distinguishes 
 financial TSD from other domains is volatility, which originates from both not unified theory and variable data.
 A simple term, such as asset volatility, can have different definitions, which complicates statistical analysis
 and empirical research. The volatility of data itself is also hardly measurable and data that changes quickly
@@ -20,7 +20,7 @@ $$
 $$ {#eq-simple-returns}
 
 where $P_t$ denotes the price of the underlying asset at time $t$ and $R_t$ the net return. Equation @eq-simple-returns
-can also be interpreted as a simple growth index between two consecutive time periods.Extension of this are log 
+can also be interpreted as a simple growth index between two consecutive time periods. Extension of this are log 
 returns, which can be defined as
 
 $$

@@ -48,7 +48,7 @@ is strictly stationary. This means that shifting in any direction by any distanc
 the underlying distribution and
 
 $$
-\text{Pr}(x_s \leq c) = \text{Pr}(x_t \leq c).
+\text{Pr}(x_t \leq c) = \text{Pr}(x_{t+h) \leq c).
 $$
 
 for $c \in \mathbb{R}$ \parencite[definition 1.4]{ShumwayStoffer2017_TimeSeriesAnalysis}. Same distribution function at any point
