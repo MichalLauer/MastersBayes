@@ -50,20 +50,18 @@ tinytex::tlmgr_install("colorprofiles")
 - jak se modely liší?.
 - jaké jsou výhody/nevýhody?
 
-# Bayesovský přístup ke statistice
+# Bayesovská statistika
 
 - co to je bayesovská statistika, jak přistupuje ke statistice.
-
-## Představení bayesovské statistiky
-
 - obecné porovnání oproti frekventistickým metodám.
 - hlavní výhody bayesovské statistiky.
 - interpretace výsledků.
 
-## Tvoření modelů
+## Bayesian formula and models
 
-- Jak se v bayesovské statistice tvoří obecně modely.
-- aplikace na bayesovském vzorci.
+- popis bayesovského vzorečku
+- data, hypotézy
+- tvoření modelů
 
 ## Simulační metody
 

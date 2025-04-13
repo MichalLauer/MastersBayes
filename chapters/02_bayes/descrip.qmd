@@ -1,0 +1,67 @@
+To describe bayesian statistics, it is useful to first summarize frequentist statistics. The frequentist approach
+to data analysis has been taught, developed, studied and used for the majority of the 20th century. Probably the greatest statisticians, such
+as Karl Pearson or Sir Ronald Alymer Fisher, have been prominent figures and authors that applied the frequentist approach and have
+spoken against the use of bayesian statistics.
+Frequentist, sometimes referred to as objectivist statistics is based on the idea that the probability of event $A$ can be expressed by a
+relative frequency. To obtain the frequency, it is needed to observe event $A$ in a large number of independent trials, in the same environment. The observed relative frequency of event $A$ can be assumed to be an estimate of probability of event $A$. This idea is supported by
+statistical laws, such is the Law of large numbers (LLN), that states that with an increasing sample size, the relative frequency
+of event $A$ converges to the probability of event $A$ \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}.
+
+Frequentist approach implies that probability is objective and that some true population parameter needs to be estimated in an 
+environment where the conditions for a large number of independent trials are the same. The estimated probability is a property of
+the event and is objective. If one wishes to estimate the probability of some event, the estimate (process of repeated independent
+repeated experiments) ignores any prior knowledge or whether the probability can be measured. Loosely speaking, the main interest is
+in the relative frequency \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}.
+
+This approach has some ideological and computational flaws. The major assumption of independent and identical trials is often impossible
+to implement in practice. Both independence and same conditions are often impractical in real data analysis. In general, every studied event
+is different and large number of replications can mean different number in different fields. Ideally, the number of replication should be infinite, but that is not possible to research. The idea that the studied probability is completely unknown is also very restrictive and 
+more often than not, a research knows *something* about the probability of an event. In a simple coin toss, it is clear that the estimated
+parameter is in $\left< 0, 1 \right>$ and in researching the average age of population [^est-pop], it is quite clear that the estimate is between 18 and 65. Finally, it is assumed that the probability for every independent and identical trial is the same, which is rarely true.
+Although there is some sensible criticism for frequentist statistics, it is important to highlight that this does not contradict
+the LLN or other statistical laws. The assumption for such laws is often the independence and identical distribution, which whoever often do
+not hold in practice \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}. 
+
+[^est-pop]: Of course, this depends on the research question. If the researches is tasked to estimate the average age in a university,
+the range will be much narrower. In a home for the elderly, the range can be wider and much higher.
+
+Finally, another property of statistical research in the frequentist mindset is that it is not possible to create probabilistic statements
+about the estimates. It would be incorrect to interpret an estimated $(1 - \alpha)$% confidence interval that it contains the true parameter 
+with $(1 - \alpha)$% probability. The true parameter is some fixed number, and the probability that an estimated confidence interval contains 
+the parameter is either 0 (if it lies outside) or 1 (if it lies within) \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}.
+The correct interpretation of a confidence interval is that $(1 - \alpha)$ % of created intervals will contain the true population 
+parameter while the other $\alpha$ percent will not \parencite{AndradeFernandez2016_InterpretationConfidenceInterval}.
+
+Bayesian statistics takes a different approach and instead of estimating the true population parameter, it creates a degree of belief about
+possible parameters, that is usually represented using a distribution. The degree of belief can vary for different researchers, because
+all of them can have individual apriori beliefs about the coin. This means that the probability of an event is considered to be subjective
+and every researcher can consider different probabilities. Statements such as \enquote{my probability} and \enquote{their probability}
+about the same event are valid. This does not change in understanding of probability does not reject probability axioms defined in the
+frequentist approach, statistical laws or rules for probability counting \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}.
+
+When the final estimate is not a relative frequency dependent on identical and independent replications, but some degree of belief that is
+represented by a probability distribution, probability statements are possible. Estimates can also be more precise in small samples, where
+frequentist methods struggle because of insufficient repetitions. Issues in statistical inference, such as p-hacking or dichotomization of
+significance, do not appear in such probability paradigm. Issues regarding frequentist research are out of the scope of this thesis, but
+they are explored in several will-reviewed books (\parencite{Vickers2010_WhatPvalueAnyway}) or papers 
+(\parencite{GelmanStern2006_DifferenceSignificantNot}, \parencite{WassersteinEtAl2019_MovingWorld005}).
+
+In the past, the main drawback of bayesian statistics has been it's computational complexity. Advanced methods, such as hierarchical
+clustering, can become very complex and it is not possible analytically express the degree of belief. As such, researchers were limited 
+to some set of special distributions, which have analytical solution, but do not have to describe the real world in the most precise way.
+Thanks to the recent advancements in numerical methods, simulation techniques and availability of computational resources, bayesian
+methods are more accessible than ever \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}. Even though the computational possibilities
+have greatly improved, very complex models can still take relatively long to estimate and do not have to be viable in cases where quick
+
+
+Bayesian statistics is not perfect, and \parencite{DepaoliVanDeSchoot2017_ImprovingTransparencyReplication} notes at least three issues
+that are connected to bayesian data analysis. In small samples, the final degree of belief is heavily affected by the apriori belief that
+researchers have, and such, the results can vary greatly. As such, it is crucial to report both the final degree of belief about some
+unknown parameter and the initial belief. Because of the reliance on computational methods, it is important that researchers put emphasis
+on the estimation process itself and make sure that the final degree of belief that is reported has successfully converged to the proper
+solution. Finally, researchers might incorrectly interpret the final estimates and a careful review is required[^shared]. These issues
+might be prevented by cautious analysis or checklist, such as \parencite{DepaoliVanDeSchoot2017_ImprovingTransparencyReplication}
+or \parencite{GelmanEtAl2020_BayesianWorkflow}, which highlight the most common missteps in bayesian data analysis.
+
+[^shared]: this issue is however shared and both frequentist and bayesian approach requires careful interpretation and 
+skepticism.

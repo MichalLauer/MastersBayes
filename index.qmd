@@ -113,6 +113,8 @@
 \item [GARCH] Generalized Autoregressive Conditional Heteroscedasticity
 \item [EGARCH] Exponential generalized auto regressive conditional heteroscedasticity
 \item [GARCH-M] GARCH-in-Mean
+\item [SV] Stochastic Volatility
+\item [LLN] Law of Large Numbers
 \end{description}
 \end{multicols}
 ```
@@ -207,6 +209,14 @@ knitr::opts_chunk$set(
 ### Model of Stochastic volatility
 
 {{< include chapters/01_ats/sv.qmd >}}
+
+# Bayesian statistics
+
+{{< include chapters/02_bayes/descrip.qmd >}}
+
+## Bayesian equation and models
+
+{{< include chapters/02_bayes/equation_models.qmd >}}
 
 ```{=tex}
 %%% Závěr
