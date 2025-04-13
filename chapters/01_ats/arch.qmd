@@ -18,7 +18,7 @@ $$
 where $p_t$ are the log returns at time $t$, $\mu_t$ is so-called mean equation at time $t$ and $a_t$ is the
 shock[^shock] at time $t$. The mean equation is a model that describes the expected value at time $t$, given
 all information up to $t-1$. It can be a simple $AR(p)$ or $ARIMA(p, d, q)$ process that is stationary. Shock at time
-$t$ describes the volatility at time $t$ with $\sqrt{\sigma^2}$ and a random noise. This shock is the main focus of volatility 
+$t$ describes the volatility at time $t$ with $\sigma_t$ and a random noise. This shock is the main focus of volatility 
 modeling \parencite[Fig. 3.2]{Tsay2005_AnalysisFinancialTime}.
 
 [^shock]: Some authors uses also the word *innovation*.
@@ -33,7 +33,7 @@ where $\epsilon_t$ represents a sequence of identically and independently distri
 and $\sigma^2 = 1$ and $\sigma_t$ is an autoregressive process
 
 $$
-\sigma^2 = \alpha_0 + \sum_{i=1}^m \alpha_i a_{t-i}^2.
+\sigma^2_t = \alpha_0 + \sum_{i=1}^m \alpha_i a_{t-i}^2.
 $$ {#eq-var-arch}
 
 Put together, the model is called Autoregressive conditional heteroskedasticity (ARCH) model of order $m$. Equation @eq-var-arch
@@ -45,8 +45,8 @@ returns is greater, but not guaranteed \parencite[Chap. 3.4]{Tsay2005_AnalysisFi
 
 The random variable $\epsilon_t$ is often assumed to follow standard normal distribution. If the time series
 experiences heavy tails, the student distribution might be more suitable. Since the expected value of such 
-distributions are zero, the expected return at time $t$ is not affected and by it holds \parencite[Chap. 3.4.1]
-{Tsay2005_AnalysisFinancialTime} that 
+distributions are zero, the expected return at time $t$ is not affected and by \parencite[Chap. 3.4.1]
+{Tsay2005_AnalysisFinancialTime}, it holds that 
 
 $$
 E(p_t) = E(\mu_t) + E(a_t) = E(\mu_t).
@@ -54,11 +54,11 @@ $$
 
 
 Because $\sigma^2$ is variance, it must be greater than zero and such, $\alpha_0 > 0$ and $\alpha_i \geq 0$ for 
-$i \in \mathbb{N}$. The shock $a_t$ is split into two parts.
+$i \in \mathbb{N}$.
 
 In frequentist statistics, there are several ways how to estimate the correct order of ARCH(m). One of them is the 
 Ljung-Box statistic $Q(m)$ computed from the squared residuals $a_i^2$. Another popular method is the Lagrange
-multiplier test, that is identical to the classic F-test in multiple regression. To estimate such model, maximum
+multiplier test, that is identical to the usual F-test in multiple regression. To estimate such model, maximum
 likelihood estimation (MLE) with different likelihood functions is commonly used. Because these thesis focuses 
 primarily on bayesian methods and estimation, these methods will not be leveraged and further description and
 application is offered in \parencite[Chap. 3]{Tsay2005_AnalysisFinancialTime}.
@@ -69,19 +69,19 @@ computing historical predictions $\hat\mu_t$, it is necessary to compute residua
 shock as
 
 $$
-a_t = y_t - \hat \mu_t.
+\hat a_t = y_t - \hat \mu_t.
 $$
 
 These residual shocks are then used in the ARCH(m) model to forecast future volatility as
 
 $$
-\sigma_{t+1}^2 = \alpha_0 + \sum_{i=1}^m \alpha_i a^2_{t - i + 1}.
+\hat \sigma_{t+1}^2 = \hat \alpha_0 + \sum_{i=1}^m \hat \alpha_i \hat a^2_{t - i + 1}.
 $$
 
 Forecasting equation can be generalized for arbitrary $\ell$-step ahead prediction 
 \parencite[Chap. 3.4.3] {Tsay2005_AnalysisFinancialTime}
 
-In practice, \parencite[Chap. 3.4.2]{Tsay2005_AnalysisFinancialTime} defines downsides of such models. One of them 
+\parencite[Chap. 3.4.2]{Tsay2005_AnalysisFinancialTime} defines downsides of such models. One of them 
 is the assumption that positive and negative spikes of residuals have the same effect on the current volatility.
 Research has found that this is not true and squared historical shocks might not correctly reflect the true
 shock. ARCH models also tend to overestimate volatility in cases where a single shock has been observed. Simple ARCH

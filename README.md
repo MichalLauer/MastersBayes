@@ -65,7 +65,36 @@ tinytex::tlmgr_install("colorprofiles")
 
 ## Simulační metody
 
-- motivace simulačních metod, popis MCMC (M-H, Gibbs), HMC (NUTS).
+- Jak funguje MCMC
+
+### Metropolis Algorithm
+
+First developed by Metropolis et al.
+Basic symmetric proposal distribution
+Acceptance/rejection criteria
+
+### Metropolis-Hastings Algorithm
+
+Hastings' generalization of Metropolis
+Asymmetric proposal distributions
+Modified acceptance ratio
+
+### Gibbs Sampling
+
+Conditional distribution sampling
+When and why it's efficient
+Relationship to Metropolis-Hastings
+
+### Hamiltonian Monte Carlo
+
+Physics-inspired approach using Hamiltonian dynamics
+Momentum variables and trajectory simulation
+Benefits for high-dimensional spaces
+
+### No-U-Turn Sampler
+
+Extension of HMC
+Adaptive path length selection
 
 ## Bayesovské GARCH modely
 

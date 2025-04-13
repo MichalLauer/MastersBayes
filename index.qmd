@@ -115,6 +115,8 @@
 \item [GARCH-M] GARCH-in-Mean
 \item [SV] Stochastic Volatility
 \item [LLN] Law of Large Numbers
+\item [PI] Percentile Interval
+\item [HDI] Highest Density Interval
 \end{description}
 \end{multicols}
 ```
@@ -217,6 +219,53 @@ knitr::opts_chunk$set(
 ## Bayesian equation and models
 
 {{< include chapters/02_bayes/equation_models.qmd >}}
+
+## Simulation techniques
+
+{{< include chapters/02_bayes/mcmc.qmd >}}
+
+### Metropolis algorithm
+
+{{< include chapters/02_bayes/ma.qmd >}}
+
+### Metropolis-Hastings algorithm
+
+{{< include chapters/02_bayes/mha.qmd >}}
+
+### Gibbs sampling
+
+{{< include chapters/02_bayes/gs.qmd >}}
+
+### Hamiltonian Monte Carlo
+
+{{< include chapters/02_bayes/hmc.qmd >}}
+
+### No-U-Turn Sampler
+
+{{< include chapters/02_bayes/nuts.qmd >}}
+
+
+### Variational inference
+
+{{< include chapters/02_bayes/vi.qmd >}}
+
+## Bayesian ARCH models
+
+{{< include chapters/02_bayes/arch.qmd >}}
+
+## Bayesian GARCH models
+
+{{< include chapters/02_bayes/garch.qmd >}}
+
+## Bayesian SV models
+
+{{< include chapters/02_bayes/sv.qmd >}}
+
+# Practical application
+
+- Introduction to Stan
+- Introduction to various R packages
+- Use of ARCH/GARCH/SV models on several financial time series 
 
 ```{=tex}
 %%% Závěr
