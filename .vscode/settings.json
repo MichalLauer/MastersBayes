@@ -43,6 +43,11 @@
         "EGARCH",
         "GARCH",
         "Kalman",
+        "MCMC",
         "stationar"
-    ]
+    ],
+    "r.lsp.promptToInstall": false,
+    "github.copilot.enable": {
+        "quarto": false
+    }
 }

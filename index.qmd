@@ -117,6 +117,8 @@
 \item [LLN] Law of Large Numbers
 \item [PI] Percentile Interval
 \item [HDI] Highest Density Interval
+\item [MCMC] Markov-Chain Monte-Carlo
+\item [ESS] Effective Sample Size
 \end{description}
 \end{multicols}
 ```
@@ -243,7 +245,6 @@ knitr::opts_chunk$set(
 ### No-U-Turn Sampler
 
 {{< include chapters/02_bayes/nuts.qmd >}}
-
 
 ### Variational inference
 
