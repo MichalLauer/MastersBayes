@@ -35,7 +35,7 @@ P(\theta|x) = \frac{
 }{
     \int_{0}^{1} \text{Beta}(\theta|a, b)\text{Bin}(x|\theta, n) d\theta
 } = \text{Beta}(\theta | a + y, b + (n - y)).
-$$
+$$ {#eq-beta-binomial}
 
 The posterior distribution is analytically solvable and is another beta distribution with parameters $a + y$ and $b + (n - y)$, 
 where $y$ represent the number of successes and $(n - y)$ the number of failures \parencite[Chap. 6.5.2]{Hebak2013_StatistickeMysleniNastroje}.

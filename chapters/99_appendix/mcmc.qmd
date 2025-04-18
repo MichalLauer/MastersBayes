@@ -1,0 +1,30 @@
+## The metropolis algorithm
+
+\begin{code}{R}{Manual Metropolis algorithm in R}{code-ma}
+# Posterior density
+p <- function(theta, data) {
+  prior <- dbeta(theta, shape1 = 1, shape2 = 1)
+  likelihood <- dbinom(sum(data), size = len(data), prob = theta)
+
+  return(prior * likelihood)
+}
+
+# Observed data
+observed_data <- rbinom(25, size = 1, prob = 0.8)
+# Number of iterations
+number_of_iterations <- 10000
+# Generated samples
+samples <- numeric(number_of_iterations + 1)
+samples[1] <- 0.5
+
+for (i in seq_len(number_of_iterations)) {
+    proposal <- rnorm(1, mean = samples[i], sd = 1)
+    proposal <- max(min(1, proposal), 0)
+    ratio <- p(proposal, observed_data) / p(samples[i], observed_data)
+    if (ratio >= 1 || runif(1) <= ratio) {
+        samples[i + 1] <- proposal
+    } else {
+        samples[i + 1] <- samples[i]
+    }
+}
+\end{code}
