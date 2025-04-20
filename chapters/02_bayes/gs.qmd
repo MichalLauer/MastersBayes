@@ -1,1 +1,70 @@
-Gibbs sampling
+One of the drawbacks of MHA is the need to fine-tune the proposal distribution so that the samples can
+efficiently explore the posterior distribution. If the proposal distribution rarely generates values which are
+common in the posterior, the chains might not converge quickly \parencite[Chap. 7.4.4]{Kruschke2015_DoingBayesianData}.
+It is also often better in multidimensional  models, where the full posterior distribution is unknown, but the conditional posteriors of
+parameters is known and values can be
+sampled from them \parencite[Chap. 11.1]{Gelman2014_BayesianDataAnalysis}.
+
+The Gibbs sampler (GS) is a special case of MHA that cleverly sets the proposal distribution, which makes the chain converge
+more quickly to the posterior distribution. The main idea arises from adaptive MHA that try to update the proposal distribution
+slightly after some iterations, which might increase the efficiency. Instead of updating the proposal distribution or adjusting it's
+step size, GS chooses proposal distributions for each parameter individually. The choice is done based on a known, conjugate posterior
+distribution for each parameter \parencite[9.2.1]{McElreath2020_StatisticalRethinkingBayesian}. 
+
+GS is especially useful in hierarchical models, where the conditional probabilities naturally arise. 
+\parencite[Chap. 7.4.4]{Kruschke2015_DoingBayesianData} notes that GS is a special case of MHA. He compares both algorithms to a 
+random walk through the parameter space, where the next step depends only on the current step. While MHA tries to create a step in every
+direction at once, GS does one step to every direction sequentially. In a multidimensional parameter space $\Theta = [\theta_1, \theta_2]$,
+MHA generates a new proposal from a proposal multidimensional distribution, so
+
+$$
+\theta^* \sim N_2(\theta_{t-1}, \Sigma),
+$$
+
+where $\Sigma$ is variance-covariance matrix that determines the shape of the proposal distribution. GS generates new proposals conditionally on 
+already accepted samples from conditional posterior distributions. Assuming known posterior distributions $P(\theta_1 | theta_2, x)$ for $\theta_1$
+and $P(\theta_2 | theta_1, x)$ for $\theta_2$, the sampler uses them as proposal distributions. First, a new proposal for $\theta_1$ is generated, so
+
+$$
+\theta^*_1 \sim P(\theta_1 | \theta^{t-1}_2, x).
+$$
+
+After the new sample is either accepted or rejected, a new proposal for $\theta_2$ is generated, conditional on the new $\theta_1$ sample and
+
+$$
+\theta^*_2 \sim P(\theta_2 | \theta^t_1, x).
+$$
+
+While the proposal for $\theta_1$ is generated conditional on $\theta_2^{t-1}$, the proposal for $\theta_2$ is conditional on the sample at
+time $t$, $\theta^t_1$. This allows the GS to create sequential steps in the posterior parameter space $\Theta$ more efficiently. The proposals may be
+accepted or rejected with probability of $\min(1, r)$ specified in @eq-ma or @eq-mha. However, \parencite[Chap. 11.3]{Gelman2014_BayesianDataAnalysis}
+proves that the ratio $r$ is always equal to 1 and a new sample is always accepted. The acceptance-rejection criterion can be skipped, which further improves the speed of convergence as the ratio of two functions does not need to be computed. \parencite[Chap. 11.1]{Gelman2014_BayesianDataAnalysis}
+describes this process in a general way for arbitrary $k$-dimensional parameter space and provides graphical comparison of both methods,
+which can be seen in Figure @fig-mha-gs . The solid black dots represent a starting point of 5 independent chains that have been used for 
+this simulation. Axis $x$ represents samples of arbitrary parameter $\theta_1$ and axis $y$ parameter $\theta_2$.
+Note that the figure is a combination of Figures 11.1 and 11.2 from the original source.
+
+![Comparison of MHA and GS from \parencite{Gelman2014_BayesianDataAnalysis}](./img/mha-gs.png){#fig-mha-gs}
+
+The left panel shows convergence of MHA, where the step is taken into all directions at once. The right panel shows convergence in 
+steps, where step in either horizontal or vertical direction is taken a at a time. 
+
+The efficiency of GS is useful in multidimensional or hierarchical models. \parencite{LuChen2022_BayesianAnalysisLongitudinal} found that a
+variation of Gibbs sampler is more effective in a multivariate probit model that deals with longitudinal data that other forms of MHA. 
+\parencite{KarrasEtAl2022_DistributedGibbsSampling} uses GS implemented in Python and PySpark to efficiently sample from the posterior of a 
+general Latent Dirichlet Allocation models. In quantum statistical mechanics, variation of the GS offers smaller variance and autocorrelation
+compared to the traditional MHA approach \parencite{ZhangEtAl2024_PathIntegralMonte}.
+
+Its main drawbacks, compared to a more flexible MHA is that the conditional distributions need to be known. If the model does not offer conjugate
+combinations, MHA is more suitable. \parencite{KarunarasanEtAl2023_ComparisonBayesianMarkov} explore this and find that in some small samples, MHA is superior. However, they are not able to conclude that MHA is in general superior to GS in abstract multilevel modeling. There are also advanced
+implementations of MHA that significantly outperform a simple GS. \parencite{MahaniSharabiani2013_MetropolisHastingsSamplingUsing}
+develops a multivariate technique that leverages MHA that offers *\enquote{6x improvement in sampling efficiency compared to univariate Gibbs}*,
+The authors argue that this might be because in high dimensional spaces, GS needs to work with complex, high dimensional conditional probability 
+functions that might be hard to compute.
+
+There are also different implementations of GS. \parencite{HeEtAl2016_ScanOrderGibbs} define two common ways how to sample new values. Systematic scan
+iterates in a predefined cycle of parameters and generates them one-by-one. This means that $\theta_i$ is dependent on $\theta^t_j$ for
+$j = 1, \dots, k - 1$ and $\theta_j^{t-1}$ for $j = k + 1, \dots, p$ where $p$ is the number of total parameters to estimate. Random scan
+select select a random parameter at iteration $t$ and samples from a probability distribution condition on the latest sample available. This is done
+until all parameters have a new sample for iteration $t$. \parencite{JohnsonEtAl2016_ScalableBlockedGibbs} describes blocked GS that updates
+correlated parameters jointly. This can be useful in bayesian linear regression or bayesian generalized linear mixed-effects models.

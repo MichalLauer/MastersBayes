@@ -43,8 +43,13 @@
         "EGARCH",
         "GARCH",
         "Kalman",
+        "Karras",
+        "Karunarasan",
+        "Mahani",
         "MCMC",
-        "stationar"
+        "Sharabiani",
+        "stationar",
+        "Zhang"
     ],
     "r.lsp.promptToInstall": false,
     "github.copilot.enable": {

@@ -161,7 +161,7 @@
   url = {https://academic.oup.com/book/54042/chapter/422210114},
   urldate = {2025-04-18},
   abstract = {Abstract             The algorithm of Metropolis et al. (1953) and its generalizations have been increasingly popular in computational physics and, more recently, statistics, for sampling from intractable multivariate distributions. Much recent research has been devoted to increasing the efficiency of simulation algorithms by altering the jumping rules for Metropolis-like algorithms. We study a very specific question: What are the most efficient symmetric jumping kernels for simulating a normal target distribution using the Metropolis algorithmã We provide a general theoretical result as the dimension of a class of canonical problems goes to ∞ and numerical approximations and simulations for low-dimensional Gaussian target distributions that show that the limiting results provide extremely accurate approximations in six and higher dimensions.},
-  isbn = {978-0-19-852356-7 978-1-383-02394-7},
+  isbn = {978-0-19-852356-7},
   langid = {english},
   keywords = {literatura}
 }
@@ -212,6 +212,20 @@
   annotation = {OCLC: 883371397}
 }
 
+@online{HeEtAl2016_ScanOrderGibbs,
+  title = {Scan {{Order}} in {{Gibbs Sampling}}: {{Models}} in {{Which}} It {{Matters}} and {{Bounds}} on {{How Much}}},
+  shorttitle = {Scan {{Order}} in {{Gibbs Sampling}}},
+  author = {He, Bryan and De Sa, Christopher and Mitliagkas, Ioannis and Ré, Christopher},
+  date = {2016},
+  doi = {10.48550/ARXIV.1606.03432},
+  url = {https://arxiv.org/abs/1606.03432},
+  urldate = {2025-04-20},
+  abstract = {Gibbs sampling is a Markov Chain Monte Carlo sampling technique that iteratively samples variables from their conditional distributions. There are two common scan orders for the variables: random scan and systematic scan. Due to the benefits of locality in hardware, systematic scan is commonly used, even though most statistical guarantees are only for random scan. While it has been conjectured that the mixing times of random scan and systematic scan do not differ by more than a logarithmic factor, we show by counterexample that this is not the case, and we prove that that the mixing times do not differ by more than a polynomial factor under mild conditions. To prove these relative bounds, we introduce a method of augmenting the state space to study systematic scan using conductance.},
+  pubstate = {prepublished},
+  version = {1},
+  keywords = {Artificial Intelligence (cs.AI),FOS: Computer and information sciences,literatura,Machine Learning (cs.LG),Machine Learning (stat.ML)}
+}
+
 @book{HindlsEtAl2018_StatistikaEkonomii,
   title = {Statistika v ekonomii},
   author = {Hindls, Richard and Arltová, Markéta and Hronová, Stanislava and Malá, Ivana and Marek, Luboš and Pecáková, Iva and Řezanková, Hana},
@@ -236,6 +250,52 @@
   doi = {10.1086/726934},
   url = {https://www.journals.uchicago.edu/doi/10.1086/726934},
   urldate = {2025-04-18},
+  langid = {english},
+  keywords = {literatura}
+}
+
+@online{JohnsonEtAl2016_ScalableBlockedGibbs,
+  title = {A {{Scalable Blocked Gibbs Sampling Algorithm For Gaussian And Poisson Regression Models}}},
+  author = {Johnson, Nicholas A. and Kuehnel, Frank O. and Amini, Ali Nasiri},
+  date = {2016},
+  doi = {10.48550/ARXIV.1602.00047},
+  url = {https://arxiv.org/abs/1602.00047},
+  urldate = {2025-04-20},
+  abstract = {Markov Chain Monte Carlo (MCMC) methods are a popular technique in Bayesian statistical modeling. They have long been used to obtain samples from posterior distributions, but recent research has focused on the scalability of these techniques for large problems. We do not develop new sampling methods but instead describe a blocked Gibbs sampler which is sufficiently scalable to accomodate many interesting problems. The sampler we describe applies to a restricted subset of the Generalized Linear Mixed-effects Models (GLMM's); this subset includes Poisson and Gaussian regression models. The blocked Gibbs sampling steps jointly update a prior variance parameter along with all of the random effects underneath it. We also discuss extensions such as flexible prior distributions.},
+  pubstate = {prepublished},
+  version = {1},
+  keywords = {FOS: Computer and information sciences,literatura,Methodology (stat.ME)}
+}
+
+@inproceedings{KarrasEtAl2022_DistributedGibbsSampling,
+  title = {Distributed {{Gibbs Sampling}} and {{LDA Modelling}} for {{Large Scale Big Data Management}} on {{PySpark}}},
+  booktitle = {2022 7th {{South-East Europe Design Automation}}, {{Computer Engineering}}, {{Computer Networks}} and {{Social Media Conference}} ({{SEEDA-CECNSM}})},
+  author = {Karras, Christos and Karras, Aristeidis and Tsolis, Dimitrios and Giotopoulos, Konstantinos C. and Sioutas, Spyros},
+  date = {2022-09-23},
+  pages = {1--8},
+  publisher = {IEEE},
+  location = {Ioannina, Greece},
+  doi = {10.1109/SEEDA-CECNSM57760.2022.9932990},
+  url = {https://ieeexplore.ieee.org/document/9932990/},
+  urldate = {2025-04-20},
+  eventtitle = {2022 7th {{South-East Europe Design Automation}}, {{Computer Engineering}}, {{Computer Networks}} and {{Social Media Conference}} ({{SEEDA-CECNSM}})},
+  isbn = {979-8-3503-9858-8},
+  keywords = {literatura}
+}
+
+@article{KarunarasanEtAl2023_ComparisonBayesianMarkov,
+  title = {A Comparison of {{Bayesian Markov}} Chain {{Monte Carlo}} Methods in a Multilevel Scenario},
+  author = {Karunarasan, Darshika and Sooriyarachchi, Roshini and Pinto, Vimukthini},
+  date = {2023-10-03},
+  journaltitle = {Communications in Statistics - Simulation and Computation},
+  shortjournal = {Communications in Statistics - Simulation and Computation},
+  volume = {52},
+  number = {10},
+  pages = {4756--4772},
+  issn = {0361-0918, 1532-4141},
+  doi = {10.1080/03610918.2021.1967985},
+  url = {https://www.tandfonline.com/doi/full/10.1080/03610918.2021.1967985},
+  urldate = {2025-04-20},
   langid = {english},
   keywords = {literatura}
 }
@@ -283,9 +343,41 @@
   doi = {10.1002/9780470669723},
   url = {https://onlinelibrary.wiley.com/doi/book/10.1002/9780470669723},
   urldate = {2025-04-18},
-  isbn = {978-0-470-74826-8 978-0-470-66972-3},
+  isbn = {978-0-470-66972-3},
   langid = {english},
   keywords = {literatura}
+}
+
+@article{LuChen2022_BayesianAnalysisLongitudinal,
+  title = {Bayesian Analysis of Longitudinal Binary Responses Based on the Multivariate Probit Model: {{A}} Comparison of Five Methods},
+  shorttitle = {Bayesian Analysis of Longitudinal Binary Responses Based on the Multivariate Probit Model},
+  author = {Lu, Kaifeng and Chen, Fang},
+  date = {2022-12},
+  journaltitle = {Statistical Methods in Medical Research},
+  shortjournal = {Stat Methods Med Res},
+  volume = {31},
+  number = {12},
+  pages = {2261--2286},
+  issn = {0962-2802, 1477-0334},
+  doi = {10.1177/09622802221122403},
+  url = {https://journals.sagepub.com/doi/10.1177/09622802221122403},
+  urldate = {2025-04-20},
+  abstract = {Dichotomous response data observed over multiple time points, especially data that exhibit longitudinal structures, are important in many applied fields. The multivariate probit model has been an attractive tool in such situations for its ability to handle correlations among the outcomes, typically by modeling the covariance (correlation) structure of the latent variables. In addition, a multivariate probit model facilitates controlled imputations for nonignorable dropout, a phenomenon commonly observed in clinical trials of experimental drugs or biologic products. While the model is relatively simple to specify, estimation, particularly from a Bayesian perspective that relies on Markov chain Monte Carlo sampling, is not as straightforward. Here we compare five sampling algorithms for the correlation matrix and discuss their merits: a parameter-expanded Metropolis-Hastings algorithm (Zhang et al., 2006), a parameter-expanded Gibbs sampling algorithm (Talhouk et al., 2012), a parameter-expanded Gibbs sampling algorithm with unit constraints on conditional variances (Tang, 2018), a partial autocorrelation parameterization approach (Gaskins et al., 2014), and a semi-partial correlation parameterization approach (Ghosh et al., 2021). We describe each algorithm, use simulation studies to evaluate their performance, and focus on comparison criteria such as computational cost, convergence time, robustness, and ease of implementations. We find that the parameter-expanded Gibbs sampling algorithm by Talhouk et al. (2012) often has the most efficient convergence with relatively low computational complexity, while the partial autocorrelation parameterization approach is more flexible for estimating the correlation matrix of latent variables for typical late phase longitudinal studies.},
+  langid = {english},
+  keywords = {literatura}
+}
+
+@online{MahaniSharabiani2013_MetropolisHastingsSamplingUsing,
+  title = {Metropolis-{{Hastings Sampling Using Multivariate Gaussian Tangents}}},
+  author = {Mahani, Alireza S. and Sharabiani, Mansour T. A.},
+  date = {2013},
+  doi = {10.48550/ARXIV.1308.0657},
+  url = {https://arxiv.org/abs/1308.0657},
+  urldate = {2025-04-20},
+  abstract = {We present MH-MGT, a multivariate technique for sampling from twice-differentiable, log-concave probability density functions. MH-MGT is Metropolis-Hastings sampling using asymmetric, multivariate Gaussian proposal functions constructed from Taylor-series expansion of the log-density function. The mean of the Gaussian proposal function represents the full Newton step, and thus MH-MGT is the stochastic counterpart to Newton optimization. Convergence analysis shows that MH-MGT is well suited for sampling from computationally-expensive log-densities with contributions from many independent observations. We apply the technique to Gibbs sampling analysis of a Hierarchical Bayesian marketing effectiveness model built for a large US foodservice distributor. Compared to univariate slice sampling, MH-MGT shows 6x improvement in sampling efficiency, measured in terms of `function evaluation equivalents per independent sample'. To facilitate wide applicability of MH-MGT to statistical models, we prove that log-concavity of a twice-differentiable distribution is invariant with respect to 'linear-projection' transformations including, but not restricted to, generalized linear models.},
+  pubstate = {prepublished},
+  version = {1},
+  keywords = {65C05 65C60,FOS: Computer and information sciences,literatura,Methodology (stat.ME)}
 }
 
 @book{Marek2012_Pravdepodobnost,
@@ -421,4 +513,18 @@
   pagetotal = {826},
   keywords = {literatura},
   file = {C:\Users\Michal\Zotero\storage\ERC77IE6\Wooldridge - 2020 - Introductory econometrics a modern approach.pdf}
+}
+
+@online{ZhangEtAl2024_PathIntegralMonte,
+  title = {Path Integral {{Monte Carlo}} in a Discrete Variable Representation with {{Gibbs}} Sampling: Dipolar Planar Rotor Chain},
+  shorttitle = {Path Integral {{Monte Carlo}} in a Discrete Variable Representation with {{Gibbs}} Sampling},
+  author = {Zhang, Wenxue and Moeed, Muhammad Shaeer and Bright, Andrew and Serwatka, Tobias and De Oliveira, Estevao and Roy, Pierre-Nicholas},
+  date = {2024},
+  doi = {10.48550/ARXIV.2410.13633},
+  url = {https://arxiv.org/abs/2410.13633},
+  urldate = {2025-04-20},
+  abstract = {In this work, we propose a Path Integral Monte Carlo (PIMC) approach based on discretized continuous degrees of freedom and rejection-free Gibbs sampling. The ground state properties of a chain of planar rotors with dipole-dipole interactions are used to illustrate the approach. Energetic and structural properties are computed and compared to exact diagonalization and Numerical Matrix Multiplication for \$N \textbackslash leq 3\$ to assess the systematic Trotter factorization error convergence. For larger chains with up to N = 100 rotors, Density Matrix Renormalization Group (DMRG) calculations are used as a benchmark. We show that using Gibbs sampling is advantageous compared to traditional Metroplolis-Hastings rejection importance sampling. Indeed, Gibbs sampling leads to lower variance and correlation in the computed observables.},
+  pubstate = {prepublished},
+  version = {1},
+  keywords = {Atomic and Molecular Clusters (physics.atm-clus),Chemical Physics (physics.chem-ph),FOS: Physical sciences,literatura,Mesoscale and Nanoscale Physics (cond-mat.mes-hall),Quantum Physics (quant-ph),Statistical Mechanics (cond-mat.stat-mech)}
 }

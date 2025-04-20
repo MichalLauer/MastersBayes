@@ -119,6 +119,8 @@
 \item [HDI] Highest Density Interval
 \item [MCMC] Markov-Chain Monte-Carlo
 \item [ESS] Effective Sample Size
+\item [MA] Metropolis Algorithm
+\item [MHA] Metropolis-Hastings Algorithm
 \end{description}
 \end{multicols}
 ```
@@ -222,7 +224,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/02_bayes/equation_models.qmd >}}
 
-## Simulation techniques
+## Markov-Chain Monte-Carlo methods
 
 {{< include chapters/02_bayes/mcmc.qmd >}}
 
@@ -238,7 +240,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/02_bayes/gs.qmd >}}
 
-### Hamiltonian Monte Carlo
+## Hamiltonian Monte Carlo method
 
 {{< include chapters/02_bayes/hmc.qmd >}}
 
@@ -246,7 +248,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/02_bayes/nuts.qmd >}}
 
-### Variational inference
+## Variational inference method
 
 {{< include chapters/02_bayes/vi.qmd >}}
 

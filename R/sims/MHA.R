@@ -19,10 +19,15 @@ plot_posterior <- function(seed, prob) {
   samples[1] <- 0.5
 
   for (i in seq_len(number_of_iterations)) {
-    proposal <- rlnorm(1, mean = samples[i], sdlog = 1)
+    proposal <- rlnorm(1, meanlog = samples[i], sdlog = 1)
     proposal <- max(min(1, proposal), 0)
 
-    ratio <- p(proposal, observed_data) / p(samples[i], observed_data)
+    ratio <- (
+      p(proposal, observed_data) * dlnorm(samples[i], meanlog = samples[i], sdlog = 1)
+    ) / (
+      p(samples[i], observed_data) * dlnorm(proposal, meanlog = samples[i], sdlog = 1)
+    )
+
     if (ratio >= 1 || runif(1) <= ratio) {
       samples[i + 1] <- proposal
     } else {
@@ -49,7 +54,7 @@ plot_posterior <- function(seed, prob) {
   # Overlay density
   lines(x_vals, beta_density, col = "darkred", lwd = 2)
 }
-png("./img/sim_ma.png", width = 1920, height = 1080, res = 100)
+png("./img/sim_mha.png", width = 1920, height = 1080, res = 100)
 layout_matrix <- rbind(c(1, 2, 3),
                        c(4, 4, 4))  # Legend spans all 3 columns
 layout(layout_matrix, heights = c(4, .5))

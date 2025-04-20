@@ -51,8 +51,9 @@ An example of generated samples from the posterior distribution is in figure @fi
 model defined in @eq-beta-binomial. Because in this model, the true posterior distribution is known, the accuracy of the simulation can be easily
 compared. The line chart represents the true posterior distribution while the histogram the simulated data of iterations with no burn-in period.
 
-![Simulation of a beta-binomial model.](./img/sim_ma.png){#fig-sim-ma}
+![Simulation of a beta-binomial model using the Metropolis algorithm.](./img/sim_ma.png){#fig-sim-ma}
 
-The simulation generates 10 000 iterations with no burn-in period with proposal description $N(\theta_{t-1}, \sigma = 1)$. For this simulation,
+The simulation generates 10 000 iterations with a burn-in period of 2 000 initial samples. The proposal distribution is symmetric normal 
+distribution $N(\theta_{t-1}, \sigma = 1)$. For this simulation,
 the generated proposals need to be in $\langle 0, 1 \rangle$, otherwise R throws an error because it is unable to calculate the density of
 binomial distribution for values greater than 1 or smaller than 0. The exact code can be found in appendix \ref{code-ma}.
