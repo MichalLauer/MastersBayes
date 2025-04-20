@@ -236,6 +236,21 @@
   annotation = {OCLC: 1066057734}
 }
 
+@online{HoffmanGelman2011_NoUTurnSamplerAdaptively,
+  title = {The {{No-U-Turn Sampler}}: {{Adaptively Setting Path Lengths}} in {{Hamiltonian Monte Carlo}}},
+  shorttitle = {The {{No-U-Turn Sampler}}},
+  author = {Hoffman, Matthew D. and Gelman, Andrew},
+  date = {2011},
+  doi = {10.48550/ARXIV.1111.4246},
+  url = {https://arxiv.org/abs/1111.4246},
+  urldate = {2024-11-03},
+  abstract = {Hamiltonian Monte Carlo (HMC) is a Markov chain Monte Carlo (MCMC) algorithm that avoids the random walk behavior and sensitivity to correlated parameters that plague many MCMC methods by taking a series of steps informed by first-order gradient information. These features allow it to converge to high-dimensional target distributions much more quickly than simpler methods such as random walk Metropolis or Gibbs sampling. However, HMC's performance is highly sensitive to two user-specified parameters: a step size ε and a desired number of steps L. In particular, if L is too small then the algorithm exhibits undesirable random walk behavior, while if L is too large the algorithm wastes computation. We introduce the No-U-Turn Sampler (NUTS), an extension to HMC that eliminates the need to set a number of steps L. NUTS uses a recursive algorithm to build a set of likely candidate points that spans a wide swath of the target distribution, stopping automatically when it starts to double back and retrace its steps. Empirically, NUTS perform at least as efficiently as and sometimes more efficiently than a well tuned standard HMC method, without requiring user intervention or costly tuning runs. We also derive a method for adapting the step size parameter ε on the fly based on primal-dual averaging. NUTS can thus be used with no hand-tuning at all. NUTS is also suitable for applications such as BUGS-style automatic inference engines that require efficient "turnkey" sampling algorithms.},
+  pubstate = {prepublished},
+  version = {1},
+  keywords = {Computation (stat.CO),FOS: Computer and information sciences,literatura,Machine Learning (cs.LG)},
+  file = {C:\Users\Michal\Zotero\storage\JUN3F77K\Hoffman and Gelman - 2011 - The No-U-Turn Sampler Adaptively Setting Path Len.pdf}
+}
+
 @article{HopkinsEtAl2024_HowWeKnow,
   title = {How {{Do We Know What We Know}}? {{Learning}} from {{Monte Carlo Simulations}}},
   shorttitle = {How {{Do We Know What We Know}}?},
@@ -346,6 +361,18 @@
   isbn = {978-0-470-66972-3},
   langid = {english},
   keywords = {literatura}
+}
+
+@book{Lowenstein2012_EssentialsHamiltonianDynamics,
+  title = {Essentials of {{Hamiltonian}} Dynamics},
+  author = {Lowenstein, John H.},
+  date = {2012},
+  publisher = {Cambridge University Press},
+  location = {Cambridge ; New York},
+  abstract = {"Classical dynamics is one of the cornerstones of advanced education in physics and applied mathematics, with applications across engineering, chemistry, and biology. In this book, the author uses a concise and pedagogical style to cover all the topics necessary for a graduate-level course in dynamics based on Hamiltonian methods. Readers are introduced to the impressive advances in the field during the second half of the twentieth-century, including KAM theory and deterministic chaos. Essential to these developments are some exciting ideas from modern mathematics, which are introduced carefully and selectively. Core concepts and techniques are discussed, together with numerous concrete examples to illustrate key principles"--},
+  isbn = {978-1-107-00520-4},
+  pagetotal = {188},
+  keywords = {Dynamics,Hamiltonian systems,literatura,SCIENCE / Physics}
 }
 
 @article{LuChen2022_BayesianAnalysisLongitudinal,
@@ -482,6 +509,19 @@
   annotation = {OCLC: ocn319602638}
 }
 
+@online{Vishnoi2021_IntroductionHamiltonianMonte,
+  title = {An {{Introduction}} to {{Hamiltonian Monte Carlo Method}} for {{Sampling}}},
+  author = {Vishnoi, Nisheeth K.},
+  date = {2021},
+  doi = {10.48550/ARXIV.2108.12107},
+  url = {https://arxiv.org/abs/2108.12107},
+  urldate = {2024-11-03},
+  abstract = {The goal of this article is to introduce the Hamiltonian Monte Carlo (HMC) method -- a Hamiltonian dynamics-inspired algorithm for sampling from a Gibbs density \$π(x) \textbackslash propto e\textasciicircum\{-f(x)\}\$. We focus on the "idealized" case, where one can compute continuous trajectories exactly. We show that idealized HMC preserves \$π\$ and we establish its convergence when \$f\$ is strongly convex and smooth.},
+  pubstate = {prepublished},
+  version = {1},
+  keywords = {Computation (stat.CO),Data Structures and Algorithms (cs.DS),FOS: Computer and information sciences,FOS: Mathematics,literatura,Machine Learning (cs.LG),Machine Learning (stat.ML),Probability (math.PR)}
+}
+
 @article{WassersteinEtAl2019_MovingWorld005,
   title = {Moving to a {{World Beyond}} “ {\mkbibemph{p}} {$<$} 0.05”},
   author = {Wasserstein, Ronald L. and Schirm, Allen L. and Lazar, Nicole A.},
@@ -513,6 +553,19 @@
   pagetotal = {826},
   keywords = {literatura},
   file = {C:\Users\Michal\Zotero\storage\ERC77IE6\Wooldridge - 2020 - Introductory econometrics a modern approach.pdf}
+}
+
+@online{WuEtAl2018_FasterHamiltonianMonte,
+  title = {Faster {{Hamiltonian Monte Carlo}} by {{Learning Leapfrog Scale}}},
+  author = {Wu, Changye and Stoehr, Julien and Robert, Christian P.},
+  date = {2018},
+  doi = {10.48550/ARXIV.1810.04449},
+  url = {https://arxiv.org/abs/1810.04449},
+  urldate = {2025-04-20},
+  abstract = {Hamiltonian Monte Carlo samplers have become standard algorithms for MCMC implementations, as opposed to more basic versions, but they still require some amount of tuning and calibration. Exploiting the U-turn criterion of the NUTS algorithm (Hoffman and Gelman, 2014), we propose a version of HMC that relies on the distribution of the integration time of the associated leapfrog integrator. Using in addition the primal-dual averaging method for tuning the step size of the integrator, we achieve an essentially calibration free version of HMC. When compared with the original NUTS on several benchmarks, this algorithm exhibits a significantly improved efficiency.},
+  pubstate = {prepublished},
+  version = {2},
+  keywords = {Computation (stat.CO),Data Structures and Algorithms (cs.DS),FOS: Computer and information sciences,literatura}
 }
 
 @online{ZhangEtAl2024_PathIntegralMonte,

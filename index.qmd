@@ -121,6 +121,8 @@
 \item [ESS] Effective Sample Size
 \item [MA] Metropolis Algorithm
 \item [MHA] Metropolis-Hastings Algorithm
+\item [HMC] Hamiltonian Monte Carlo
+\item [NUTS] No-U-Turn Sampler
 \end{description}
 \end{multicols}
 ```
@@ -240,7 +242,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/02_bayes/gs.qmd >}}
 
-## Hamiltonian Monte Carlo method
+### Hamiltonian Monte Carlo method
 
 {{< include chapters/02_bayes/hmc.qmd >}}
 

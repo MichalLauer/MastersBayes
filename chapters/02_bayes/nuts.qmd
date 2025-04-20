@@ -1,1 +1,23 @@
-No-U-Turn Sampler
+No-U-Turn Samples (NUTS) is a special adaptive technique applied in HMC proposed by \parencite{HoffmanGelman2011_NoUTurnSamplerAdaptively}.
+Authors note that the cost of a single independent sample for a $d$-dimensional model in HMC is $O(d^{5/4})$, which is much higher than the cost of a single MA sample $O(d^2)$. The efficiency of HMC can be greatly affected by two hyperparameters; that is, the scale factor $\epsilon$ and 
+the number of leap frogs $L$. Authors argue that current adaptive algorithms are able to fine-tune parameter $\epsilon$ during the
+warmup phase, however, optimizing $L$ is more difficult. They propose a new NUTS that eliminates the need to manually set the number
+of steps $L$, which can increase the widespread use of HMC.
+
+The main idea is that authors propose a *\parencite{criterion to tell us when we have simulated the dynamics for long enough, i.e., when running the simulation for more steps would no longer increase the distance between the proposal $\theta^*$ and the initial value of $\theta^{t-1}$}.* The
+criterion that authors propose is 
+
+$$
+(\theta^* - \theta^{t-1}) \phi.
+$$ {#eq-nuts-crit}
+
+The distance between proposal $\theta^*$ and the initial state $\theta^{t-1}$ is multiplied by the current momentum $\phi$. Ideally, the algorithm
+should run until criterion in @eq-nuts-crit is less than zero and the proposal are \enquote{coming back in a circle}[^nuts-circle]. This condition
+is not computationally feasible and it might not always be possible and authors propose a new slice variable $u$, that is used during sampling.
+Detailed explanation with additional proofs, algorithm description and implementation are outlined in the original paper.
+
+[^nuts-circle]: Although not stated in the original paper, this might be the motivation for the name *No-U-Turn*.
+
+\parencite[Chap. 4.4]{HoffmanGelman2011_NoUTurnSamplerAdaptively} details that NUTS is at least as good as a vanilla HMC, which makes NUTS 
+often the preferable choice. \parencite{WuEtAl2018_FasterHamiltonianMonte} suggest that the NUTS has become the standard sampler for
+bayesian models.
