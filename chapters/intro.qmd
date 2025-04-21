@@ -1,14 +1,58 @@
-V úvodu diplomové práce byste měli zahrnout několik klíčových prvků:
+This thesis combines two domains which are growing in their popularity, complexity and importance. The roots of bayesian statistics go back to the
+late 18th a and early 19th century and are summarized in \parencite{Hebak2013_StatistickeMysleniNastroje}. The core tool of bayesian statistics -
+the bayes' theorem - is attributed to mathematician and Thomas Bayes. His famous work *An Essay Towards Solving a Problem in the Doctrine of Chances*, which was release post-mortem by his friend Richard Price is the first work that mentions and defines the theorem. His work was extended by Pierre-Simon Laplace, who was able to capture and explain more meaningfully the nuances of a the choice of apriori distribution or the problem of estimating an 
+unknown parameter of binomial distribution.
 
-- Kontext a význam tématu - Proč je téma důležité a aktuální v daném oboru.
-- Vymezení problému - Jaký problém nebo výzkumnou mezeru vaše práce řeší.
-- Cíle práce - Jasně definované cíle, kterých chcete dosáhnout.
-- Výzkumné otázky nebo hypotézy - Konkrétní otázky, na které hledáte odpovědi.
-- Stručný popis metodologie - Jak budete postupovat při řešení problému.
-- Struktura práce - Krátké shrnutí jednotlivých kapitol a jejich obsahu.
-- Očekávaný přínos - Co nového vaše práce přináší do daného oboru.
+In the late 19th century and most of the 20th century, frequentist statistic became popular and subjective, bayesian interpretation of probability
+has been neglected. During this period, the famous statistician Sir Ronald Alymer Fisher contributed to frequentist statistics with his work on
+parameters and their properties, such as unbiasedness or consistency. His most influential work was in statistical inference and the development
+of tools to conduct hypothesis testing. Other than a great statistician and mathematician, Fisher was also an advocate of frequentist and objective
+approach.
 
-Úvod by měl být stručný (obvykle 2-3 strany), ale dostatečně informativní, aby čtenář získal jasnou představu o tom, co může od práce očekávat. Měl by zaujmout čtenáře a motivovat ho k dalšímu čtení.
-Důležité je psát úvod jasným a srozumitelným jazykem, bez zbytečných odborných termínů, které by mohly čtenáře odradit.
+Fisher famously criticised bayesian statistics, then referred to as *inverse* statistics, as a *\enquote{
+inverse probability, which like an impenetrable jungle arrests progress towards precision of statistical concepts}*. Interestingly, his stance
+has not been always consistent and in his early work on Maximum likelihood estimation, he pleads to *\enquote{
+to having based his argument upon the principle of inverse probability}*. \parencite{Zabell2022_FisherBayesPredictive} further
+explains that Fisher's issue was primarily with universally uniform priors, which are not scale invariant. However, universally uniform
+priors are not standard in modern bayesian statistics and popular textbooks do not encourage this approach. 
+\parencite[Chap. 10.6]{Kruschke2015_DoingBayesianData} talks about extreme sensitivity to prior knowledge about estimated
+parameters and in model comparison. He also suggests that many statisticians support using other uninformative priors which
+might be more appropriate for specific models. So while Fishers critique was legitimate, it may not hold in current bayesian settings.
 
----
+With increased computational availability, bayes statistics started to become more popular. Introduction of sampling methods that 
+are capable of generating samples from a posterior distribution that is not analytically known lead to models that can be more complicated
+while still usable in research areas. Currently, bayesian statistics is utilized in many fields. \parencite{Ashby2006_BayesianStatisticsMedicine}
+examines the state of bayesian statistics in medicine towards the end of 20th century. One of the conclusions is that bayes has *\enquote{now permeated all the major areas of medical statistics, including clinical trials, epidemiology, meta-analyses and evidence synthesis, spatial modelling, longitudinal modelling, survival modelling, molecular genetics and decision-making}*. \parencite{Barber2012_BayesianReasoningMachine} draws connection
+between bayesian reasoning and machine learning. The similarities between bayesian thinking and quantum analysis is described in 
+\parencite{Timpson2008_QuantumBayesianismStudy}.
+
+Analysis of volatility of financial markets in the current digital world is important and \parencite{Liu2024NavigatingTF} provides at least 2 domains
+where this might be beneficial. Assessing the volatility of markets can help with portfolio optimization and risk management. Studies
+found that the inclusion of GARCH models, which are the topic of this thesis, has lead to a 20 % decrease in portfolio volatility. This
+further helps management and traders mitigate potential losses and improve decision making. Another popular domain are derivative markets
+for futures or options where setting the right price is crucial. Historically, option pricing uses methods such as the Black Scholes model,
+which assumes that the variance of the underlying asset is constant. This assumption does not always hold in practice, and the need to support
+heteroskedasticity in financial time series arose.
+
+The effect of financial volatility can overlap with other fields. \parencite{2019QuantitativeAO} investigated a relationship between
+the China's exchange rate against the US dollar and found that it may have some effect on international student tourism between the US and China.
+A larger study that explores the relationship between country credit rating, political risk, financial risk, economic risk and a composite
+risk rating conducted in \parencite{Erb1996PoliticalRE}. The conclusion suggest that there is some relationship between different risks,
+especially in financial and economic ratings.
+
+The bridge between novel bayesian statistical thinking and financial markets that can affect everyday life is interesting in several ways. First,
+some advanced models that are capable of measuring volatility in financial markets are hard to estimate and bayesian methods naturally arise,
+especially in the case of stochastic volatility. Furthermore, bayesian statistics offer information not only point and interval estimates, but in a 
+full posterior distribution from which arbitrary points, quantiles and intervals are computable. This supports advanced decision making and 
+offers more information about the estimated quantities. The probabilistic interpretation that can also be more natural and helpful rather than
+\enquote{imaginary repetitions in identical conditions}.
+
+This thesis has two main goals. In the theoretical part, a connection between financial markets and bayesian models is drawn using frequentist
+methods for stochasticity modeling. Methods are introduced, derived and translated from frequentist world to the bayesian world. AThese bayesian
+models are then used in practical part on time series from financial markets, where the underlying volatility is captured. The structure is divided
+into three main chapters. First chapter explores financial time serie and their statistical characteristics. Classical models which are used
+throughout the thesis are also defined and described. The second part focuses on bayesian statistics. Initially, the ideas behind bayesian statistics
+are introduced as well as model definition, statistical inference and the creation of posterior distributions. After that, different sampling methods
+are used which are crucial in models where analytical posterior distribution is not derived. Finally, the connection between volatility models
+and bayesian statistics is drawn using available studies and surveys. The last chapter focuses on data analysis in R 
+\parencite{RCoreTeam2023_LanguageEnvironmentStatistical} and Stan \parencite{CarpenterEtAl2017_StanProbabilisticProgramming}.
