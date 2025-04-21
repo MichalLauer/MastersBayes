@@ -1,1 +1,29 @@
-Bayesian GARCH models
+Extension of ARCH models are generalized ARCH models introduced in Section @sec-garch. It's conditional variance, given in Equation @eq-var-garch,
+can be relatively easily defined using bayesian methods. The assumption about random component $\epsilon$ is identical to ARCH model,
+and usually either normal distribution or the student distribution is selected. The main difference lies in additional $\beta$ coefficients
+that represent the effect of lagged conditional variance. Requirements outlined in Section @sec-garch also add that for a stable GARCH model,
+the sum of paired coefficients at lag $i$ need to be less than one. \parencite[Chap. 5.1]{GewekeEtAl2013_OxfordHandbookBayesian} notes that
+this condition can be met by discarding draws which do not fulfill this assumption.
+
+If the shock $\epsilon$ is modeled using Student's distribution, the prior distribution on degrees of freedom $\nu$ must be a proper 
+probability distribution that decreases faster than $1/\nu$. Otherwise, the posterior does not integrate 
+\parencite[Chap. 5.1]{GewekeEtAl2013_OxfordHandbookBayesian}. Some author use right side of a truncated Cauchy distribution, which decreases faster.
+However, student distribution could be worrisome if the estimated degrees of freedom are small. Because of this, some central moments do not exists and
+another approaches are more suitable. In such cases, a mixture of normal normal distributions might be more suitable 
+\parencite[Chap. 2.2]{VirbickaiteEtAl2015_BAYESIANINFERENCEMETHODS}.
+
+The apriori distribution for parameters $\alpha$ and $\beta$ varies. \parencite{BauwensLubrano1998_BayesianInferenceGARCH} uses flat uniform priors
+and \parencite{AusinGaleano2007_BayesianEstimationGaussian} conducts sensitivity analysis and finds that a change from uniform to beta priors does 
+not cause large differences in the posterior distribution. This might indicate that the choice of priors depend heavily on the task at hand. 
+
+The estimation of such model requires MCMC methods, because the posterior distribution is not analytically solvable.
+\parencite[Chap. 5.1]{GewekeEtAl2013_OxfordHandbookBayesian} notes that the analytical conditional posterior distribution for each parameter
+is not known, and Gibbs sampler is also not adequate for this model. \parencite{VirbickaiteEtAl2015_BAYESIANINFERENCEMETHODS} also acknowledges this
+limitation and \parencite{BauwensLubrano1998_BayesianInferenceGARCH} suggest an alternative called Griddy-Gibbs sampler. 
+The estimation of GARCH model may be complex and fine-tuning of specific
+MCMC algorithms might be needed for an efficient convergence. \parencite{Ardia2008_BayesGARCHBayesianEstimation} offers an R 
+package `{bayesGARCH}` that offers automatic estimation of GARCH$(1, 1)$ model with shock that has Student distribution. This process is fully
+automatic and uses MHA with fine-tuned proposal distribution made up of auxiliary ARMA processes. Additionally, a great number of new samplers
+and methods have been devoted to GARCH model estimation. Overview of some of them can be found in 
+\parencite{VirbickaiteEtAl2015_BAYESIANINFERENCEMETHODS} or
+\parencite[Chap. 5.1]{GewekeEtAl2013_OxfordHandbookBayesian}.

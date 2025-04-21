@@ -123,6 +123,8 @@
 \item [MHA] Metropolis-Hastings Algorithm
 \item [HMC] Hamiltonian Monte Carlo
 \item [NUTS] No-U-Turn Sampler
+\item [VI] Variational Inference
+\item [KLD] Kullback–Leibler Divergence
 \end{description}
 \end{multicols}
 ```
@@ -206,11 +208,11 @@ knitr::opts_chunk$set(
 
 {{< include chapters/01_ats/vol-modeling.qmd >}}
 
-### ARCH Model
+### ARCH Model {#sec-arch}
 
 {{< include chapters/01_ats/arch.qmd >}}
 
-### GARCH Model
+### GARCH Model {#sec-garch}
 
 {{< include chapters/01_ats/garch.qmd >}}
 
@@ -295,4 +297,8 @@ knitr::opts_chunk$set(
 # Simulation algorithms in R
 
 {{< include chapters/99_appendix/mcmc.qmd >}}
+
+# Stan models
+
+{{< include chapters/99_appendix/models.qmd >}}
 

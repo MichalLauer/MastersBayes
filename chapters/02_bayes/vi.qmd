@@ -1,0 +1,77 @@
+The important characteristics of MCMC methods, such as HA, MHA, HMC or NUTS, is that they converge to the true posterior distribution.
+If the convergence is sufficiently fast and accurate, generated samples are representative enough that they can be used for
+statistical inference. The speed of sampling might sometimes be problematic and even
+with the most advanced samplers, the inference might take a relatively long time.  It may happen that the speed is more crucial than 
+the accuracy, and researchers may prefer speed with and quick inference with no guarantees that the model represents the exact posterior
+distribution. This is the case in real-time data analytics or on-demand predictions, where the speed is significantly more
+important than the accuracy.
+
+The issue can be solved with samplers based on Variational Inference (VI). Variational inference transform the sampling problem
+from a stochastic processes to an optimization task. Instead of sampling a large number of samples whose stationary distribution
+is the true posterior, VI tries to find a distribution that is closes to the posterior distribution based on a Kullback–Leibler Divergence (KLD).
+It is a measure of how two probability distribution are close to each other. In VI, it measures the distance between the true posterior 
+$P(\theta | x)$ and arbitrary distribution function $q$. This measure naturally raises in many statistical methods. One example
+can be the maximum likelihood estimation that naturally minimizes the KLD \parencite{ranganath2017black}.
+
+\parencite{KullbackLeibler1951_InformationSufficiency} define KLD as
+
+$$
+KL(f_1(x) || f_2(x)) = \int f_1(x) \log \left( 
+    \frac{f_1(x)}{f_2(x)}
+\right) d x
+$$ {#eq-kld}
+
+Applying @eq-kld to IV and reversing the fraction in $\log (\cdot)$[^log-reverse], the equation transforms to
+
+[^log-reverse]: Because $\log (a/b) = -\log(b/a)$
+
+$$
+\text{KL}(q(\theta) || P(\theta || x)) = - \int q(\theta) \log \left( 
+    \frac{P(\theta | x)}{q(\theta)}
+\right) d \theta.
+$$ {#eq-kld-bayes}
+
+The smaller the KLD in @eq-kld-bayes is, the closer is the proposed distribution $q$ to the true posterior $P(\theta|x)$ becomes.
+There are many different measures that could be used, however, \parencite{Sjolund2023_TutorialParametricVariational} show that
+with KLD, the predictive probability $P(x)$, that is constant for each model, can be rewritten to
+
+$$
+\log P(x) = \text{ELBO}(q(\theta)) + \text{KL}(q(\theta) || P(\theta || x)),
+$$
+
+where ELBO denotes the evidence lower bound[^elbo]
+
+[^elbo]: That is because quantity $P(x)$ is often called the *evidence*. In a similar manner, it could be called the 
+predictive lower bound, but that is not common.
+
+$$
+\text{ELBO}(q(\theta)) = \mathbb{E}_{q(\theta)} \left[ \log (x | \theta) - \log q(x) \right].
+$$ {#eq-elbo}
+
+Because the KLD is always non-negative[^nonneg], maximizing $\text{ELBO}(q(\theta))$ is the same as minimizing KLD. This is useful because 
+minimizing equation @eq-elbo is easier than equation @eq-kld-bayes. \parencite{Sjolund2023_TutorialParametricVariational} provides
+examples that show how the calculations are done in practice.
+
+The probability function $q(x)$ depends on hyperparameters that change how the distribution look and 
+\parencite[Chap. 13.7]{Gelman2014_BayesianDataAnalysis} uses $q(x|\phi)$, where $\phi$ denotes such parameters. 
+The goal of VI is to find function $q$ with hyperparameters $\phi$ that is 
+closest to the true posterior distribution $P(\theta | x)$. Then, new samples are taken from $q(\theta | \phi)$ and classical
+inference can be conducted. The ideal lower limit of KLD is zero and thus, the distance can get arbitrary close.
+
+There are various ways how to define distribution $q$. If the parameters $\theta$ are assumed to be independent, then
+
+$$
+g(\theta | \phi) = \prod_{j=1}^d g_j(\theta_j | \phi_j).
+$$
+
+Detailed process of estimation and the proof that the KLD is decreased with time is provided in \parencite[Chap. 13.7]{Gelman2014_BayesianDataAnalysis}.
+
+Even though the function $g(\theta | \phi)$ might not be exact, VI is already being used in research projects.
+\parencite{GefangEtAl2019_VariationalBayesianInference} use VI and bayesian shrinkage to develop a new method how to estimate 
+\enquote{Vector Autoregressive models that have hundreds of macroeconomic variables, or more}. The main motivation for VI in this
+specific paper is the complexity and computational infeasibility with traditional MCMC methods.
+\parencite{MurakamiEtAl2025_RapidComprehensiveSearch} use bayesian analysis and VI to identify different crystal phases from
+X-ray diffraction data and their full profile. The main goal of the paper is to find a bayesian method that utilizes VI to reduce 
+the estimation time \enquote{from a few hours to seconds}.
+
+

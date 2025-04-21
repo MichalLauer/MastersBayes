@@ -1,1 +1,1 @@
-Bayesian SV models.
+Triantafyllopoulos2021_BayesianInferenceState - 7.3.3

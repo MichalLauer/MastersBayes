@@ -63,3 +63,14 @@ is proportional to the combination of apriori distribution $P(\theta)$ and likel
 requirement for this assumptions is that the apriori distribution is a proper probabilistic distribution 
 \parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje}.
 
+The choice of the apriori distribution depends on the knowledge that is known before the analysis. This knowledge can come from past research,
+specific domain knowledge or the meaning of individual parameters. If, for example, it is known that a parameter is surely strictly positive,
+distributions such as the chi-squared, gamma, exponential or inverse-gamma can be used. Another approach might be to estimate some
+transformation of a parameter. \parencite[Chap. 4.4]{McElreath2020_StatisticalRethinkingBayesian} chooses to model linear regression with
+$\ln \beta_j$, which can have any sign. After estimation, the samples from logarithmic posterior distribution can be 
+exponentiated, which yields a positive effect of $x_j$ through $\exp \beta_j$. If the prior information is limited, different approaches
+exist. One of them is the Jeffreys' invariance
+principle that states that \enquote{any rule for determining the prior density for $P(\theta)$ should yield an equivalent result if applied
+to a transformed parameter} \parencite[Chap. 2.8]{Gelman2014_BayesianDataAnalysis}. Even though it is popular, it's use in multivariate
+cases is controversial.
+
