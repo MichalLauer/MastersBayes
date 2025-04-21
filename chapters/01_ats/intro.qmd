@@ -1,22 +1,11 @@
-In statistical data analysis, there are several types of data that are distinguished by their key structure. Data that 
-are independent of each other are called Cross-Sectional Data (CSD). They are usually obtained at random and one can 
-assume that their order is not important; that is, individual records are independent. CSD often represent records
-(individuals, animals, corporations, workers...) at a specific time period and time dependence is not analyzed
-\parencite[Chap. 1-3]{Wooldridge2020_IntroductoryEconometricsModern}.
+Analysis of time series can be more complicated that analysis of cross sectional data because the time dimension that is inherently introduced.
+Methods on data without time dependence often assume random sampling and identical, independent distribution of every data point. An example can be the 
+MLR3 requirement defined in \parencite{Wooldridge2020_IntroductoryEconometricsModern} for Multiple Linear Regression estimated with Ordinary Least
+Squares. It states that in order to get unbiased estimates $\hat\theta$ of the true population parameters $\theta$, every data points needs to be 
+independent. In time series data, a point at time $t$ is dependent on values up-to time $t-1$ and this requirement is automatically violated.
 
-A lot of economical or financial records contain such time dependence. For example, simple data about unemployment,
-GDP, investment return or inflation may depend on a value that was last observed. Such data are called Time Series Data
-(TSD). Their key feature is that they are ordered by some key, usually a date or time. This ordering may
-have effect on the data and further analysis and requires additional handling. This means that individual observations
-are not independent. Ordering in this case matters. Further description and breakdown of more data structures offers
-\parencite[Chap. 1-3]{Wooldridge2020_IntroductoryEconometricsModern}.
-
-A time series can be decomposed into four parts. The overall average direction in which the time series changes is
-called the trend component. It describes the tendency
-of a time series to grow, shrink or stay the same. Seasonal component refers to a part of a time series that fluctuates
-around the trend. Seasonality should repeat within one calendar year and can be connected to holidays or the 
-season of the year. In data that spans across multiple years, fluctuation around the trend can be decomposed into a 
-cyclical component. The main difference between them is related to regularity of each component. Seasonality represent 
-regular periodic changes around the trend while cyclicality represent irregular periodicity around the trend. This decomposition is helpful in determining key characteristics of a time series. 
-Identifying different components can help with forecasting and statistical inference
-\parencite[chap. 5.2]{HindlsEtAl2018_StatistikaEkonomii}.
+\parencite{HindlsEtAl2018_StatistikaEkonomii} states that analysis of time series data is the most important analysis for economic data. All economic
+data is *somehow* dependent on its past values and this dependence need to be reflected. One way of analyzing a time series is by forecasting future
+values. This can be done using either point estimates or confidence intervals. Another approach, that is considered in this thesis, is the forecast
+of future volatility. Because a lot of popular techniques, such as the Black–Scholes model, assume homoscedasticity, it is only natural to model
+the underlying volatility.
