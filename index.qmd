@@ -117,7 +117,7 @@
 \item [LLN] Law of Large Numbers
 \item [PI] Percentile Interval
 \item [HDI] Highest Density Interval
-\item [MCMC] Markov-Chain Monte-Carlo
+\item [MCMC] Markov Chain Monte Carlo
 \item [ESS] Effective Sample Size
 \item [MA] Metropolis Algorithm
 \item [MHA] Metropolis-Hastings Algorithm
@@ -228,7 +228,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/02_bayes/equation_models.qmd >}}
 
-## Markov-Chain Monte-Carlo methods
+## Markov Chain Monte Carlo methods
 
 {{< include chapters/02_bayes/mcmc.qmd >}}
 

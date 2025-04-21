@@ -4,7 +4,7 @@
 # Posterior density
 p <- function(theta, data) {
   prior <- dbeta(theta, shape1 = 1, shape2 = 1)
-  likelihood <- dbinom(sum(data), size = len(data), prob = theta)
+  likelihood <- dbinom(sum(data), size = length(data), prob = theta)
 
   return(prior * likelihood)
 }
@@ -35,7 +35,7 @@ for (i in seq_len(number_of_iterations)) {
 # Posterior density
 p <- function(theta, data) {
   prior <- dbeta(theta, shape1 = 1, shape2 = 1)
-  likelihood <- dbinom(sum(data), size = len(data), prob = theta)
+  likelihood <- dbinom(sum(data), size = length(data), prob = theta)
 
   return(prior * likelihood)
 }

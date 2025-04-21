@@ -7,11 +7,11 @@ density might burdened with a relatively high MC error \parencite[Chap. 14.1]{Kr
 
 Hamiltonian Monte Carlo (HMC) methods do not work with random walk, but with Hamiltonian mechanics. They offer a link between classical mechanics
 and quantum mechanics. This domain is out of the scope of this thesis, but is explored in some physical textbooks, such as \parencite{Lowenstein2012_EssentialsHamiltonianDynamics}. Mathematical explanation of HMC is offered in \parencite[Chap. 12.4]{Gelman2014_BayesianDataAnalysis},
-while an intuitive introduction to the topic is offered in \parencite[hap. 14.1]{Gelman2014_BayesianDataAnalysis} or 
+while an intuitive introduction to the topic is offered in \parencite[Chap. 14.1]{Kruschke2015_DoingBayesianData} or 
 \parencite[Chap. 9.1]{McElreath2020_StatisticalRethinkingBayesian}.
 
 HMC does not implement random walk, but utilizes a set of momentum variables $\phi_i$ for every estimated parameter $\theta_i$, $i =
-1, \dots, p$. Momentum variables represent a \enquote{jump} between every new sample and is completely independent of the estimated
+1, \dots, d$. Momentum variables represent a \enquote{jump} between every new sample and is completely independent of the estimated
 parameter $\theta$. Then, the probability distribution of jumps $P(\phi)$, often called the jumping distribution, is combined with the
 posterior distribution, and
 
@@ -33,7 +33,7 @@ $$
 
 First, the HMC algorithm draws initial values for $\phi$ from the jump distribution. Then, parameters $\theta$ and jumps $\phi$ are simultaneously
 updated in multiple iterations using $L$ \enquote{leapfrog steps}, where each step is comprised of two parts. First, the jumps are updated with
-a the gradient as
+the gradient as
 
 $$
 \phi_{t+1} = \phi_t + {1\over2} \epsilon \frac{ \partial \log p(\theta | x) }{\partial \theta},
@@ -52,12 +52,12 @@ $$
 r = \frac{
     P(\theta^*|x) P(\phi^*)
 }{
-    P(\theta^{t-1}|x) P(\phi^{t-1})
+    P(\theta_{t-1}|x) P(\phi_{t-1})
 },
 $$
 
 where the proposals are accepted with probability $\min(1, r)$. After accepting or rejecting a new proposal $\theta^*$ and storing new sample
-$\theta^t$, new jumps $\phi$ are generated from the jumping distribution and the process is repeated. As well as the MCMC algorithms, HMC
+$\theta_t$, new jumps $\phi$ are generated from the jumping distribution and the process is repeated. As well as the MCMC algorithms, HMC
 is guaranteed to converge to a specific stationary distribution that is the posterior distribution.
 
 There are three ways how HMC can be made more efficient. Firstly, the jumping distribution can be fine-tuned for specific models which can increase
@@ -67,8 +67,8 @@ can be optimized. As with MCMC, these parameters can be either set manually or a
 notes, changing the parameters mid-inference can lead to instability and the adaptive phase should be run only during the warmup phase.
 
 Even though the method offers higher accuracy in small samples, it is computationally more costly, and MCMC methods could be better in relatively simple,
-non-complex models. It is also limited to continuous parameters and imputation of discrete probability distributions is not possible[^hmc-disc]. \parencite[Chap. 9.3]{McElreath2020_StatisticalRethinkingBayesian}. HMC also takes ideas from GS, specifically from the blocked approach to making samples.
+non-complex models. It is also limited to continuous parameters and imputation of discrete probability distributions is not possible[^hmc-disc] \parencite[Chap. 9.3]{McElreath2020_StatisticalRethinkingBayesian}. HMC also takes ideas from GS, specifically from the blocked approach to making samples.
 HMC is able to sample highly correlated parameters jointly in blocks, which can make samples more efficient.
 
 [^hmc-disc]: There are implementations that are able to do this. For example, a restructured model in Stan is able to identify such model. 
-Examples are provided in \parencite[Chap 15., Chap. 16](McElreath2020_StatisticalRethinkingBayesian)
+Examples are provided in \parencite[Chap 15., Chap. 16]{McElreath2020_StatisticalRethinkingBayesian}.

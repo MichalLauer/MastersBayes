@@ -79,7 +79,7 @@ series is strictly stationar, it is also weakly stationar. But the opposite is n
 implications imposed by strict stationarity, this thesis will always refer to weak stationarity under the term 
 \enquote{stationarity}.
 
-As an example, figure @fig-intro-ts taken from \parencite[Fig. 1.1]{ShumwayStoffer2017_TimeSeriesAnalysis} shows some of these properties 
+As an example, Figure @fig-intro-ts taken from \parencite[Fig. 1.1]{ShumwayStoffer2017_TimeSeriesAnalysis} shows some of these properties 
 on real data.
 
 ![Johnson & Johnson quarterly earnings per share, 84 quarters, 1960-I to 1980-IV \parencite{ShumwayStoffer2017_TimeSeriesAnalysis}](./img/intro-ts.png){#fig-intro-ts}

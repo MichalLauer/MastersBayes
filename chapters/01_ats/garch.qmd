@@ -1,4 +1,4 @@
-The variance for ARCH(m) model given in equation @eq-var-arch is simple and effective, but sometimes not adequate for 
+The variance for ARCH(m) model given in Equation @eq-var-arch is simple and effective, but sometimes not adequate for 
 real data. General autoregressive conditional heteroscedasticity (GARCH) model, proposed by Boreslav 
 \parencite{Bollerslev1986_GeneralizedAutoregressiveConditional}, are
 more flexible and offer better long-term memory for forecasting \parencite{AL-Najjar2016_ModellingEstimationVolatility}. GARCH
@@ -17,7 +17,7 @@ $$
 $$ {#eq-var-garch}
 
 The main difference between ARCH$(p)$ model and GARCH$(p, q)$ model is the sum of past conditional
-variances given in @eq-var-garch. In addition to the ARCH constrains, for the GARCH $\beta$ coefficients it must hold
+variances given in Equation @eq-var-garch. In addition to the ARCH constrains, for the GARCH $\beta$ coefficients it must hold
 that $\beta_j \geq 0$ and $\sum_{i=1}^{\max (p, q)} (\alpha_i + \beta_i) < 1$. This condition implies that the 
 shock $a_t$ is finite and conditional variance $\sigma^2$ evolves over time 
 \parencite[Chap. 3.5]{Tsay2005_AnalysisFinancialTime}. 

@@ -2,7 +2,7 @@ Another approach to volatility modeling is to leave the assumption that volatili
 that is stochastic and unobserved. This idea is employed in Stochastic volatility (SV) models, which are special 
 types of state-space models \parencite[Chap. 11.2]{Tsay2005_AnalysisFinancialTime}.
 
-The initial equation is similar as the ARCH equation in @eq-var-arch and GARCH equation in @eq-var-garch, where the log of
+The initial equation is similar as the ARCH Equation  @eq-var-arch and GARCH Equation @eq-var-garch, where the log of
 returns $p_t$ is described
 by the mean equation at time $t$ and shock at time $t$. For SV models, the log returns are assumed to be centered and
 

@@ -14,7 +14,7 @@ $$
 P(H|D) = \frac{P(H)P(D|H)}{P(D)},
 $$
 
-but the interpretation is identical. In practice, equation @eq-bayes-eq is composed of probability functions and integrals. A simple
+but the interpretation is identical. In practice, Equation @eq-bayes-eq is composed of probability functions and integrals. A simple
 beta-binomial model is often used to describe the posterior distribution of a parameter that represents probability. It is also often used as an introductory model to bayesian data analysis, for example \parencite[Page 155]{Hebak2013_StatistickeMysleniNastroje}, 
 \parencite[Chap. 2.1]{Gelman2014_BayesianDataAnalysis}, or 
 \parencite[Chap. 6]{Kruschke2015_DoingBayesianData}.
@@ -27,7 +27,7 @@ $$
 P(x) = \int_{-\infty}^{\infty} P(x|\theta)P(\theta) d\theta.
 $$
 
-Combining this information with equation @eq-bayes-eq gives the beta-binomial model
+Combining this information with Equation @eq-bayes-eq gives the beta-binomial model
 
 $$
 P(\theta|x) = \frac{
@@ -51,14 +51,14 @@ In real data analysis, it is often needed to use apriori distribution that is no
 apriori distributions, represent some structure in data or work with latent variables, conjugacy is often not possible and analytical
 solution does not exist or it is impractical to derive them. To overcome this, sampling and simulation methods have been developed to
 sample observations from a posterior distribution with the need to know the explicit analytical solutions. These methods do not work
-with the bayesian equation in @eq-bayes-eq, but with a simplified version 
+with the bayesian Equation in @eq-bayes-eq, but with a simplified version 
 
 $$
 P(\theta | x ) \propto P(\theta)P(x|\theta).
 $$ {#eq-bayes-prop}
 
 Because the predictive probability, $P(x)$, is constant and does not dependent on the estimated parameters $\theta$, it servers as a
-normalization constant that can be excluded. This is represented in equation @eq-bayes-prop where $\propto$ means that the posterior distribution
+normalization constant that can be excluded. This is represented in Equation @eq-bayes-prop where $\propto$ means that the posterior distribution
 is proportional to the combination of apriori distribution $P(\theta)$ and likelihood of the data $P(x|\theta)$. The only sufficient
 requirement for this assumptions is that the apriori distribution is a proper probabilistic distribution 
 \parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje}.

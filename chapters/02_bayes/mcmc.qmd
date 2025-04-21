@@ -1,33 +1,33 @@
 To describe posterior distribution that is analytically unknown, bayesian statistics often use a method called Markov Chain Monte Carlo
-(MCMC) sampling. \parencite[CHap. 11]{Gelman2014_BayesianDataAnalysis} describes MCMC as *\enquote{a general method based on drawing values of $\theta$
-from approximate distributions and the correcting those draws to better approximate the target posterior distribution.}*. In statistics, Monte Carlo
-simulations are used to sample data from a known population distribution, given some inputs. This allows researchers to compare different methods
-in the same environment and get insight on what methods might be better in what conditions. Monte carlo simulations can also be used to estimate the bias,
+(MCMC) sampling. \parencite[Chap. 11]{Gelman2014_BayesianDataAnalysis} describes MCMC as *\enquote{a general method based on drawing values of $\theta$
+from approximate distributions and then correcting those draws to better approximate the target posterior distribution}*. In statistics, Monte Carlo
+simulations are used to sample data from a known population distribution, given some input parameters. This allows researchers to compare different methods
+in the same environment and get insight on what methods might be better in what conditions. Monte Carlo simulations can also be used to estimate the bias,
 overconfidence, or statistical errors that will be expected when using such methods on samples from the real world. It can be used to measure the
-precision of point estimates or the expected width of confidence intervals \parencite{HopkinsEtAl2024_HowWeKnow}. Monte carlo chains
+precision of point estimates or the expected width of confidence intervals \parencite{HopkinsEtAl2024_HowWeKnow}. Monte Carlo chains
 are simply *\enquote{assessing the properties of a target distribution by generating representative random values.}* \parencite[Chap. 7.4.5]{Kruschke2015_DoingBayesianData}. The analytical equation for a posterior distribution is often unknown, and the use of a simple Monte Carlo 
 sampling technique is not sufficient to examine its properties.
 
-Markov chain is a stochastic process that describes the probability of moving into a different state. The probability of transitioning into 
+Markov Chain is a stochastic process that describes the probability of moving into a different state. The probability of transitioning into 
 a different state at time $t+1$ is described by a transition matrix $T$ and is dependent only on the current state $t$.
-Formally, put, the probability that parameter $\theta$ transitions to state $A$ is
+Formally put, the probability that parameter $\theta$ transitions to state $A$ is
 
 $$
-P(\theta^{[t+1]} \in A | \theta^{[0]}, \theta^{[1]}, \dots, \theta^{[t-1]}, \theta^{[t]}) =
-P(\theta^{[t+1]} \in A | \theta^{[t]}).
+P(\theta_{[t+1]} \in A | \theta_{[0]}, \theta_{[1]}, \dots, \theta_{[t-1]}, \theta_{[t]}) =
+P(\theta_{[t+1]} \in A | \theta_{[t]}).
 $$
 
 Such process has important properties that make it suitable in posterior sampling. Chains are able to explore the whole space of possible values and
-can move between low-density and high-density regions. If the chain is stationary[^mc-stan], it can converge to a stationary distribution
+can move between low-density and high-density regions. If the chain is stationary[^mc-stan], it will converge to a stationary distribution
 independently on the initial state. Translating these properties into bayesian sampling, properly defined stationary Markov Chains are able
 to explore the whole posterior distribution without analytical expression \parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje}. MCMC is
-combination of markov chain samples that are used to describe the true posterior distribution. On these samples, it is possible to compute
+combination of Markov Chain samples that are used to describe the true posterior distribution. On these samples, it is possible to compute
 properties of the posterior distribution, such as the expected value, median, mode, or any interval metric.
 
 [^mc-stan]: Stacionarity in Markov Chains is something different than stacionarity in Time series.
 
-There are several methods that use the MCMC methodology. The most popular methods are the Metropolis–Hastings algorithm (MHA), 
-Metropolis algorithm (MA), and the Gibbs sampler (GS), which are later explored in this thesis. Although MCMC sampling is guaranteed to 
+There are several methods that use the MCMC methodology. The most popular methods are the Metropolis–Hastings algorithm, 
+Metropolis Algorithm, and the Gibbs Sampler, which are later explored in this thesis. Although MCMC sampling is guaranteed to 
 converge to the posterior distribution, full convergence is the limit of an infinitely long chain. Chains with finite length can describe the 
 posterior distribution with arbitrary precision. It is hence important to not only correctly define the MCMC simulation, but to monitor the quality
 of convergence. \parencite[Chap. 7.5]{Kruschke2015_DoingBayesianData} defines three main goals when samples are generated using MCMC methods:
@@ -36,7 +36,7 @@ of convergence. \parencite[Chap. 7.5]{Kruschke2015_DoingBayesianData} defines th
 2) accuracy and stability, and
 3) efficiency.
 
-Representativeness of a markov chain implies that the posterior distribution is explored fully and that the resulting chains are not affected
+Representativeness of a Markov Chain implies that the posterior distribution is explored fully and that the resulting chains are not affected
 by the initial starting points. Accuracy of a chain is crucial in determining point estimates, interval estimates or when tails of the distribution are 
 explored. Running the chain multiple times should also give similar[^mc-similar] results that should be stable. Estimating the posterior should also 
 not take a very long time[^mc-long-time] and the samplers should be efficient.
@@ -48,9 +48,9 @@ bayesian hierarchical model, estimation of state-space models or in casual DAG s
 
 The quality of chains is very important and is explored in several books, such as \parencite{Kruschke2015_DoingBayesianData} or 
 \parencite{Gelman2014_BayesianDataAnalysis}, or papers that aim to optimize the bayesian workflow \parencite{GelmanEtAl2020_BayesianWorkflow}.
-A simple idea is that after the chain has stabilized, the estimated parameters should not change very much. Plotting the estimated parameter
+A simple idea is that after the chain has stabilized, the estimated parameters should not change very much. Plotting some central tendency of the estimated parameter
 against the iteration can be a simple visual check whether the estimate has stabilized. This can be further improved by generating multiple chains
-and observing whether all chains converge to the value. Similarly, plotting a histogram of the estimated parameter from multiple chains
+and observing whether all chains converge to the same value. Similarly, plotting histograms of the estimated parameters from multiple chains
 should show high overlap. The difference between chains can also measured with a shrink factor, which represents variance between individual 
 chains. The ideal shrink factor should be very close to 1. Some authors suggest that value greater than 1.1 implies instability and the
 simulation should be reviewed \parencite[Chap. 7.5.1]{Kruschke2015_DoingBayesianData}. These steps validate stability and accuracy, but they can
@@ -67,6 +67,6 @@ built for such complexity.
 
 The accuracy of chain can also be measured using Effective Sample Size (ESS) that measures the true sample size that the chain represents. The closer
 the ESS is to the number of samples that have been generated, the better accuracy of chains there is. It is often computed using the autocorrelation
-function so the results autocorrelation analysis and interpretation of ESS should give a similar conclusion. The quality of chains is often heavily
+function so the results of autocorrelation analysis and interpretation of ESS should give a similar conclusion. The quality of chains is often heavily
 influenced by the first generated samples, which can be imprecise and very far from the stationary distribution. That is why the first couple of samples
 is discarded in a burn-in period. Removing them increases the stability of chain and their accuracy.

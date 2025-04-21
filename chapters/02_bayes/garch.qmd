@@ -26,4 +26,4 @@ package `{bayesGARCH}` that offers automatic estimation of GARCH$(1, 1)$ model w
 automatic and uses MHA with fine-tuned proposal distribution made up of auxiliary ARMA processes. Additionally, a great number of new samplers
 and methods have been devoted to GARCH model estimation. Overview of some of them can be found in 
 \parencite{VirbickaiteEtAl2015_BAYESIANINFERENCEMETHODS} or
-\parencite[Chap. 5.1]{GewekeEtAl2013_OxfordHandbookBayesian}.
+\parencite[Chap. 5.1]{GewekeEtAl2013_OxfordHandbookBayesian}. Stan code for a general GARCH model can be found in Appendix #TODO.

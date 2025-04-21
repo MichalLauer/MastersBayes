@@ -23,11 +23,11 @@ r = \frac{
 }.
 $$ {#eq-mha}
 
-The function $J_t$ in @eq-mha denotes the proposal distribution at iteration $t$. In a simple MA, the ratio of the two conditional
+The function $J_t$ in Equation @eq-mha denotes the proposal distribution at iteration $t$. In a simple MA, the ratio of the two conditional
 proposal distributions is equal to 1 and can be then excluded. In the case of asymmetrical proposal distributions, this is not true,
 and the ratio needs to be corrected by this factor. The rest of the procedure is the same as for the MA.
 
-In general, \parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje} suggest that in general, the only condition for the MHA to generate
+In general, \parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje} suggest that the only condition for the MHA to generate
 stationary chains is that the transition probabilities between two states are proportional to the posterior densities, formally put as
 
 $$
@@ -38,8 +38,6 @@ Example of data generated using MHA can be seen in Figure @fig-sim-mha. The proc
 The proposal distribution is in this case the Log-normal distribution with natural logarithm of mean equal to previously accepted sample. The
 full code can be see in Appendix \ref{code-mha}.
 
-![Simulation of a beta-binomial model using the Metropolis-Hastings algorithm.](./img/sim_ma.png){#fig-sim-mha}
+![Simulation of a beta-binomial model using the Metropolis-Hastings algorithm.](./img/sim_mha.png){#fig-sim-mha}
 
-The simulation looks fairly well for the middle model. In smaller or larger true population relative frequency, the simulation fails
-to capture the skewness of the true posterior distribution. This can attributed to several factors, such as inappropriate proposal distribution,
-insufficient sample size or large autocorrelation.
+The simulation looks better and it looks like the samples generated using MHA are converging faster than using MA in Figure @fig-sim-ma.
