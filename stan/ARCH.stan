@@ -1,35 +1,37 @@
 data {
   int<lower=1> T; // Length of the TS
-  vector[T] y;    //Log of returns
+  int<lower=1> m; // Order of ARCH(m)
+  vector[T] y;    // Log of returns
 }
 
 transformed data {
-  vector[T] resid;
-  resid = square(y);
+  matrix[T-m, m] residual;
+
+  for (i in 1:(T-m)) {
+    for (j in 1:m) {
+      residual[i, j] = y[m + i - j]; // Since E(y) = 0, historial values
+                                     // are just residuals.
+    }
+  }
 }
 
 parameters {
-  real<lower=0> alpha0;         // Intercept
-  real<lower=0, upper=1> alpha; // Coefficients
-  real<lower=1> epsilon_nu;
+  real alpha0;
+  simplex[m] alpha;
+}
+
+transformed parameters {
+  vector[T-m] sigma;
+  for (i in 1:(T-m)) {
+    sigma[i] = alpha0 + dot_product(alpha, square(residual[i,]));
+  }
 }
 
 model {
-  alpha0     ~ gamma(1, 1);
-  alpha      ~ beta(1, 1);
-  epsilon_nu ~ gamma(2, 0.2);
+  alpha0 ~ gamma(2, 5);
+  alpha ~ dirichlet([0.3, 0.3, 0.3]);
 
-  for (t in 2:T) {
-    real sigma_t = sqrt(alpha0 + alpha * pow(resid[t-1], 2));
-    y[t] ~ student_t(epsilon_nu, 0, sigma_t);
-  }
-
-}
-
-generated quantities {
-  vector[T] sigma;
-  sigma[1] = sqrt(alpha0);  // Initial volatility (assuming no lag for t=1)
-  for (t in 2:T) {
-    sigma[t] = sqrt(alpha0 + alpha * square(y[t-1]));
+  for (i in 1:(T-m)) {
+    y[i + m] ~ student_t(5, 0, sigma[i]);
   }
 }

@@ -1,5 +1,5 @@
 library(rstan)
-library(tidyquant)
+library(quantmod)
 symbol <- "GOOGL"
 from   <- "2024-01-01"
 to     <- "2025-01-01"
@@ -22,12 +22,10 @@ model <-
     file = "./stan/ARCH.stan",
     data = list(
       T = length(y),
+      m = 3,
       y = y
     )
   )
 
-sigma <- extract(model, pars = "sigma")$sigma
-sigma_xts <- xts(colMeans(sigma), order.by = index(ret))
 
-lines(sigma_xts, col = "red")
-lines(-sigma_xts, col = "red")
+summary(model)$summary |> names()
