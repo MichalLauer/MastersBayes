@@ -270,9 +270,15 @@ knitr::opts_chunk$set(
 
 # Practical application
 
-- Introduction to Stan
-- Introduction to various R packages
-- Use of ARCH/GARCH/SV models on several financial time series 
+{{< include chapters/03_prac/intro.qmd >}}
+
+## Ticker GOOGL
+
+{{< include chapters/03_prac/031_googl/googl.qmd >}}
+
+### ARCH models
+
+{{< include chapters/03_prac/031_googl/ARCH.qmd >}}
 
 ```{=tex}
 %%% Závěr
@@ -298,7 +304,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/99_appendix/mcmc.qmd >}}
 
-# Stan models
+# Stan models {#sec-app-stan}
 
 {{< include chapters/99_appendix/models.qmd >}}
 

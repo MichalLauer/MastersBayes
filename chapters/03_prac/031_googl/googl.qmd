@@ -1,0 +1,25 @@
+First analysed financial asset is *Alphabet Inc Class A* under ticker GOOGL. The closing price is visuales in
+Figure @fig-googl-raw.
+
+![Closing price for ticker GOOGL](./img/googl/closing.png){#fig-googl-raw}
+
+The development of closing price is nonstationary because the mean is not time-invariant. Issue of heteroskedasticity is
+also relevant, for example the periods of growth between 1st of September, 2023 and 1st of March, 2024 look more variable
+than in the next period between 1st of March, 2024 and 1st of September, 2024. The log returns are visualised in @fig-googl-logret
+where the red cross represents the worst day-to-day decrease while green cross the contrary. Statistical description is provided
+in Table @tbl-googl-logret.
+
+![Log returns for ticker GOOGL](./img/googl/logret.png){#fig-googl-logret}
+
+Table: Description of log returns of GOOGL {#tbl-googl-logret}
+
+|Start      |End        |n      |Average |Variance |St. dev. |Min   |Max  |
+|:----------|:----------|:------|:-------|:--------|:--------|:-----|:----|
+|2022-04-01 |2025-03-28 |750    |0.00    |0.00     |0.02     |-0.07 |0.14 |
+
+From a visual inspection, it looks like the log returns have constant mean of zero. This is also supported by literature review
+and a constant mean is usually expected. The series still suffers from heteroskedasticity where periods of high and low volatility
+can be observed.  The average return is close to zero with small standard deviation of 0.02. The largest loss can be observed 
+on 25th of October, 2023. Experts argue it was cause by poor  quaterly financial earning 
+\parencite{WSJ2023_StockMarketNews}. The greatest day-to-day change can be observerd on 26th of April, 2024. This
+can be attributed to quaterly records that overcame all expectations \parencite{Chudoba2024_DobraCislaAlphabetu}.

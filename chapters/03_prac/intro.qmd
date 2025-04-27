@@ -1,0 +1,23 @@
+The practical part of this thesis focuses on the application of ARCH$(m)$, GARCH$(m, q)$ and SV models on various financial time 
+series data. First, the apriori distributions are visually described and their meaningfulness is argued. To estimate the models,
+custom Stan programs are written and printed in Appendix @sec-app-stan. When writing and defining the Stan scripts, readability and 
+clear instructions are preferred over optimization. This ensures that the code is clear to non-Stan users, however it might
+suffer from low efficiency. The estimation time is described in every chapter. After various models of every class are estimated,
+studied and the single best model is selected. To make sure that the models have successfully converged, ESS and the Shrinkage 
+factor are compared and validated. Then the posterior distribution are described and a single best model is selected. The three best¨
+models from every class are compared, interpreted and their correctness is checked against the true returns.
+
+The estimation is done using Stan \parencite[ver. 2.32.2]{CarpenterEtAl2017_StanProbabilisticProgramming} connected to R
+\parencite[ver. 4.4.3]{RCoreTeam2023_LanguageEnvironmentStatistical}. The data from financial markets are downloaded using
+package `{quantmod}` \parencite[ver. 0.4.27]{RyanUlrich2025_QuantmodQuantitativeFinancial} which uses Yahoo Finance in
+the background. The time span for every model is a three-year window from 31st of March, 2022 to 31st of March, 2025. 
+The data are collected daily, however, financial markets are usually closed on holidays or weekends. 
+The raw closing prices are transformed to log returns defined in @eq-log-returns. Visualisations are provided either with 
+package `{zoo}` \parencite[ver. 1.8.14]{ZeileisGrothendieck2005_ZooS3Infrastructure} or `{ggplot2}` 
+\parencite[ver. 3.5.2]{Wickham2016_Ggplot2ElegantGraphics}. R language
+communiates with the Stan software using `{rstan}` \parencite[ver. 2.32.7]{StanDevelopmentTeam2024_RStanInterfaceStan} that can be used
+for estimation and sampling. Data are transformed using packages `{dplyr}` \parencite[ver. 1.1.4]{WickhamEtAl2023_DplyrGrammarData},
+`{tidyr}` \parencite[ver. 1.3.1]{WickhamEtAl2024_TidyrTidyMessy} and 
+`{purrr}` \parencite[ver. 1.0.4]{WickhamHenry2025_PurrrFunctionalProgramming}.
+
+!!! TODO: Přidat důvod, proč zrovna tyhle akcie

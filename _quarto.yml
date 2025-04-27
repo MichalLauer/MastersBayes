@@ -11,6 +11,7 @@ crossref:
   tbl-prefix: ""
   eq-prefix: ""
   fig-prefix: ""
+  sec-prefix: ""
 
 format:
   pdf:
@@ -24,3 +25,4 @@ format:
     lang: en
     notebook-links: false
     keep-tex: true
+    fig-pos: "H"

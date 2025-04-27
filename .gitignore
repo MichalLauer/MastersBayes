@@ -12,3 +12,5 @@ _manuscript/
 /.quarto/
 /sw/
 .Rproj.user
+
+*.RDS
