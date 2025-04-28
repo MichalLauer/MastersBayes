@@ -1,14 +1,5 @@
 {
     "cSpell.enabled": true,
-    "cSpell.diagnosticLevel": "Hint",
-    "cSpell.enabledFileTypes": {
-        "bibtex": true,
-        "plaintext": true,
-        "quarto": true,
-        "markdown": true,
-        "latex": false,
-        "python": true
-    },
     "cSpell.ignoreWords": [
         "Andrade",
         "Ardia",
@@ -55,7 +46,7 @@
         "tsay",
         "wooldridge"
     ],
-    "cSpell.language": "en,cs",
+    "cSpell.language": "en",
     "cSpell.words": [
         "ARMA",
         "autoregressive",

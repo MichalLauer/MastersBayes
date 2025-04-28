@@ -2,90 +2,88 @@ All the models assume shocks distributed with Student's distribution with parame
 financial time series data often assume heavy tails and in Figure @tbl-googl-logret supports this. It is assumed that 
 
 $$
-\nu \sim \Gamma(\alpha = 4, \beta = 3).
+\nu \sim \Gamma(\alpha = 4, \beta = 0.4).
 $$
 
-This implies that it is expected, before observing data, that the constant volatility is between $4.23$ and $22.83$ with
-probability $0.89$. The expected volatility is 12. The full distribution is shown in Figure @fig-googl-arch-apr-nu.
+This implies that it is expected degrees of freedom, before observing data, is between $3.53$ and $19.03$ with
+probability $0.89$. The expected volatility is 10. Because heavier tails are expected, the degrees of freedom 
+$\nu$ are probably smaller. The full distribution is shown in Figure @fig-googl-arch-apr-nu.
 
-![GOOGL: Apriori distribution for $\nu$](./img/googl/arch/apriori_nu.png){#fig-googl-arch-apr-nu}
+![GOOGL/ARCH: Apriori distribution for $\nu$](./img/googl/arch/apriori_nu.png){#fig-googl-arch-apr-nu}
 
 Since models work with log returns, the expected log return at time $t$ is zero and only variance is modeled. Constant
-volatility $\alpha_0$ and all parameters $\alpha_i$ are modeled using Gamma distribution. The apriori distribution
-for all parameters $\alpha$ is
+volatility $\alpha_0$ can be greater than 1 and thus is modeled using $\Gamma(\alpha = 2, \beta = 4)$. This implies
+that 89% credibility interval of $(0.09, 1.16)$ that is quite wide and allows both low and high values. Full
+aprior distribution is in Figure @fig-googl-arch-apr-alpha0.
 
-$$
-\alpha_i \sim \Gamma(\alpha = 2, \beta = 0.4),
-$$
+![GOOGL/ARCH: Apriori distribution for $\alpha_0$](./img/googl/arch/apriori_alpha0.png){#fig-googl-arch-apr-alpha0}
 
-which implies 89% credibility interval of $(0.15, 1.85)$ with the expectation of 0.8. Apriori distribution is displayed on Figure @fig-googl-apr-alpha
+Finally, coefficients $\alpha_i$ for $i = 1, \dots, m$ are modelled using $\Beta(2, 6)$. Because stationairy is 
+reinforced in the Stan definitio, coefficients greater than zero are not possible and thus the Gamma distribution
+not proper. The 89% credibility interval for all coefficients is $(0.06, 0.51)$ because higher values would
+imply high memory that is not assumed in this model. The full prior can be seen in Figure @fig-googl-arch-apr-alphai.
 
-![GOOGL: Apriori distribution for $\alpha_i$](./img/googl/arch/apriori_alpha.png){#fig-googl-apr-alpha}
+![GOOGL/ARCH: Apriori distribution for $\alpha_i$](./img/googl/arch/apriori_alpha_i.png){#fig-googl-arch-apr-alphai}
 
-In order to achieve stationary and stable models, $\sum_{i=1}^m a_i < 1$ must hold. To uphold this restriction, a transformation
-is applied such
+In order to achieve stationary and stable models, constraint $\sum_{i=1}^m a_i < 1$ is applied in the Stan definition.
+To model $m$ parameters that sum to 1, a simplex vector of size $m + 1$ is defined. Its key characteristic is
+that the sum is always one, and add a slack variable allows $m$ estimated parameters to be restricted to $\langle 0, 1 \rangle$
+while their sum is always less than one.
 
-$$
-\alpha_{tr} = \alpha_i / (1 + \sum_{i=1}^m a_i).
-$$
-
-New parameters $\alpha_{\text{tr}}$ are constrained and their posterior distribution is further explored. Since the expected
-value of log returns is zero, the mean function is zero and residuals are just lagged variables. The whole model could be 
-written as
+The whole model could be described as:
 
 $$
 \begin{aligned}
-y_t &\sim \sigma_t \epsilon_t \\
+y_t &\sim \sqrt \sigma_t \epsilon_t \\
 \epsilon_t &\sim T(\nu) \\
-\nu &\sim \Gamma(\alpha = 4, \beta = 3) \\
-\sigma_t &= \alpha_0 + \sum_{i=1}^m \alpha_{i, \text{tr}} a^2_{t - i + 1} \\
-\alpha_{i, \text{tr}} &= \alpha_i / (1 + \sum_{i=1}^m a_i) \\
-\alpha_i &\sim \Gamma(\alpha = 2, \beta = 0.4)
+\nu &\sim \Gamma(\alpha = 4, \beta = 0.4) \\
+\sigma^2_t &= \alpha_0 + \sum_{i=1}^m \alpha_i a^2_{t - i} \\
+\alpha_0 &\sim \Gamma(\alpha = 2, \beta = 4) \\
+\alpha_i &\sim B(2, 6)
 \end{aligned}
 $$
 
 In total, 8 models have been created, ranging from ARCH$(1)$ up to ARCH$(8)$. Stan used 4 chains with 8 000 iterations where
-the first 2 000 are used as a warmup. Stan uses the NUTS sampler by default and the estimation took about 20
-minutes. First,
-the convergence statistics need to be checked. The shrinkage factors for all parameters and models are displayed
-in Table @tbl-googl-arch-shrinkage.
+the first 2 000 are used as a warmup. Stan uses the NUTS sampler by default. To validate the convergence, the Shrink
+factor for every model and parameter is displayed in Table @tbl-googl-arch-shrinkage.
 
 Table: GOOGL/ARCH: Shrinkage factors {#tbl-googl-arch-shrinkage}
 
-|param    |     m = 1|    m = 2|     m = 3|     m = 4|     m = 5|     m = 6|     m = 7|     m = 8|
-|:--------|---------:|--------:|---------:|---------:|---------:|---------:|---------:|---------:|
-|nu       | 0.9999795| 1.000020| 0.9999963| 0.9999809| 0.9999761| 1.0000207| 1.0002824| 1.0001182|
-|alpha0   | 1.0000011| 1.000455| 1.0000035| 1.0001660| 1.0000176| 1.0002472| 0.9999996| 1.0002270|
-|alpha[1] | 1.0000145| 1.000025| 1.0000755| 1.0000433| 1.0001216| 0.9999619| 0.9999451| 1.0000257|
-|alpha[2] |         -| 1.000363| 0.9998719| 0.9998873| 0.9999869| 0.9999940| 1.0002198| 1.0000188|
-|alpha[3] |         -|        -| 1.0001850| 0.9998991| 0.9999923| 1.0000203| 0.9998670| 0.9999355|
-|alpha[4] |         -|        -|         -| 1.0000887| 1.0000096| 0.9999479| 0.9999747| 1.0000356|
-|alpha[5] |         -|        -|         -|         -| 0.9999887| 0.9999055| 0.9999959| 0.9999024|
-|alpha[6] |         -|        -|         -|         -|         -| 0.9999598| 1.0000171| 0.9998547|
-|alpha[7] |         -|        -|         -|         -|         -|         -| 0.9999118| 1.0001123|
-|alpha[8] |         -|        -|         -|         -|         -|         -|         -| 1.0001808|
+|param    |    m = 1|     m = 2|     m = 3|     m = 4|     m = 5|     m = 6|     m = 7|     m = 8|
+|:--------|--------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|
+|nu       | 1.000196| 0.9999430| 1.0001289| 0.9999935| 0.9999066| 0.9998828| 0.9999149| 0.9998901|
+|alpha0   | 1.000003| 1.0000137| 1.0000120| 0.9999432| 1.0001656| 1.0002455| 0.9999413| 1.0000409|
+|alpha[1] | 1.000183| 0.9999333| 1.0000737| 0.9998999| 1.0000247| 0.9999193| 1.0000410| 0.9999584|
+|alpha[2] |        -| 1.0000564| 0.9998658| 0.9999339| 0.9999184| 0.9999096| 1.0000076| 0.9999752|
+|alpha[3] |        -|         -| 0.9999131| 1.0002180| 0.9999194| 1.0000045| 0.9999492| 0.9999752|
+|alpha[4] |        -|         -|         -| 0.9999092| 1.0000498| 0.9999142| 1.0000327| 0.9999505|
+|alpha[5] |        -|         -|         -|         -| 0.9998857| 0.9999223| 1.0002835| 0.9999112|
+|alpha[6] |        -|         -|         -|         -|         -| 0.9999624| 0.9999310| 0.9999154|
+|alpha[7] |        -|         -|         -|         -|         -|         -| 0.9999876| 0.9998978|
+|alpha[8] |        -|         -|         -|         -|         -|         -|         -| 0.9999591|
 
 It is apparent that not a single shrinkage factor is greater than 1.1 and this suggest satisfactory congergence. Another look
 can be through the ESS in Table @tbl-googl-arch-ess.
 
 Table: GOOGL/ARCH: ESS {#tbl-googl-arch-ess}
 
-|param    |    m = 1|    m = 2|    m = 3|    m = 4|    m = 5|    m = 6|    m = 7|     m = 8|
-|:--------|--------:|--------:|--------:|--------:|--------:|--------:|--------:|---------:|
-|nu       | 12717.50| 15420.02| 18189.37| 17883.54| 18480.97| 21167.19| 17648.30| 14272.295|
-|alpha0   | 13420.03| 15400.38| 17031.99| 15569.39| 14807.16| 14493.73| 12223.77|  9910.834|
-|alpha[1] | 15439.66| 21306.78| 23513.12| 25718.58| 24870.72| 25945.86| 24316.50| 28775.310|
-|alpha[2] |        -| 18861.07| 23009.87| 22658.24| 25297.43| 25270.00| 21517.95| 21999.776|
-|alpha[3] |        -|        -| 25901.63| 26253.86| 26349.03| 27308.27| 25713.43| 26985.128|
-|alpha[4] |        -|        -|        -| 26309.30| 27167.88| 31781.63| 26744.20| 30589.796|
-|alpha[5] |        -|        -|        -|        -| 23642.57| 26416.92| 22945.19| 26818.564|
-|alpha[6] |        -|        -|        -|        -|        -| 29909.69| 25984.31| 29242.314|
-|alpha[7] |        -|        -|        -|        -|        -|        -| 26326.07| 26166.691|
-|alpha[8] |        -|        -|        -|        -|        -|        -|        -| 18843.680|
+|param    |    m = 1|    m = 2|    m = 3|    m = 4|    m = 5|    m = 6|    m = 7|    m = 8|
+|:--------|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|
+|nu       | 14245.03| 17118.56| 15869.50| 17683.39| 19738.49| 21426.50| 20778.16| 22342.33|
+|alpha0   | 14047.55| 16219.83| 15651.89| 16504.06| 16854.25| 18763.58| 16427.56| 18049.57|
+|alpha[1] | 16803.84| 21421.73| 22752.51| 25117.23| 26478.26| 33247.56| 30367.99| 27977.35|
+|alpha[2] |        -| 20944.28| 22949.81| 25484.66| 25898.23| 32467.39| 31354.59| 30241.38|
+|alpha[3] |        -|        -| 23545.05| 24964.27| 27782.87| 33693.82| 31066.95| 32960.50|
+|alpha[4] |        -|        -|        -| 27528.24| 28383.13| 32071.34| 31922.59| 33619.06|
+|alpha[5] |        -|        -|        -|        -| 28986.73| 29915.95| 28617.86| 33394.25|
+|alpha[6] |        -|        -|        -|        -|        -| 33643.10| 27422.37| 31443.48|
+|alpha[7] |        -|        -|        -|        -|        -|        -| 30255.88| 32418.78|
+|alpha[8] |        -|        -|        -|        -|        -|        -|        -| 27543.73|
 
 In total, $4 * 6000 = 24000$ samples are considered during inference. Simple models have relatively smaller
-ESS, which might suggest inefficient sampling. All parameters across all models have ESS greater than 9 000
-and thus the inference should reliably describe the posterior distribution.
+ESS, which might suggest inefficient sampling. All parameters across all models have ESS greater than 14 000
+and thus the inference should reliably describe the posterior distribution. Stan recorded no chain divergence which
+means the chains are very similar.
 
 Since all models assume to be shock distributed with Students distribution, the parameter $\nu$ is of interest. Figure 
 @fig-googl-arch-post-nu shows all posterior distribution by model.
@@ -96,17 +94,16 @@ All posterior distributions look very similar and their central tendencies are d
 
 Table: GOOGL/ARCH: Tabular description of posterior for $\nu$ {#tbl-googl-arch-post-nu}
 
-|Arch(m)  |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
+|ARCH(m)  |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
 |:--------|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|
-|Average  |6.16  |6.47  |6.40  |6.40  |6.42  |6.60  |6.70  |8.11  |
-|SD       |1.26  |1.38  |1.34  |1.34  |1.34  |1.35  |1.41  |1.99  |
-|CI_lower |4.50  |4.66  |4.63  |4.62  |4.66  |4.80  |4.85  |5.57  |
-|CI_upper |8.34  |8.92  |8.80  |8.75  |8.79  |9.01  |9.19  |11.59 |
+|Average  |6.26  |6.54  |6.37  |6.26  |6.23  |6.29  |6.27  |6.81  |
+|SD       |1.26  |1.37  |1.30  |1.26  |1.23  |1.24  |1.21  |1.42  |
+|CI_lower |4.57  |4.73  |4.65  |4.58  |4.59  |4.63  |4.64  |4.93  |
+|CI_upper |8.46  |9.00  |8.65  |8.45  |8.38  |8.47  |8.38  |9.35  |
 
-All posterios but the model with lag $m=8$ expect around 6 - 7 degrees of freedom. Model
-8 is an outlier with expected 8 degrees of freedom. The posterior of all models overlaps 
-which may suggest that the degrees of freedom is similar in all models. The 89% credibility
-interval is very similar for models 1 through 7 and it's higher for model 8. These results
+All marginal posterior distributions have the expectation 6 - 7 degrees of freedom. The posterior of all
+models overlaps 
+which may suggest that the degrees of freedom is similar in all models. These results
 suggest that the volatility of GOOGL ticker has heavy tails and is not normally distributed.
 All models have most probably finite variance.
 
@@ -118,12 +115,12 @@ shown in Figure @fig-googl-arch-post-alpha0.
 All the posterios look similar but as the order of the model increases, the less 
 instantinuous volatility is expected. This makes sense, because additional lags explain more
 volatility and less weight to the instantinuous volatility is assigned. Looking at it's central
-tendency, the expected instantinuous volatility does not change by a large magnitude. 
-This is furhter examined in Table @tbl-googl-arch-post-alpha0.
+tendency, the expected instantinuous volatility does not change by a large magnitude. The posteriors are however
+very different from the prior distribution. This is furhter examined in Table @tbl-googl-arch-post-alpha0.
 
 Table: GOOGL/ARCH: Tabular description of posterior for $\alpha_0$ {#tbl-googl-arch-post-alpha0}
 
-|Arch(m)  |m = 1  |m = 2  |m = 3  |m = 4  |m = 5  |m = 6  |m = 7  |m = 8  |
+|ARCH(m)  |m = 1  |m = 2  |m = 3  |m = 4  |m = 5  |m = 6  |m = 7  |m = 8  |
 |:--------|:------|:------|:------|:------|:------|:------|:------|:------|
 |Average  |0.0002 |0.0002 |0.0002 |0.0002 |0.0002 |0.0001 |0.0001 |0.0001 |
 |SD       |0.0000 |0.0000 |0.0000 |0.0000 |0.0000 |0.0000 |0.0000 |0.0000 |
@@ -131,61 +128,71 @@ Table: GOOGL/ARCH: Tabular description of posterior for $\alpha_0$ {#tbl-googl-a
 |CI_upper |0.0002 |0.0002 |0.0002 |0.0002 |0.0002 |0.0001 |0.0001 |0.0001 |
 
 Even though the posterior distributions look different, the magnitude of such difference
-is very small and can be observed only on the fourth decimal place. Difference between
-models can be observed, but it's magnitude probably does not have any valuable effect on 
-the final volatility.
+is very small and can be observed only on the fourth decimal place. The magnitude probably does not have any
+valuable effect on the final volatility.
 
-The (constrained) posterior distributions for coefficients $\alpha_1$ are shown in @fig-googl-arch-post-alpha1tr.
+The posterior distributions for coefficients $\alpha_1$ are shown in @fig-googl-arch-post-alpha1.
 
-![GOOGl/ARCH: Posterior distribution for $\alpha_{1, \text{tr}}$](./img/googl/arch/posterior_alpha1tr.png){#fig-googl-arch-post-alpha1tr}
+![GOOGl/ARCH: Posterior distribution for $\alpha_1$](./img/googl/arch/posterior_alpha1.png){#fig-googl-arch-post-alpha1}
 
-The posterior distributions for models 1 through look again very similarly. Model
-8 has fatter tail and puts slightly more probability on higher effect of first lag.
-Posterior description is provided in Table @tbl-googl-arch-post-alpha1tr
+The posterior distribution for model ARCH$(1)$ expects the largest effect of first squared residuals. As the
+lags increase, the effect shrinks. This could be attributed to the restriction and with more parameters, every
+effect is \enquote{allowed} smalled effect. The posterior distribution for coefficient $\alpha_1$ is also narrower
+for higher orders which could be attributed again to the constraint. Posterior description
+across all models is provided in Table @tbl-googl-arch-post-alpha1
 
-Table: GOOGL/ARCH: Tabular description of posterior for $\alpha_{1, \text{tr}}$ {#tbl-googl-arch-post-alpha1tr}
+Table: GOOGL/ARCH: Tabular description of posterior for $\alpha_1$ {#tbl-googl-arch-post-alpha1}
 
-|Arch(m)  |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
+|ARCH(m)  |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
 |:--------|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|
-|Average  |0.07  |0.08  |0.07  |0.08  |0.08  |0.08  |0.08  |0.09  |
-|SD       |0.03  |0.03  |0.03  |0.04  |0.04  |0.04  |0.04  |0.04  |
-|CI_lower |0.03  |0.03  |0.03  |0.03  |0.03  |0.03  |0.03  |0.04  |
-|CI_upper |0.13  |0.14  |0.14  |0.14  |0.15  |0.15  |0.15  |0.17  |
+|Average  |0.13  |0.10  |0.09  |0.08  |0.08  |0.07  |0.07  |0.07  |
+|SD       |0.04  |0.04  |0.04  |0.04  |0.03  |0.03  |0.03  |0.03  |
+|CI_lower |0.07  |0.05  |0.03  |0.03  |0.03  |0.03  |0.02  |0.03  |
+|CI_upper |0.19  |0.17  |0.15  |0.14  |0.14  |0.13  |0.12  |0.12  |
 
-The expected effect of the first lag is increasing, but the lower bound of credibility intervals
-looks very similar. The upper bound is increasing, which might suggest that more complex models
-put more probability on bigger efect of the first lag. The posterior distributions are very
-close and no large difference can be observed. The same thing can be observed on other parameters in Figure @fig-googl-arch-post-alpha-itr.
+The expected effect decreases with more lags and for $m \geq 4$ it is around 0.08. The 89% credibility intervals
+between ARCH$(m = 1)$ and ARCH$(m = 8)$ are different and it is probable that both models put different emphasis
+on the instantinuous volatility. The same thing can be observed on other parameters in Figure @fig-googl-arch-post-alpha-i
 
-![GOOGl/ARCH: Posterior distribution for $\alpha_{i, \text{tr}}$](./img/googl/arch/posterior_alpha_i.png){#fig-googl-arch-post-alpha-itr}
+![GOOGl/ARCH: Posterior distribution for $\alpha_i$](./img/googl/arch/posterior_alpha_i.png){#fig-googl-arch-post-alpha-i}
 
-Coefficient $\alpha_{2, \text{tr}}$ exhibits the same properties as $\alpha_{1, \text{tr}}$ meaning the posterior distributions are all very close to each other, with a single exception
-of the eith model. After order $m = 3$, the effect of lagged coefficients stabilizes and the
-posterior distributions do not differ much. This is further supported by the posterior
-expectations in Table @tbl-googl-arch-post-alpha-itr.
+With increasing order $m$, the coefficients shrink closer to zero and become narrower. Further detail of
+expectations can be seen in Table @tbl-googl-arch-post-alpha-i.
 
-Table: GOOGL/ARCH: Expected $\alpha_{i, \text{tr}$ for all models {#tbl-googl-arch-post-alpha-itr}
+Table: GOOGL/ARCH: Expected $\alpha_i$ for all models {#tbl-googl-arch-post-alpha-i}
 
-|coeff |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
+|$\alpha_i$ |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
 |:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|
-|i = 1 |0.07  |0.08  |0.07  |0.08  |0.08  |0.08  |0.08  |0.09  |
-|i = 2 |-     |0.06  |0.07  |0.07  |0.07  |0.07  |0.08  |0.10  |
-|i = 3 |-     |-     |0.06  |0.06  |0.06  |0.06  |0.06  |0.06  |
-|i = 4 |-     |-     |-     |0.04  |0.04  |0.04  |0.04  |0.04  |
-|i = 5 |-     |-     |-     |-     |0.09  |0.08  |0.08  |0.09  |
-|i = 6 |-     |-     |-     |-     |-     |0.09  |0.10  |0.09  |
-|i = 7 |-     |-     |-     |-     |-     |-     |0.04  |0.05  |
-|i = 8 |-     |-     |-     |-     |-     |-     |-     |0.15  |
+|i = 1 |0.13  |0.10  |0.09  |0.08  |0.08  |0.07  |0.07  |0.07  |
+|i = 2 |-     |0.09  |0.08  |0.08  |0.07  |0.06  |0.06  |0.06  |
+|i = 3 |-     |-     |0.07  |0.06  |0.05  |0.05  |0.05  |0.04  |
+|i = 4 |-     |-     |-     |0.04  |0.04  |0.03  |0.03  |0.03  |
+|i = 5 |-     |-     |-     |-     |0.09  |0.07  |0.07  |0.06  |
+|i = 6 |-     |-     |-     |-     |-     |0.08  |0.08  |0.07  |
+|i = 7 |-     |-     |-     |-     |-     |-     |0.03  |0.03  |
+|i = 8 |-     |-     |-     |-     |-     |-     |-     |0.09  |
 
-Looking left-to-right, the coefficients do not differ by a large magnitude. This means
-that all models attribute simmilar weights to lagged squared residuals. Every column
+Looking left-to-right, the coefficients shrink as the order $m$ increses. Every column
 represents a single model. Dashes imply that the coefficient is not present for a particular
-model. ARCH$(m = 1)$ can have only $\alpha_1$, model ARCH$(m = 2)$ only $\alpha_1, \alpha_2$ and so on. Finally, a perspective on the estimated volatility is in Figure 
+model. ARCH$(m = 1)$ can have only $\alpha_1$, model ARCH$(m = 2)$ only $\alpha_1, \alpha_2$ and so on. Finally, a 
+perspective on the estimated volatility is in Figure 
 @fig-googl-arch-post-volatility.
 
 ![GOOGl/ARCH: Estimated volatility across all models.](./img/googl/arch/posterior_volatility.png){#fig-googl-arch-post-volatility}
 
-The volatility in ARCH$(1)$ is very static and react to the previous log return. This mens that
-the models does not work with a long memory and react primarily to the last observed shock.
+The volatility in ARCH$(1)$ is very static and reacts only to the previous log return. This means that
+the models do not work with a long memory and react primarily to the last observed shock.
 On the other hand, ARCH$(8)$ is very variable and a single shock has relatively high effect
-on future forecasted volatility. 
+on future forecasted volatility.
+
+To pick the best model, visual comparison between the predicted returns and the true returns is 
+used. Since the expected log returns are zero, posterior credibility intervals are at each index $t$ are
+used to assess the volatility. Figure @fig-googl-arch-post-prediction compares all models and their predictions.
+
+![GOOGl/ARCH: Predictions across all models.](./img/googl/arch/posterior_prediction.png){#fig-googl-arch-post-prediction}
+
+Simple models from $m = 1$ to $m = 4$ are unable to capture the day-to-day volatility and the credibility intervals
+do not change much. More complex models are able to estimate volatility better and are also capable of capturing
+small peaks, which others model lack. No model is able to minimum and maximum peaks, which suggests that those
+are rare exceptions. Neither model provides enough flexibility in estimating the volatility and based on the 
+visual assessment, ARCH$(8)$ provides the best match between log returns and volatility.
