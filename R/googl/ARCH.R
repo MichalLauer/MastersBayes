@@ -147,6 +147,7 @@ a <- Sys.time()
 models <- map(1:8, \(m) get_model(m = m, data = data))
 print(Sys.time() - a)
 saveRDS(models, file = "./stan/data/ARCH.RDS")
+# models <- readRDS("./stan/data/ARCH.RDS")
 # ------------------------------------------------------------------------------
 # Model statistics
 # ------------------------------------------------------------------------------
@@ -479,13 +480,46 @@ ggsave(filename = "./img/googl/arch/posterior_volatility.png",
 # ---------------------------------------------------------------------------------------
 # Prediction
 # ------------------------------------------------------------------------------
+i <- 8
 tibble(
-  Index = index(ret)[-seq_len(8)],
-  true = ret[-seq_len(8)],
-  l = quantile(extract(models[[8]], pars = "y_pred")$y_pred, 0.055),
-  u = quantile(extract(models[[8]], pars = "y_pred")$y_pred, 0.945)
+  Index = index(ret)[-seq_len(i)],
+  true = ret[-seq_len(i)],
+  l = apply(extract(models[[i]], pars = "y_pred")$y_pred, 2, \(x) quantile(x, 0.055)),
+  u = apply(extract(models[[i]], pars = "y_pred")$y_pred, 2, \(x) quantile(x, 0.945)),
 ) |>
   ggplot(aes(x = Index)) +
   geom_line(aes(y = true), color = "green") +
   geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.4) +
   theme_bw()
+
+data <-
+  map(1:8, \(i) {
+    tibble(
+      Index = index(ret)[-seq_len(i)],
+      true = coredata(ret[-seq_len(i)]),
+      l = apply(
+        extract(models[[i]], pars = "y_pred")$y_pred,
+        2,
+        \(x) quantile(x, 0.055)
+      ),
+      u = apply(
+        extract(models[[i]], pars = "y_pred")$y_pred,
+        2,
+        \(x) quantile(x, 0.945)
+      )
+    ) |>
+      mutate(
+        model = paste0("ARCH(", i, ")")
+      )
+  }) |>
+  bind_rows()
+
+data |>
+  ggplot(aes(x = Index)) +
+  geom_line(aes(y = true), color = "green") +
+  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.6) +
+  theme_bw() +
+  facet_wrap(vars(model), nrow = 2)
+
+ggsave(filename = "./img/googl/arch/posterior_prediction.png",
+       width = 1920, height = 1080, units = "px")

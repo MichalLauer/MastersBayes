@@ -5,21 +5,20 @@ data {
 }
 
 parameters {
-  real<lower=0> alpha0;          // Intercept
-  vector<lower=0>[m] real_alpha; // Coefficients
-  real<lower=1> nu;              // Degrees of freedom
+  real<lower=0> alpha0;     // Intercept
+  simplex<lower=0>[m + 1] ; // Coefficients
+  real<lower=1> nu;         // Degrees of freedom
 }
 
 transformed parameters {
   vector[T - m] sigma2;      // conditional variances
   vector[m] alpha = real_alpha / (1 + sum(real_alpha));
 
-  for (t in (m + 1):T) {
-    real tmp = alpha0;
+  for (t in 1:(T - m)) {
+    sigma2[t] = alpha0;
     for (j in 1:m) {
-      tmp += alpha[j] * square(y[t - j]);
+      sigma2[t] += alpha[j] * square(y[t + m - j]);
     }
-    sigma2[t - m] = tmp;
   }
 }
 
