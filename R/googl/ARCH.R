@@ -6,7 +6,6 @@ library(ggplot2)
   library(knitr)
   library(latex2exp)
 library(rstan)
-  library(patchwork)
 # Setup
 Sys.setlocale("LC_ALL", "en")
 options(knitr.kable.NA = ' - ')
@@ -203,7 +202,7 @@ map(1:8, \(x) {
 map(1:8, \(x) {
   tibble(
     arch = x,
-    nu = as.numeric(rstan::extract(models[[x]], pars = "nu")$nu)
+    nu = extract(models[[x]], pars = "nu")$nu
   )
 }) |>
   bind_rows() |>
@@ -259,7 +258,7 @@ map(1:8, \(x) {
 map(1:8, \(x) {
   tibble(
     arch = x,
-    a0 = as.numeric(rstan::extract(models[[x]], pars = "alpha0")$alpha0)
+    a0 = extract(models[[x]], pars = "alpha0")$alpha0
   )
 }) |>
   bind_rows() |>
@@ -317,7 +316,7 @@ i <- 1
 map(i:8, \(x) {
   tibble(
     arch = x,
-    a = as.numeric(rstan::extract(models[[x]], pars = "alpha")$alpha[, i])
+    a = extract(models[[x]], pars = "alpha")$alpha[, i]
   )
 }) |>
   bind_rows() |>
@@ -401,7 +400,7 @@ map(1:8, \(i) {
     tibble(
       coeff = i,
       arch = x,
-      a = as.numeric(rstan::extract(models[[x]], pars = "alpha")$alpha[, i])
+      a = extract(models[[x]], pars = "alpha")$alpha[, i]
     )
   }) |>
     bind_rows()

@@ -123,13 +123,16 @@ y <-
   coredata(ret) |>
   as.vector()
 
-get_model <- function(kind, data) {
-  name <- paste0("GARCH", kind)
+get_model <- function(m, q, data) {
+  data$m <- m
+  data$q <- q
+
+  print(paste("Modeling", m, ",", q))
   stan(
-    file = paste0("./stan/models/", name, ".stan"),
-    model_name = name,
+    file = "./stan/models/GARCH.stan",
+    model_name = "GARCH",
     data = data,
-    seed = kind,
+    seed = as.numeric(paste0(m, q)),
     iter = 8000,
     warmup = 2000,
     cores = parallel::detectCores() - 1
@@ -138,17 +141,18 @@ get_model <- function(kind, data) {
 
 data <- list(
   T = length(y),
-  y = y,
-  s2 = var(y)
+  y = y
 )
 
 a <- Sys.time()
-models <- list(
-  get_model(11, data),
-  get_model(22, data)
-)
+models <-
+  tibble(
+    q = c(1, 2),
+    m = c(1, 2)
+  ) |>
+  pmap(\(q, m) get_model(m = m, q = q,data = data))
 print(Sys.time() - a)
-# saveRDS(models, file = "./stan/data/GARCH.RDS")
+saveRDS(models, file = "./stan/data/GARCH.RDS")
 # ------------------------------------------------------------------------------
 # Model statistics
 # ------------------------------------------------------------------------------
@@ -158,7 +162,7 @@ map(1:2, \(x) {
     rownames = "param"
   ) |>
     filter(str_detect(param, "sigma", TRUE)) |>
-    filter(str_detect(param, "y_pred", TRUE)) |>
+    filter(str_detect(param, "coefs", TRUE)) |>
     filter(str_detect(param, "lp__", TRUE)) |>
     mutate(m = x)
 }) |>
@@ -177,7 +181,7 @@ map(1:2, \(x) {
     rownames = "param"
   ) |>
     filter(str_detect(param, "sigma", TRUE)) |>
-    filter(str_detect(param, "y_pred", TRUE)) |>
+    filter(str_detect(param, "coefs", TRUE)) |>
     filter(str_detect(param, "lp__", TRUE)) |>
     mutate(m = x)
 }) |>
@@ -195,12 +199,12 @@ map(1:2, \(x) {
 # ------------------------------------------------------------------------------
 map(1:2, \(x) {
   tibble(
-    arch = x,
-    nu = as.numeric(extract(models[[x]], pars = "nu")$nu)
+    garch = x,
+    nu =extract(models[[x]], pars = "nu")$nu
   )
 }) |>
   bind_rows() |>
-  ggplot(aes(x = nu, color = factor(arch))) +
+  ggplot(aes(x = nu, color = factor(garch))) +
   geom_density() +
   theme_bw() +
   labs(
@@ -216,7 +220,7 @@ alpha <- 0.89
 map(1:2, \(x) {
   tibble(
     arch = x,
-    nu = as.numeric(extract(models[[x]], pars = "nu")$nu)
+    nu = extract(models[[x]], pars = "nu")$nu
   )
 }) |>
   bind_rows() |>
@@ -248,11 +252,11 @@ map(1:2, \(x) {
 map(1:2, \(x) {
   tibble(
     arch = x,
-    a0 = as.numeric(extract(models[[x]], pars = "alpha0")$alpha0)
+    a0 = extract(models[[x]], pars = "alpha0")$alpha0
   )
 }) |>
   bind_rows() |>
-  ggplot(aes(x = a0, color = arch)) +
+  ggplot(aes(x = a0, color = factor(arch))) +
   geom_density() +
   scale_x_continuous(labels = scales::label_number()) +
   theme_bw() +
@@ -266,10 +270,10 @@ ggsave(filename = "./img/googl/arch/posterior_alpha0.png",
        width = 1920, height = 1080, units = "px")
 
 alpha <- 0.89
-map(1:8, \(x) {
+map(1:2, \(x) {
   tibble(
     arch = x,
-    a0 = as.numeric(rstan::extract(models[[x]], pars = "alpha0")$alpha0)
+    a0 = extract(models[[x]], pars = "alpha0")$alpha0
   )
 }) |>
   bind_rows() |>
