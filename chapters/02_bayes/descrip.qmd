@@ -1,8 +1,32 @@
-To describe bayesian statistics, it is useful to first summarize frequentist statistics. The comparison and
-description of both approaches is discussed in \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}. The frequentist approach
-to data analysis has been taught, developed, studied and used for the majority of the 20th century. Some of the greatest statisticians, such
-as Karl Pearson or Sir Ronald Alymer Fisher, have been prominent figures and authors that applied the frequentist approach and have
-spoken against the use of bayesian statistics.
+The roots of bayesian statistics go back to the
+late 18th a and early 19th century and are summarized in \parencite{Hebak2013_StatistickeMysleniNastroje}. The core tool of bayesian statistics -
+the bayes' theorem - is attributed to mathematician and Thomas Bayes. His famous work *An Essay Towards Solving a Problem in the Doctrine of Chances*, which was release post-mortem by his friend Richard Price is the first work that mentions and defines the theorem. His work was extended by Pierre-Simon Laplace, who was able to capture and explain more meaningfully the nuances of a the choice of prior distribution or the problem of estimating an unknown parameter of binomial distribution.
+
+In the late 19th century and most of the 20th century, frequentist statistic became popular and subjective, bayesian interpretation of probability
+has been neglected. During this period, the famous statistician Sir Ronald Alymer Fisher contributed to frequentist statistics with his work on
+parameters and their properties, such as unbiasedness or consistency. His most influential work was in statistical inference and the development
+of tools to conduct hypothesis testing. Other than a great statistician and mathematician, Fisher was also an advocate of frequentist and objective
+approach.
+
+Fisher famously criticised bayesian statistics, then referred to as *inverse* statistics, as a *\enquote{
+inverse probability, which like an impenetrable jungle arrests progress towards precision of statistical concepts}*. Interestingly, his stance
+has not been always consistent and in his early work on Maximum likelihood estimation, he pleads to *\enquote{
+to having based his argument upon the principle of inverse probability}*. \parencite{Zabell2022_FisherBayesPredictive} further
+explains that Fisher's issue was primarily with universally uniform priors, which are not scale invariant. However, universally uniform
+priors are not standard in modern bayesian statistics and popular textbooks do not encourage this approach. 
+\parencite[Chap. 10.6]{Kruschke2015_DoingBayesianData} talks about extreme sensitivity to prior knowledge about estimated
+parameters and in model comparison. He also suggests that many statisticians support using other uninformative priors which
+might be more appropriate for specific models. So while Fishers critique was legitimate, it may not hold in current bayesian settings.
+
+With increased computational availability, bayesian statistics started to become more popular. Introduction of sampling methods that 
+are capable of generating samples from a posterior distribution that is not analytically tractable leads to models that can be more complex
+while still usable in research areas. Currently, bayesian statistics is utilized in many fields. \parencite{Ashby2006_BayesianStatisticsMedicine}
+examines the state of bayesian statistics in medicine towards the end of 20th century. One of the conclusions is that bayes has *\enquote{now permeated all the major areas of medical statistics, including clinical trials, epidemiology, meta-analyses and evidence synthesis, spatial modelling, longitudinal modelling, survival modelling, molecular genetics and decision-making}*. \parencite{Barber2012_BayesianReasoningMachine} draws connection
+between bayesian reasoning and machine learning. The similarities between bayesian thinking and quantum analysis is described in 
+\parencite{Timpson2008_QuantumBayesianismStudy}.
+
+To further describe bayesian statistics, it is useful to first summarize frequentist statistics. The comparison and
+description of both approaches is discussed in \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}. 
 Frequentist, sometimes referred to as objectivist statistics is based on the idea that the probability of event $A$ can be expressed by a
 relative frequency. To obtain the frequency, it is needed to observe event $A$ in a large number of independent trials, in the same environment. The observed relative frequency of event $A$ can be assumed to be an estimate of probability of event $A$. This idea is supported by
 statistical laws, such is the Law of large numbers (LLN), that states that with an increasing sample size, the relative frequency
@@ -14,29 +38,17 @@ the event and is objective. If one wishes to estimate the probability of some ev
 repeated experiments) ignores any prior knowledge or whether the probability can be measured. Loosely speaking, the main interest is
 in the relative frequency.
 
-This approach has some ideological and computational flaws. The major assumption of independent and identical trials is often impossible
-to implement in practice. Both independence and same conditions are often impractical in real data analysis. In general, every studied event
-is different and large number of replications can mean different number in different fields. Ideally, the number of replication should be infinite, but that is not possible to employ. The idea that the studied probability is completely unknown is also very restrictive and 
-more often than not, a researcher knows *something* about the studied event. In a simple coin toss, it is clear that the estimated
-parameter is in $\left< 0, 1 \right>$ and in researching the average age of population[^est-pop], it is quite clear that the estimate is between 18 and 65. Finally, it is assumed that the probability for every independent and identical trial is the same, which is rarely true.
-Although there is some sensible criticism for frequentist statistics, it is important to highlight that this does not contradict
-the LLN or other statistical laws. The assumption for such laws is often the independence and identical distribution, that however often do
-not hold in practice.
-
-[^est-pop]: Of course, this depends on the research question. If the researches is tasked to estimate the average age in a university,
-the range will be much narrower. In a home for the elderly, the range can be wider and much higher.
-
-Finally, another property of statistical research in the frequentist mindset is that it is not possible to create probabilistic statements
-about the estimates. It would be incorrect to interpret an estimated $(1 - \alpha)$% confidence interval that it contains the true parameter 
+To estimate an interval instead of a single point, frequentist statistics uses confidence intervals that need to
+be interpreted in regards to the idea of repeated samples. It would be incorrect to say that an estimated $(1 - \alpha)$% confidence interval it contains the true parameter 
 with $(1 - \alpha)$% probability. The true parameter is some fixed number, and the probability that an estimated confidence interval contains 
-the parameter is either 0 (if it lies outside) or 1 (if it lies within)}.
+the parameter is either 0 (if it lies outside) or 1 (if it lies within).
 The correct interpretation of a confidence interval is that $(1 - \alpha)$ % of created intervals will contain the true population 
 parameter while the other $\alpha$ percent will not \parencite{AndradeFernandez2016_InterpretationConfidenceInterval}.
 
 Bayesian statistics takes a different approach and instead of estimating the true population parameter, it creates a degree of belief about
 its
 possible values that is usually represented using a distribution. The degree of belief can vary for different researchers, because
-all of them can have individual apriori beliefs about the (model) parameter. This means that the probability of an event is considered to be subjective
+all of them can have individual prior beliefs about the (model) parameter. This means that the probability of an event is considered to be subjective
 and every researcher can have different degrees of belief. Statements such as \enquote{my probability} and \enquote{their probability}
 about the same event are valid. This does not reject probability axioms defined in the
 frequentist approach, statistical laws or rules for probability calculus.
@@ -45,14 +57,11 @@ When the final estimate is not a relative frequency that depends on identical an
 represented by a probability distribution, probability statements are possible. Because the posterior degree of belief is a probability distribution,
 probabilistic statements are possible and it is trivial[^trivial] to answer statements such as \enquote{What is the probability that the 
 estimated parameter is larger than zero?} or \enquote{What is the probability that the effect in group A is larger than in group B?}. This is also true
-not only for point estimates, but for intervals as well. In bayesian statistics, confidence intervals are replaced with credibility intervals. Their 
-interpretation is also probabilistic and research question like \enquote{What is the probability that the true population parameter lies 
-between 0 and 10} or \enquote{What is the smallest interval that contains the true parameter value with probability of 0,5?} are also common 
-\parencite[Chap. 1.1]{Gelman2014_BayesianDataAnalysis}.
+not only for point estimates, but for intervals as well. In bayesian statistics, confidence intervals are replaced with credible intervals.
 
 [^trivial]: The computation itself is trivial. Definition of a proper bayesian model, its estimation, convergence validation or interpretation might not always be trivial.
 
-Other than credibility intervals, bayesian statistic offer at least two additional intervals that are useful in statistical inference.
+Other than credible intervals, bayesian statistic offer at least two additional type of credible intervals that are useful in statistical inference.
 The first one is Percentile Interval (PI) that defines a symmetrical center interval of width $\alpha$. For example, PI of width $0,8$ is
 a percentile interval denoted as $\langle q_{0.1}, q_{0.9}\rangle$. Another common interval is the Highest Density Interval (HDI) that
 denotes the narrowest interval that contains the posterior parameter $\theta$ with probability $\alpha$
@@ -64,6 +73,14 @@ significance, do not appear in such probability paradigm. Issues regarding frequ
 they are explored in several will-reviewed books \parencite{Vickers2010_WhatPvalueAnyway} or papers 
 (\parencite{GelmanStern2006_DifferenceSignificantNot}, \parencite{WassersteinEtAl2019_MovingWorld005}).
 
+Bayesian models are also natural in hierarchical modeling, where the prior knowledge about nested parameters can be 
+defined. Estimated parameters in individual groups can share information through common hyperparameters, allowing 
+uncertainty propagation throughout the model, yielding more stable and interpretable inference. This approach
+also improves estimates in smaller groups by using information from larger groups.  Use of hierarchical modeling is 
+wide and they can be used in sports (e.g. 
+\parencite{Sawyer2018ModelingPE}, \parencite{AlimuDayimu2024BayesianHM}) or in the evaluation of whether the 
+probability of heads is 0,5 \parencite{BartosEtAl2024_FairCoinsTend}.
+
 In the past, the main drawback of bayesian statistics has been it's computational complexity. Advanced methods, such as hierarchical
 models, can become very complex and it is not possible to express their posterior distribution in a closed form. As
 such, researchers were limited 
@@ -74,7 +91,7 @@ have greatly improved, very complex models can still take relatively long to est
 decision making is necessary.
 
 Bayesian statistics is not perfect, and \parencite{DepaoliVanDeSchoot2017_ImprovingTransparencyReplication} notes at least three issues
-that are connected to bayesian data analysis. In small samples, the posterior degree of belief is heavily affected by the apriori belief that
+that are connected to bayesian data analysis. In small samples, the posterior degree of belief is heavily affected by the prior belief that
 researchers have, and such, the results can vary greatly. It is crucial to report both the posterior degree of belief about some
 unknown parameter and the initial belief. Because of the reliance on computational methods, it is important that researchers put emphasis
 on the estimation process itself and make sure that the posterior degree of belief that is reported has successfully converged to the proper

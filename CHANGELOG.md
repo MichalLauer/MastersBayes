@@ -1,6 +1,16 @@
 # Verze 3.0
 
-- 
+- oprava různých překlepů a slov
+- odstraněný nevhodných nebo zavádějících vět
+- oprava indexů
+- credibility -> credible
+- stationar -> stationary
+- apriori -> prior
+- odstranění zmínek o Beta-Binomickém modelu
+- odstranění ručních simulací MA, MHA a ponechání pouze kódu v příloze
+- přesunutí obsahu z Introduction do druhé kapitoly
+- přidání krátké zmínky o Laplaceho aproximaci na konec kapitoly 2.3
+- přidání krátkého odstavce o výhodách bayes. metod díky hierarchickým modelům mezi kapitolami 2 a 2.1
 
 ## Poznámky:
 

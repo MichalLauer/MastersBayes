@@ -34,10 +34,4 @@ $$
 P(\theta^*|y) J_t(\theta^* | \theta_{t-1}) = P(\theta_{t-1}|y) J_t(\theta_{t-1} | \theta^*).
 $$
 
-Example of data generated using MHA can be seen in Figure @fig-sim-mha. The process generates 10 000 iterations with a 2 000 burn-in period.
-The proposal distribution is in this case the Log-normal distribution with natural logarithm of mean equal to previously accepted sample. The
-full code can be see in Appendix \ref{code-mha}.
-
-![Simulation of a beta-binomial model using the Metropolis-Hastings algorithm.](./img/sim_mha.png){#fig-sim-mha}
-
-The simulation looks better and it looks like the samples generated using MHA are converging faster than using MA in Figure @fig-sim-ma.
+Sample code in R for MHA can be see in Appendix \ref{code-mha}.

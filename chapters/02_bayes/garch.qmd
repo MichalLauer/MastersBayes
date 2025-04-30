@@ -12,7 +12,7 @@ However, student distribution could be worrisome if the estimated degrees of fre
 another approaches are more suitable. In such cases, a mixture of normal normal distributions might be more suitable 
 \parencite[Chap. 2.2]{VirbickaiteEtAl2015_BAYESIANINFERENCEMETHODS}.
 
-The apriori distribution for parameters $\alpha$ and $\beta$ varies. \parencite{BauwensLubrano1998_BayesianInferenceGARCH} uses flat uniform priors
+The prior distribution for parameters $\alpha$ and $\beta$ varies. \parencite{BauwensLubrano1998_BayesianInferenceGARCH} uses flat uniform priors
 and \parencite{AusinGaleano2007_BayesianEstimationGaussian} conducts sensitivity analysis and finds that a change from uniform to beta priors does 
 not cause large differences in the posterior distribution. This might indicate that the choice of priors depend heavily on the task at hand. 
 

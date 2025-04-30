@@ -21,7 +21,8 @@ $$
 
 is estimated. The jumping distribution is usually set to be a multivariate normal distribution $N_d(\mu, M)$, where $M$ denotes
 a variance-covariance matrix, often called a mass matrix. If $M$ is a diagonal unit matrix, the distribution is a simple multivariate
-standardized normal distribution. To make the algorithm more efficient, implementations with different mass matrix or with a different distribution exist. 
+standardized normal distribution. To make the algorithm more efficient, it can be implemented with different mass 
+matrix or jumping distribution. 
 
 HMC also works with the gradient of the posterior log-density, which is often computed analytically using mathematical software. The gradient can
 be defined as

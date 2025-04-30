@@ -5,17 +5,17 @@ $$
 a_t = \sigma_t \epsilon_t,
 $$
 
-it is necessary to first set apriori distribution for innovation $\epsilon_t$. It is traditionally assumed to have standard normal distribution, and
+it is necessary to first set prior distribution for innovation $\epsilon_t$. It is traditionally assumed to have standard normal distribution, and
 in cases with fatter tails, the student distribution. This implies that the final model will need to estimate either the variance $\sigma^2_\epsilon$ or
 degrees of freedom $\nu_\epsilon$.
 
-The conditional volatility $\sigma_t$ is deterministically composed of historical values and does not have any apriori distribution specified. It is
+The conditional volatility $\sigma_t$ is deterministically composed of historical values and does not have any prior distribution specified. It is
 composed of intercept $\alpha_0$ and coefficients $\alpha_i$ for every squared historical residual that is considered, generally for $i = 1, \dots, m$.
-The apriori distribution for every coefficient need to respect the non-negativity of volatility and conditions set in Section @sec-arch. 
+The prior distribution for every coefficient need to respect the non-negativity of volatility and conditions set in Section @sec-arch. 
 
-\parencite[Chap. 1]{AriPapadopoulos2016_BayesianEstimationParameters} sets the apriori distribution for $\alpha_0$ to be Gamma with parameters $r$ and 
+\parencite[Chap. 1]{AriPapadopoulos2016_BayesianEstimationParameters} sets the prior distribution for $\alpha_0$ to be Gamma with parameters $r$ and 
 $\beta$. The gamma distribution is strictly positive and positively skewed. It represent the instantinuous volatility at time $t$. For other 
-coefficients $\alpha_1, \dots, \alpha_m$, they assume joint dirichlet apriori distribution with parameters $\omega_1, \dots, \omega_m$. 
+coefficients $\alpha_1, \dots, \alpha_m$, they assume joint dirichlet prior distribution with parameters $\omega_1, \dots, \omega_m$. 
 Dirichlet distribution is a multivariate beta distribution whose coordinates in $m$-dimensional space always sum to one. This fulfills the assumptions
 for a stable ARCH mode and the individual coefficients are assumed to be independent. Authors set the distribution of $\epsilon$ to be normally
 distributed and conveniently call such model *Normal-ARCH(m)*. Interestingly, authors did not use MCMC methods but a Lindsey approximation that

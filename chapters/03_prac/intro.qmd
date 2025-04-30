@@ -1,5 +1,5 @@
 The practical part of this thesis focuses on the application of ARCH$(m)$, GARCH$(m, q)$ and SV models on various financial time 
-series data. First, the apriori distributions are visually described and their meaningfulness is argued. To estimate the models,
+series data. First, the prior distributions are visually described and their meaningfulness is argued. To estimate the models,
 custom Stan programs are written and printed in Appendix @sec-app-stan. When writing and defining the Stan scripts, readability and 
 clear instructions are preferred over optimization. This ensures that the code is clear to non-Stan users, however it might
 suffer from low efficiency. The estimation time is described in every chapter. After various models of every class are estimated,

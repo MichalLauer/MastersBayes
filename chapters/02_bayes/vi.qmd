@@ -76,4 +76,7 @@ specific paper is the complexity and computational infeasibility with traditiona
 X-ray diffraction data and their full profile. The main goal of the paper is to find a bayesian method that utilizes VI to reduce 
 the estimation time *\enquote{from a few hours to seconds}*.
 
-
+VI is not the only sampling method that offers quick inference with only approximate results. Another
+method is Laplace's approximation that tries to center gaussian distribution at the maximum apostieri estimate
+using second-order Taylor expansion. It's properties and stability are discussed in 
+\parencite{BarberEtAl2016_LaplaceApproximationHighdimensional}.

@@ -51,7 +51,7 @@ ret |>
   )) |>
   kable(caption = "Description of log returns of GOOGL")
 
-# Apriori for nu ---------------------------------------------------------------
+# Prior for nu ---------------------------------------------------------------
 alpha <- 0.89
 sh <- 4
 rt <- 0.4
@@ -68,13 +68,13 @@ tibble(x = seq(0, 40, length.out = 500)) |>
                 geom = "area",
                 alpha = 0.5) +
   scale_fill_manual(name = NULL, values = c("density" = "skyblue"),
-                    labels = c("density" = "89% credibility interval")) +
+                    labels = c("density" = "89% credible interval")) +
   theme_bw() +
   theme(
     legend.position = "bottom"
   ) +
   labs(
-    title = TeX(r"(Apriori knowledge about $\nu$)"),
+    title = TeX(r"(Prior knowledge about $\nu$)"),
     subtitle = TeX(paste0(
       "$\\nu \\sim \\Gamma(\\alpha = ", sh, ", \\beta = ", rt, ")$")),
     x = TeX(r"($\nu$)"),
@@ -84,7 +84,7 @@ ggsave(filename = "./img/googl/arch/apriori_nu.png",
        width = 1920, height = 1080, units = "px")
 
 
-# Apriori for alpha0 -----------------------------------------------------------
+# Prior for alpha0 -----------------------------------------------------------
 alpha <- 0.89
 sh <- 2
 rt <- 4
@@ -101,13 +101,13 @@ tibble(x = seq(0, 4, length.out = 500)) |>
                 geom = "area",
                 alpha = 0.5) +
   scale_fill_manual(name = NULL, values = c("density" = "skyblue"),
-                    labels = c("density" = "89% credibility interval")) +
+                    labels = c("density" = "89% credible interval")) +
   theme_bw() +
   theme(
     legend.position = "bottom"
   ) +
   labs(
-    title = TeX(r"(Apriori knowledge about $\alpha_0$)"),
+    title = TeX(r"Prior knowledge about $\alpha_0$)"),
     subtitle = TeX(paste0(
       "$\\alpha_0 \\sim \\Gamma(\\alpha = ", sh, ", \\beta = ", rt, ")$")),
     x = TeX(r"($\alpha_0$)"),
@@ -116,7 +116,7 @@ tibble(x = seq(0, 4, length.out = 500)) |>
 ggsave(filename = "./img/googl/arch/apriori_alpha0.png",
        width = 1920, height = 1080, units = "px")
 
-# Apriori for alpha_i ----------------------------------------------------------
+# Prior for alpha_i ----------------------------------------------------------
 alpha <- 0.89
 s1 <- 2
 s2 <- 6
@@ -133,13 +133,13 @@ tibble(x = seq(0, 1, length.out = 1000)) |>
                 geom = "area",
                 alpha = 0.5) +
   scale_fill_manual(name = NULL, values = c("density" = "skyblue"),
-                    labels = c("density" = "89% credibility interval")) +
+                    labels = c("density" = "89% credible interval")) +
   theme_bw() +
   theme(
     legend.position = "bottom"
   ) +
   labs(
-    title = TeX(r"(Apriori knowledge about $\alpha_i$)"),
+    title = TeX(r"(Prior knowledge about $\alpha_i$)"),
     subtitle = TeX(paste0(
       "$\\alpha_i \\sim \\Beta(", s1, ", ", s2, ")$")),
     x = TeX(r"($\alpha_i $)"),

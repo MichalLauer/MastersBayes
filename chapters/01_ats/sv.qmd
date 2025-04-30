@@ -47,4 +47,5 @@ another random shocks in the form of $\eta_t$ makes the SV model more flexible a
 The estimation of latent variable $h_t$ is non-trivial and several methods have been developed, including Kalman filtering and
 Markov Chain Monte Carlo methods. Similar to GARCH models, the simple SV model is unable to capture the effect of positive
 and negative spikes \parencite[Chap. 3.12]{Tsay2005_AnalysisFinancialTime}. However, additional extensions have been developed
-to capture the asymmetric property in financial TSD.
+to capture the asymmetric property in financial TSD. Similarly to the GARCH-M model, a SV-in-Mean model is introduced
+in \parencite{Abanto-ValleEtAl2011_StochasticVolatilityMean} that utilizes the volatility to directly influence returns.

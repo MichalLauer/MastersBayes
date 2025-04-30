@@ -4,8 +4,8 @@ $$
 P(\theta | x ) = \frac{P(\theta)P(x|\theta)}{P(x)}.
 $$ {#eq-bayes-eq}
 
-First is the apriori degree of belief that is individual and is set before observing any new data. One can create their apriori belief on common sense, past research or the domain knowledge. This initial belief is described with a probability distribution that is called the apriori distribution, denoted as $P(\theta)$ where $P$ denotes either probability or density function and $\theta$ the unknown parameters. The second main component is based on the collected data and their likelihood, given the apriori degree of belief. The likelihood, denoted as $P(x|\theta)$, represents the conditional probability of data $x$ given the apriori belief about $\theta$. Given some apriori belief, some
-data is more likely to occur than other. This combination of apriori degree of belief and observed data allows researchers to
+First is the prior degree of belief that is individual and is set before observing any new data. One can create their prior belief on common sense, past research or the domain knowledge. This initial belief is described with a probability distribution that is called the prior distribution, denoted as $P(\theta)$ where $P$ denotes either probability or density function and $\theta$ the unknown parameters. The second main component is based on the collected data and their likelihood, given the prior degree of belief. The likelihood, denoted as $P(x|\theta)$, represents the conditional probability of data $x$ given the prior belief about $\theta$. Given some prior belief, some
+data is more likely to occur than other. This combination of prior degree of belief and observed data allows researchers to
 update their degree of belief based on how it agrees with observations. The final component is called the predictive probability, denoted as $P(x)$ \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}.
 
 In research, it is often more suitable to talk about data and hypothesis. Equation @eq-bayes-eq is often rewritten to
@@ -14,40 +14,10 @@ $$
 P(H|D) = \frac{P(H)P(D|H)}{P(D)},
 $$
 
-but the interpretation is identical. In practice, Equation @eq-bayes-eq is composed of probability functions and integrals. A simple
-beta-binomial model is often used to describe the posterior distribution of a parameter that represents probability. It is also often used as an introductory model to bayesian data analysis, for example \parencite[Page 155]{Hebak2013_StatistickeMysleniNastroje}, 
-\parencite[Chap. 2.1]{Gelman2014_BayesianDataAnalysis}, or 
-\parencite[Chap. 6]{Kruschke2015_DoingBayesianData}.
+but the interpretation is identical. In practice, Equation @eq-bayes-eq is composed of probability functions and integrals.
 
-In the beta-binomial model, parameter $\theta$ represents a relative frequency of some event. It is then natural to model the apriori distribution
-with a $\text{Beta}(a, b)$ distribution as its range is bound to $\left< 0, 1\right>$. The likelihood of the data can be expressed by the binomial distribution $\text{Bin}(x|\theta, n)$. Finally, the predictive probability of the data can be rewritten using the law of total probability \parencite[Page 54]{Marek2012_Pravdepodobnost} as
-
-$$
-P(x) = \int_{-\infty}^{\infty} P(x|\theta)P(\theta) d\theta.
-$$
-
-Combining this information with Equation @eq-bayes-eq gives rise to the beta-binomial model
-
-$$
-P(\theta|x) = \frac{
-    \text{Beta}(\theta|a, b)\text{Bin}(x|\theta, n)
-}{
-    \int_{0}^{1} \text{Beta}(\theta|a, b)\text{Bin}(x|\theta, n) d\theta
-} = \text{Beta}(\theta | a + y, b + (n - y)).
-$$ {#eq-beta-binomial}
-
-The posterior distribution is analytically tractable and is another beta distribution with parameters $a + y$ and $b + (n - y)$, 
-where $y$ represent the number of successes and $(n - y)$ the number of failures \parencite[Chap. 6.5.2]{Hebak2013_StatistickeMysleniNastroje}.
-
-The beta-binomial model is also popular because the posterior distribution is analytically tractable. That is because the
-beta and binomial distribution are conjugate. If the likelihood function and the apriori distribution are conjugate, the posterior
-distribution can be obtained in closed form. In the past, selection of specific functions and distributions that are conjugate has been
-favorable because of this simplicity. If there are better functions or distribution for the analysis that are not conjugate,
-the posterior distribution might not have analytical solution and thus the analysis becomes difficult. General definition
-of conjugate prior distributions is offered in \parencite[Chap. 2.4]{Gelman2014_BayesianDataAnalysis}. 
-
-In real data analysis, it is often needed to use apriori distribution that is not conjugate. In complex models that require multiple
-apriori distributions, represent some structure in data or work with latent variables, conjugacy is often not possible and analytical
+In real data analysis, it is often needed to use prior distribution that is not conjugate. In complex models that require multiple
+prior distributions, represent some structure in data or work with latent variables, conjugacy is often not possible and analytical
 solution does not exist or it is impractical to derive them. To overcome this, sampling and simulation methods have been developed to
 sample observations from a posterior distribution with the need to know the explicit analytical solutions. These methods do not work
 with the Bayes' theorem in @eq-bayes-eq, but rather with its kernel 
@@ -58,9 +28,9 @@ $$ {#eq-bayes-prop}
 
 Because the predictive probability, $P(x)$, is constant and does not dependent on the estimated parameters $\theta$, it servers as a
 normalization constant that can be excluded. This is represented in Equation @eq-bayes-prop where $\propto$ means that the posterior distribution
-is proportional to the combination of apriori distribution $P(\theta)$ and likelihood of the data $P(x|\theta)$.
+is proportional to the combination of prior distribution $P(\theta)$ and likelihood of the data $P(x|\theta)$.
 
-The choice of the apriori distribution depends on the knowledge that is known before the analysis. If, for example, it 
+The choice of the prior distribution depends on the knowledge that is known before the analysis. If, for example, it 
 is known that a parameter is surely strictly positive,
 distributions such as the chi-squared, gamma, exponential or inverse-gamma can be used. Another approach might be to estimate some
 transformation of a parameter. \parencite[Chap. 4.4]{McElreath2020_StatisticalRethinkingBayesian} chooses to model linear regression with
@@ -68,6 +38,5 @@ $\ln \beta_j$, which can have any sign. After estimation, the samples from logar
 exponentiated, which yields a positive effect of $x_j$ through $\exp \beta_j$. If the prior information is limited, different approaches
 exist. One of them is the Jeffreys' invariance
 principle that states that \enquote{any rule for determining the prior density for $P(\theta)$ should yield an equivalent result if applied
-to a transformed parameter} \parencite[Chap. 2.8]{Gelman2014_BayesianDataAnalysis}. Even though it is popular, it's use in multivariate
-cases is controversial.
+to a transformed parameter} \parencite[Chap. 2.8]{Gelman2014_BayesianDataAnalysis}.
 

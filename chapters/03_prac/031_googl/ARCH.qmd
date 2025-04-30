@@ -9,21 +9,21 @@ This implies that it is expected degrees of freedom, before observing data, is b
 probability $0.89$. The expected volatility is 10. Because heavier tails are expected, the degrees of freedom 
 $\nu$ are probably smaller. The full distribution is shown in Figure @fig-googl-arch-apr-nu.
 
-![GOOGL/ARCH: Apriori distribution for $\nu$](./img/googl/arch/apriori_nu.png){#fig-googl-arch-apr-nu}
+![GOOGL/ARCH: prior distribution for $\nu$](./img/googl/arch/apriori_nu.png){#fig-googl-arch-apr-nu}
 
 Since models work with log returns, the expected log return at time $t$ is zero and only variance is modeled. Constant
 volatility $\alpha_0$ can be greater than 1 and thus is modeled using $\Gamma(\alpha = 2, \beta = 4)$. This implies
-that 89% credibility interval of $(0.09, 1.16)$ that is quite wide and allows both low and high values. Full
+that 89% credible interval of $(0.09, 1.16)$ that is quite wide and allows both low and high values. Full
 aprior distribution is in Figure @fig-googl-arch-apr-alpha0.
 
-![GOOGL/ARCH: Apriori distribution for $\alpha_0$](./img/googl/arch/apriori_alpha0.png){#fig-googl-arch-apr-alpha0}
+![GOOGL/ARCH: prior distribution for $\alpha_0$](./img/googl/arch/apriori_alpha0.png){#fig-googl-arch-apr-alpha0}
 
 Finally, coefficients $\alpha_i$ for $i = 1, \dots, m$ are modelled using $\Beta(2, 6)$. Because stationairy is 
 reinforced in the Stan definitio, coefficients greater than zero are not possible and thus the Gamma distribution
-not proper. The 89% credibility interval for all coefficients is $(0.06, 0.51)$ because higher values would
+not proper. The 89% credible interval for all coefficients is $(0.06, 0.51)$ because higher values would
 imply high memory that is not assumed in this model. The full prior can be seen in Figure @fig-googl-arch-apr-alphai.
 
-![GOOGL/ARCH: Apriori distribution for $\alpha_i$](./img/googl/arch/apriori_alpha_i.png){#fig-googl-arch-apr-alphai}
+![GOOGL/ARCH: prior distribution for $\alpha_i$](./img/googl/arch/apriori_alpha_i.png){#fig-googl-arch-apr-alphai}
 
 In order to achieve stationary and stable models, constraint $\sum_{i=1}^m a_i < 1$ is applied in the Stan definition.
 To model $m$ parameters that sum to 1, a simplex vector of size $m + 1$ is defined. Its key characteristic is
@@ -150,7 +150,7 @@ Table: GOOGL/ARCH: Tabular description of posterior for $\alpha_1$ {#tbl-googl-a
 |CI_lower |0.07  |0.05  |0.03  |0.03  |0.03  |0.03  |0.02  |0.03  |
 |CI_upper |0.19  |0.17  |0.15  |0.14  |0.14  |0.13  |0.12  |0.12  |
 
-The expected effect decreases with more lags and for $m \geq 4$ it is around 0.08. The 89% credibility intervals
+The expected effect decreases with more lags and for $m \geq 4$ it is around 0.08. The 89% credible intervals
 between ARCH$(m = 1)$ and ARCH$(m = 8)$ are different and it is probable that both models put different emphasis
 on the instantinuous volatility. The same thing can be observed on other parameters in Figure @fig-googl-arch-post-alpha-i
 
@@ -186,12 +186,12 @@ On the other hand, ARCH$(8)$ is very variable and a single shock has relatively 
 on future forecasted volatility.
 
 To pick the best model, visual comparison between the predicted returns and the true returns is 
-used. Since the expected log returns are zero, posterior credibility intervals are at each index $t$ are
+used. Since the expected log returns are zero, posterior credible intervals are at each index $t$ are
 used to assess the volatility. Figure @fig-googl-arch-post-prediction compares all models and their predictions.
 
 ![GOOGl/ARCH: Predictions across all models.](./img/googl/arch/posterior_prediction.png){#fig-googl-arch-post-prediction}
 
-Simple models from $m = 1$ to $m = 4$ are unable to capture the day-to-day volatility and the credibility intervals
+Simple models from $m = 1$ to $m = 4$ are unable to capture the day-to-day volatility and the credible intervals
 do not change much. More complex models are able to estimate volatility better and are also capable of capturing
 small peaks, which others model lack. No model is able to minimum and maximum peaks, which suggests that those
 are rare exceptions. Neither model provides enough flexibility in estimating the volatility and based on the 
