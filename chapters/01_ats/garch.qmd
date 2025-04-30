@@ -1,6 +1,6 @@
 The variance for ARCH(m) model given in Equation @eq-var-arch is simple and effective, but sometimes not adequate for 
 real data. General autoregressive conditional heteroscedasticity (GARCH) model, proposed by Boreslav 
-\parencite{Bollerslev1986_GeneralizedAutoregressiveConditional}, are
+\parencite{Bollerslev1986_GeneralizedAutoregressiveConditional}, is
 more flexible and offer better long-term memory for forecasting \parencite{AL-Najjar2016_ModellingEstimationVolatility}. GARCH
 models extend ARCH shock by lagged estimated variance. In general, the GARCH model of order p and q can be
 written as 
@@ -9,7 +9,7 @@ $$
 p_t = \mu_t + a_t,
 $$
 
-where the shock element $a_t$ is made up by deterministic component $\sigma_t$ and stochastic component $\epsilon_t$. 
+where the shock $a_t$ is made up by deterministic component $\sigma_t$ and stochastic component $\epsilon_t$. 
 The main difference is in $\sigma_t$, which is given by \parencite[Eq. 2]{AL-Najjar2016_ModellingEstimationVolatility} as
 
 $$
@@ -23,7 +23,7 @@ shock $a_t$ is finite and conditional variance $\sigma^2$ evolves over time
 \parencite[Chap. 3.5]{Tsay2005_AnalysisFinancialTime}. 
 
 New $\beta$ coefficients introduce complexity and assessing the order of GARCH model is a complex task. In practice,
-only lower orders are used. To estimate a GARCH model, a recursive method is viable which first estimates a simple
+only lower orders are used. To estimate a GARCH model, a recursive method is feasible which first estimates a simple
 ARCH$(p)$ model. From the estimated residuals $a_t$ and conditional variance $\sigma^2_t$, new 
 GARCH$(p, q)$ model is computed. This creates new residuals $a_t$ and conditional variance $\sigma^2_t$, which can
 be used to fit a new GARCH$(p, q)$ model. This procedure is repeated until a stopping criterion is met. To forecast

@@ -37,7 +37,7 @@ $$
 $$ {#eq-var-arch}
 
 Put together, the model is called Autoregressive conditional heteroskedasticity (ARCH) model of order $m$. Equation @eq-var-arch
-states that the variance at time $t$ is affected by squared residuals at the previous $m$ times. This implies
+states that the variance at time $t$ is affected by squared residuals in the previous $m$ periods. This implies
 that, if the volatility has been high, the volatility at time $t$ is expected to be high as well. On the contrary,
 in periods of low volatility, the expected volatility at time $t$ is rather small. It is important to realize
 that high volatility does not necessarily imply high realized variability. The probability of very high or very low
@@ -45,8 +45,7 @@ returns is greater, but not guaranteed \parencite[Chap. 3.4]{Tsay2005_AnalysisFi
 
 The random variable $\epsilon_t$ is often assumed to follow standard normal distribution. If the time series
 experiences heavy tails, the student distribution might be more suitable. Since the expected value of such 
-distributions are zero, the expected return at time $t$ is not affected and by \parencite[Chap. 3.4.1]
-{Tsay2005_AnalysisFinancialTime}, it holds that 
+distributions are zero, the expected return at time $t$ is not affected and it holds that 
 
 $$
 E(p_t) = E(\mu_t) + E(a_t) = E(\mu_t).
@@ -59,7 +58,7 @@ $i \in \mathbb{N}$.
 In frequentist statistics, there are several ways how to estimate the correct order of ARCH(m). One of them is the 
 Ljung-Box statistic $Q(m)$ computed from the squared residuals $a_i^2$. Another popular method is the Lagrange
 multiplier test, that is identical to the usual F-test in multiple regression. To estimate such model, maximum
-likelihood estimation (MLE) with different likelihood functions is commonly used. Because these thesis focuses 
+likelihood estimation (MLE) is commonly used. Because this thesis focuses 
 primarily on bayesian methods and estimation, these methods will not be leveraged and further description and
 application is offered in \parencite[Chap. 3]{Tsay2005_AnalysisFinancialTime}.
 
@@ -81,7 +80,7 @@ $$
 Forecasting equation can be generalized for arbitrary $\ell$-step ahead prediction 
 \parencite[Chap. 3.4.3] {Tsay2005_AnalysisFinancialTime}
 
-\parencite[Chap. 3.4.2]{Tsay2005_AnalysisFinancialTime} defines downsides of such models. One of them 
+\parencite[Chap. 3.4.2]{Tsay2005_AnalysisFinancialTime} summarizes downsides of such models. One of them 
 is the assumption that positive and negative spikes of residuals have the same effect on the current volatility.
 Research has found that this is not true and squared historical shocks might not correctly reflect the true
 shock. ARCH models also tend to overestimate volatility in cases where a single shock has been observed. Simple ARCH

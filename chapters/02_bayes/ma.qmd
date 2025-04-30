@@ -1,7 +1,7 @@
 The Metropolis Algorithm (MA) published in 1953 \parencite{MetropolisEtAl1953_EquationStateCalculations} has been very influential in the 
 popularization of bayesian statistics because of it's simplicity and relative efficiency in bayesian models and is explored in
 \parencite[Chap. 11.2]{Gelman2014_BayesianDataAnalysis} or \parencite[Chap. 7]{Kruschke2015_DoingBayesianData}. The algorithm first needs an
-initial sample that will be used. Since the stationary distribution of Markov Chain does not depend on the starting value, it can be any
+initial draw that will be used. Since the stationary distribution of Markov Chain does not depend on the starting value, it can be any
 possible value whose posterior density is greater than 0. Then, a symmetric proposal distribution is required that generates new samples, conditional on 
 the last observed sample, to create a Markov Chain. A popular choice can be normal distribution that is centered around the last sample with 
 user defined variance, so
@@ -19,7 +19,7 @@ $$
 r = \frac{
     P(\theta^*|y)
 }{
-    P(\theta^{t-1|y})
+    P(\theta^{t-1}|y)
 },
 $$ {#eq-ma}
 
@@ -58,4 +58,4 @@ distribution $N(\theta_{t-1}, \sigma = 1)$. For this simulation,
 the generated proposals need to be in $\langle 0, 1 \rangle$, otherwise R throws an error because it is unable to calculate the density of
 binomial distribution for values greater than 1 or smaller than 0. In smaller and higher true parameter values, the samples do not converge to the
 true posterior distribution, yet. This may suggest that the variance is large, the symmetric proposal distribution does not fit the model well
-or that another sampler is needed. The exact code can be found in appendix \ref{code-ma}.
+or that another sampler is needed. The code producing Figure 2.1 can be found in Appendix \ref{code-ma}.

@@ -19,8 +19,8 @@ priors are not standard in modern bayesian statistics and popular textbooks do n
 parameters and in model comparison. He also suggests that many statisticians support using other uninformative priors which
 might be more appropriate for specific models. So while Fishers critique was legitimate, it may not hold in current bayesian settings.
 
-With increased computational availability, bayes statistics started to become more popular. Introduction of sampling methods that 
-are capable of generating samples from a posterior distribution that is not analytically known lead to models that can be more complicated
+With increased computational availability, bayesian statistics started to become more popular. Introduction of sampling methods that 
+are capable of generating samples from a posterior distribution that is not analytically tractable leads to models that can be more complex
 while still usable in research areas. Currently, bayesian statistics is utilized in many fields. \parencite{Ashby2006_BayesianStatisticsMedicine}
 examines the state of bayesian statistics in medicine towards the end of 20th century. One of the conclusions is that bayes has *\enquote{now permeated all the major areas of medical statistics, including clinical trials, epidemiology, meta-analyses and evidence synthesis, spatial modelling, longitudinal modelling, survival modelling, molecular genetics and decision-making}*. \parencite{Barber2012_BayesianReasoningMachine} draws connection
 between bayesian reasoning and machine learning. The similarities between bayesian thinking and quantum analysis is described in 
@@ -34,12 +34,6 @@ for futures or options where setting the right price is crucial. Historically, o
 which assumes that the variance of the underlying asset is constant. This assumption does not always hold in practice, and the need to support
 heteroskedasticity in financial time series arose.
 
-The effect of financial volatility can overlap with other fields. \parencite{2019QuantitativeAO} investigated a relationship between
-the China's exchange rate against the US dollar and found that it may have some effect on international student tourism between the US and China.
-A larger study that explores the relationship between country credit rating, political risk, financial risk, economic risk and a composite
-risk rating conducted in \parencite{Erb1996PoliticalRE}. The conclusion suggest that there is some relationship between different risks,
-especially in financial and economic ratings.
-
 The bridge between novel bayesian statistical thinking and financial markets that can affect everyday life is interesting in several ways. First,
 some advanced models that are capable of measuring volatility in financial markets are hard to estimate and bayesian methods naturally arise,
 especially in the case of stochastic volatility. Furthermore, bayesian statistics offer information not only point and interval estimates, but in a 
@@ -47,12 +41,12 @@ full posterior distribution from which arbitrary points, quantiles and intervals
 offers more information about the estimated quantities. The probabilistic interpretation that can also be more natural and helpful rather than
 \enquote{imaginary repetitions in identical conditions}.
 
-This thesis has two main goals. In the theoretical part, a connection between financial markets and bayesian models is drawn using frequentist
-methods for stochasticity modeling. Methods are introduced, derived and translated from frequentist world to the bayesian world. AThese bayesian
+This thesis has two main parts. The theoretical part contains description of financial markets, volatility models and 
+their application in bayesian statistics. These 
 models are then used in practical part on time series from financial markets, where the underlying volatility is captured. The structure is divided
 into three main chapters. First chapter explores financial time serie and their statistical characteristics. Classical models which are used
-throughout the thesis are also defined and described. The second part focuses on bayesian statistics. Initially, the ideas behind bayesian statistics
+throughout the thesis are also defined and described. The second part focuses on bayesian statistics. First, the ideas behind bayesian statistics
 are introduced as well as model definition, statistical inference and the creation of posterior distributions. After that, different sampling methods
-are used which are crucial in models where analytical posterior distribution is not derived. Finally, the connection between volatility models
+are used which are crucial in models where analytical posterior distribution is not tractable. Finally, the application of volatility models
 and bayesian statistics is drawn using available studies and surveys. The last chapter focuses on data analysis in R 
 \parencite{RCoreTeam2023_LanguageEnvironmentStatistical} and Stan \parencite{CarpenterEtAl2017_StanProbabilisticProgramming}.

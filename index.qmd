@@ -103,7 +103,6 @@
 \begin{multicols}{2}
 \raggedright
 \begin{description}
-\item [CDS] Cross-Sectional Data
 \item [TSD] Time Series Data
 \item [AR] Autoregressive model
 \item [MA] Moving-Averages model
@@ -224,7 +223,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/02_bayes/descrip.qmd >}}
 
-## Bayesian equation and models
+## Bayesian' theorem and models
 
 {{< include chapters/02_bayes/equation_models.qmd >}}
 
@@ -252,7 +251,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/02_bayes/nuts.qmd >}}
 
-## Variational inference method
+## Variational inference methods
 
 {{< include chapters/02_bayes/vi.qmd >}}
 

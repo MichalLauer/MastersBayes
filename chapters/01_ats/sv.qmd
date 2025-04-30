@@ -2,7 +2,7 @@ Another approach to volatility modeling is to leave the assumption that volatili
 that is stochastic and unobserved. This idea is employed in Stochastic volatility (SV) models, which are special 
 types of state-space models \parencite[Chap. 11.2]{Tsay2005_AnalysisFinancialTime}.
 
-The initial equation is similar as the ARCH Equation  @eq-var-arch and GARCH Equation @eq-var-garch, where the log of
+The initial equation is similar to the ARCH Equation  @eq-var-arch and GARCH Equation @eq-var-garch, where the log of
 returns $p_t$ is described
 by the mean equation at time $t$ and shock at time $t$. For SV models, the log returns are assumed to be centered and
 
@@ -12,7 +12,7 @@ $$ {#eq-main-sv}
 
 where $\epsilon_t \sim N(0, \sigma^2_\epsilon)$. The main difference is that the shock is not described deterministically by
 squared historical shocks and conditional variance, but rather by a latent variable $h_t$ that represents the natural logarithm of
-variance. This is because variance can be only non-negative, and modeling the log variance enforces this assumption. It can then
+variance. This is because variance can only be non-negative, and modeling the log variance enforces this assumption. It can then
 be described by
 
 $$
@@ -29,7 +29,7 @@ $$
 \end{aligned}
 $$
 
-Plugging this into @eq-main-sv, the simple SV model becomes clear and
+Plugging this into @eq-main-sv, the simple SV model emerges as
 
 $$
 p_t = \exp\left({h_t\over2} \right)\epsilon_t.

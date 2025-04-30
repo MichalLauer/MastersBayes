@@ -9,7 +9,8 @@ important than the accuracy.
 The issue can be solved with samplers based on Variational Inference (VI). Variational inference transform the sampling problem
 from a stochastic processes to an optimization task. Instead of sampling a large number of samples whose stationary distribution
 is the true posterior, VI tries to find a distribution that is close to the posterior distribution measured by a Kullback–Leibler Divergence (KLD).
-It is a measure of how two probability distribution are simmilar to each other. In bayesian statistics, it measures the distance between the true posterior $P(\theta | x)$ and arbitrary distribution function $q$. Interestingly, KLD naturally raises in many statistical methods. One example
+It is a measure of how two probability distribution are simmilar to each other. In bayesian statistics, it measures the 
+\enquote{distance} between the true posterior $P(\theta | x)$ and arbitrary distribution function $q$. Interestingly, KLD naturally raises in many statistical methods. One example
 can be the maximum likelihood estimation that naturally minimizes the KLD \parencite{ranganath2017black}.
 
 \parencite{KullbackLeibler1951_InformationSufficiency} define KLD as
@@ -31,7 +32,8 @@ $$
 $$ {#eq-kld-bayes}
 
 The smaller the KLD in Equation @eq-kld-bayes is, the closer is the proposed distribution $q$ to the true posterior $P(\theta|x)$ becomes.
-There are many different measures that could be used, however, \parencite{Sjolund2023_TutorialParametricVariational} show that
+There are many different measures that could be used, however, it can be shown (see e.g. 
+\parencite{Sjolund2023_TutorialParametricVariational}) that
 with KLD, the predictive probability $P(x)$, that is constant for each model, can be rewritten to
 
 $$
@@ -65,7 +67,8 @@ $$
 
 Detailed process of estimation and the proof that the KLD is decreased with time is provided in \parencite[Chap. 13.7]{Gelman2014_BayesianDataAnalysis}.
 
-Even though the function $g(\theta | \phi)$ might not be exact, VI is already being used in research projects.
+Even though the function $g(\theta | \phi)$ might not be exact, VI is already widely used in research projects and 
+many machine learning applications.
 \parencite{GefangEtAl2019_VariationalBayesianInference} use VI and bayesian shrinkage to develop a new method how to estimate 
 *\enquote{Vector Autoregressive models that have hundreds of macroeconomic variables, or more}*. The main motivation for VI in this
 specific paper is the complexity and computational infeasibility with traditional MCMC methods.

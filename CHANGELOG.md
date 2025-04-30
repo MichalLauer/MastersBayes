@@ -1,3 +1,12 @@
+# Verze 3.0
+
+- 
+
+## Poznámky:
+
+- jinou citační formu použít nelze, musíme mít APA7 a je to v templatu
+
+
 # Verze 2.0
 
 - Přidání poděkování.

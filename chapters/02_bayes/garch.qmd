@@ -16,7 +16,7 @@ The apriori distribution for parameters $\alpha$ and $\beta$ varies. \parencite{
 and \parencite{AusinGaleano2007_BayesianEstimationGaussian} conducts sensitivity analysis and finds that a change from uniform to beta priors does 
 not cause large differences in the posterior distribution. This might indicate that the choice of priors depend heavily on the task at hand. 
 
-The estimation of such model requires MCMC methods, because the posterior distribution is not analytically solvable.
+The estimation of such model requires MCMC methods, because the posterior distribution is not analytically tractable.
 \parencite[Chap. 5.1]{GewekeEtAl2013_OxfordHandbookBayesian} notes that the analytical conditional posterior distribution for each parameter
 is not known, and Gibbs sampler is also not adequate for this model. \parencite{VirbickaiteEtAl2015_BAYESIANINFERENCEMETHODS} also acknowledges this
 limitation and \parencite{BauwensLubrano1998_BayesianInferenceGARCH} suggest an alternative called Griddy-Gibbs sampler. 

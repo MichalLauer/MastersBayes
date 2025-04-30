@@ -9,17 +9,17 @@ densities need to be normalized and
 
 $$
 r = \frac{
-    P(\theta^*|y) / J_t(\theta^* | \theta_{^t-1})
+    P(\theta^*|y) / J_t(\theta^* | \theta_{t-1})
 }{
-    P(\theta_{t-1}|y) / J_t(\theta_{^t-1} | \theta^*)
+    P(\theta_{t-1}|y) / J_t(\theta_{t-1} | \theta^*)
 } = \frac{
     P(\theta^*|y)
 }{
     P(\theta_{t-1}|y)
 } \frac{
-    J_t(\theta_{^t-1} | \theta^*)
+    J_t(\theta_{t-1} | \theta^*)
 }{
-    J_t(\theta^* | \theta_{^t-1})
+    J_t(\theta^* | \theta_{t-1})
 }.
 $$ {#eq-mha}
 
@@ -31,7 +31,7 @@ In general, \parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje} suggest 
 stationary chains is that the transition probabilities between two states are proportional to the posterior densities, formally put as
 
 $$
-P(\theta^*|y) J_t(\theta^* | \theta_{^t-1}) = P(\theta_{t-1}|y) J_t(\theta_{^t-1} | \theta^*).
+P(\theta^*|y) J_t(\theta^* | \theta_{t-1}) = P(\theta_{t-1}|y) J_t(\theta_{t-1} | \theta^*).
 $$
 
 Example of data generated using MHA can be seen in Figure @fig-sim-mha. The process generates 10 000 iterations with a 2 000 burn-in period.

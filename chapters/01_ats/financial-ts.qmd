@@ -3,14 +3,13 @@ practice of asset valuation over time* \parencite[Chap. 1]{Tsay2005_AnalysisFina
 financial TSD from other domains is volatility, which originates from both not unified theory and variable data.
 A simple term, such as asset volatility, can have different definitions, which complicates statistical analysis
 and empirical research. The volatility of data itself is also hardly measurable and data that changes quickly
-(such as returns or closing price) can experience different periods of different volatility 
+(such as returns or closing price) can experience periods of different volatility 
 \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}.
 
 In financial statistical analysis, it is often beneficial to work with returns and not pure prices. In fact, most of
 the current research in finance is focused on returns \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}. They offer
 scale-free metric that measure how well a trader performs, no matter the volume. They have also good statistical
-properties which are beneficial in TSD analysis. One of those is stationarity that describes constant first and 
-second moments \parencite[Chap. 1.4]{CampbellEtAl1998_ECONOMETRICSFINANCIALMARKETS}.
+properties which are beneficial in TSD analysis \parencite[Chap. 1.4]{CampbellEtAl1998_ECONOMETRICSFINANCIALMARKETS}.
 
 There are different methods on how to calculate returns \parencite[Chap. 1.1]{Tsay2005_AnalysisFinancialTime}. The simplest
 returns at time $t$ are called simple gross returns, and are denoted as

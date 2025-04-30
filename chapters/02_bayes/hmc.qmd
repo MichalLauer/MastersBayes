@@ -1,16 +1,16 @@
-MCMC methods leverage a random walk through the parameter space to create samples that are arbitrary close to the posterior distribution. In
+MCMC methods leverage a MH random walk through the parameter space to create samples that are arbitrary close to the posterior distribution. In
 large, high dimensional models, this approach might struggle because the posterior parameter space. The structure might be so complex that a random
 walk will take a very long time to explore all possible states, which is not efficient. Even with advanced techniques that implement adaptive
-steps or change the proposal distribution, the convergence time is not suitable \parencite[Chap. 12.4]{Gelman2014_BayesianDataAnalysis}.
+steps or change the proposal distribution, the convergence time is prohibitive \parencite[Chap. 12.4]{Gelman2014_BayesianDataAnalysis}.
 This complexity might also prevent MCMC methods to adequately sample from regions with low density, and such, tails of the posterior
 density might burdened with a relatively high MC error \parencite[Chap. 14.1]{Kruschke2015_DoingBayesianData}.
 
-Hamiltonian Monte Carlo (HMC) methods do not work with random walk, but with Hamiltonian mechanics. They offer a link between classical mechanics
+Hamiltonian Monte Carlo (HMC) methods do not rely on MH random walk, but with Hamiltonian mechanics. They offer a link between classical mechanics
 and quantum mechanics. This domain is out of the scope of this thesis, but is explored in some physical textbooks, such as \parencite{Lowenstein2012_EssentialsHamiltonianDynamics}. Mathematical explanation of HMC is offered in \parencite[Chap. 12.4]{Gelman2014_BayesianDataAnalysis},
 while an intuitive introduction to the topic is offered in \parencite[Chap. 14.1]{Kruschke2015_DoingBayesianData} or 
 \parencite[Chap. 9.1]{McElreath2020_StatisticalRethinkingBayesian}.
 
-HMC does not implement random walk, but utilizes a set of momentum variables $\phi_i$ for every estimated parameter $\theta_i$, $i =
+HMC utilizes a set of momentum variables $\phi_i$ for every estimated parameter $\theta_i$, $i =
 1, \dots, d$. Momentum variables represent a \enquote{jump} between every new sample and is completely independent of the estimated
 parameter $\theta$. Then, the probability distribution of jumps $P(\phi)$, often called the jumping distribution, is combined with the
 posterior distribution, and
@@ -61,8 +61,7 @@ $\theta_t$, new jumps $\phi$ are generated from the jumping distribution and the
 is guaranteed to converge to a specific stationary distribution that is the posterior distribution.
 
 There are three ways how HMC can be made more efficient. Firstly, the jumping distribution can be fine-tuned for specific models which can increase
-the efficiency of samples. It can be though of the jumping distribution as a proposal distribution that can affect how efficient new proposals
-are. Secondly, scales $\epsilon$ can be tuned to allow greater or smaller jumps and steps. Finally, the number of leap frogs $L$
+the efficiency of samples. Secondly, scales $\epsilon$ can be tuned to allow greater or smaller jumps and steps. Finally, the number of leap frogs $L$
 can be optimized. As with MCMC, these parameters can be either set manually or adaptively. As \parencite[Chap. 12.4]{Gelman2014_BayesianDataAnalysis}
 notes, changing the parameters mid-inference can lead to instability and the adaptive phase should be run only during the warmup phase.
 

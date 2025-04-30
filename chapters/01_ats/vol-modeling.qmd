@@ -1,12 +1,12 @@
 To combat heteroskedasticity and model volatility that is time-variant, models of conditionally homoskedastic models
-have been developed. One of the most popular and traditional models assumes that the volatility at time $t$ can be deterministically
+have been developed. One of the most popular and traditional models assume that the volatility at time $t$ can be deterministically
 described by its past values. Typically, these models are represented by autoregressive functions of squared residuals and historical variance. Although
 harder to estimate, this method has proven to be beneficial especially in TSD analysis 
 \parencite{FernandezRodriguez2020_ModelingVolatilityReturns}.
 
 A newer approach assumes that the volatility at time $t$ is modelled through a latent variable that is also autoregressively updated. 
 This method has become popular because of it's ability to capture more complex relationships than deterministic models. The estimation of
-such models is typically harder, because analysts need to estimate latent variables that are not observed. Some specialized methods
+such models is challenging, because analysts need to estimate latent variables that are not observed. Some specialized methods
 have been developed to counter this issue, and the use of bayesian simulations is popular choice. Some authors argue that the additional 
 stochasticity through latent variables improves model fitting and predictions \parencite{FernandezRodriguez2020_ModelingVolatilityReturns},
 while others argue that the out-of-sample predictions do not differ much \parencite[Chap. 3.12]{Tsay2005_AnalysisFinancialTime}.

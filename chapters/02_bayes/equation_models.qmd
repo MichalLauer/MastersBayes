@@ -1,4 +1,4 @@
-Bayesian statistics defines a degree of belief that might be unique to every researcher. It represents the conditional probability distribution of estimated parameters $\theta$ given observed data $x$. This probability distribution is called the posterior distribution which can be computed using the bayesian equation \parencite[Page 35]{Marek2012_Pravdepodobnost} as 
+Bayesian statistics defines a degree of belief that might be unique to every researcher. It represents the conditional probability distribution of estimated parameters $\theta$ given observed data $x$. This probability distribution is called the posterior distribution which can be computed using the Bayes' theorem \parencite[Page 35]{Marek2012_Pravdepodobnost} as 
 
 $$
 P(\theta | x ) = \frac{P(\theta)P(x|\theta)}{P(x)}.
@@ -20,14 +20,13 @@ beta-binomial model is often used to describe the posterior distribution of a pa
 \parencite[Chap. 6]{Kruschke2015_DoingBayesianData}.
 
 In the beta-binomial model, parameter $\theta$ represents a relative frequency of some event. It is then natural to model the apriori distribution
-with a $\text{Beta}(a, b)$ distribution as its range is bound to $\left< 0, 1\right>$. The likelihood of the data, given the apriori distribution
-$\text{Beta}(\theta|a, b)$, can be expressed by the binomial distribution $\text{Bin}(x|\theta, n)$. Finally, the predictive probability of the data can be rewritten using the law of total probability \parencite[Page 54]{Marek2012_Pravdepodobnost} as
+with a $\text{Beta}(a, b)$ distribution as its range is bound to $\left< 0, 1\right>$. The likelihood of the data can be expressed by the binomial distribution $\text{Bin}(x|\theta, n)$. Finally, the predictive probability of the data can be rewritten using the law of total probability \parencite[Page 54]{Marek2012_Pravdepodobnost} as
 
 $$
 P(x) = \int_{-\infty}^{\infty} P(x|\theta)P(\theta) d\theta.
 $$
 
-Combining this information with Equation @eq-bayes-eq gives the beta-binomial model
+Combining this information with Equation @eq-bayes-eq gives rise to the beta-binomial model
 
 $$
 P(\theta|x) = \frac{
@@ -37,12 +36,12 @@ P(\theta|x) = \frac{
 } = \text{Beta}(\theta | a + y, b + (n - y)).
 $$ {#eq-beta-binomial}
 
-The posterior distribution is analytically solvable and is another beta distribution with parameters $a + y$ and $b + (n - y)$, 
+The posterior distribution is analytically tractable and is another beta distribution with parameters $a + y$ and $b + (n - y)$, 
 where $y$ represent the number of successes and $(n - y)$ the number of failures \parencite[Chap. 6.5.2]{Hebak2013_StatistickeMysleniNastroje}.
 
-The beta-binomial model is also popular because the posterior distribution is analytically solvable. That is because the
+The beta-binomial model is also popular because the posterior distribution is analytically tractable. That is because the
 beta and binomial distribution are conjugate. If the likelihood function and the apriori distribution are conjugate, the posterior
-distribution has analytical solution. In the past, selection of specific functions and distributions that are conjugate has been
+distribution can be obtained in closed form. In the past, selection of specific functions and distributions that are conjugate has been
 favorable because of this simplicity. If there are better functions or distribution for the analysis that are not conjugate,
 the posterior distribution might not have analytical solution and thus the analysis becomes difficult. General definition
 of conjugate prior distributions is offered in \parencite[Chap. 2.4]{Gelman2014_BayesianDataAnalysis}. 
@@ -51,7 +50,7 @@ In real data analysis, it is often needed to use apriori distribution that is no
 apriori distributions, represent some structure in data or work with latent variables, conjugacy is often not possible and analytical
 solution does not exist or it is impractical to derive them. To overcome this, sampling and simulation methods have been developed to
 sample observations from a posterior distribution with the need to know the explicit analytical solutions. These methods do not work
-with the bayesian Equation in @eq-bayes-eq, but with a simplified version 
+with the Bayes' theorem in @eq-bayes-eq, but rather with its kernel 
 
 $$
 P(\theta | x ) \propto P(\theta)P(x|\theta).
@@ -59,12 +58,10 @@ $$ {#eq-bayes-prop}
 
 Because the predictive probability, $P(x)$, is constant and does not dependent on the estimated parameters $\theta$, it servers as a
 normalization constant that can be excluded. This is represented in Equation @eq-bayes-prop where $\propto$ means that the posterior distribution
-is proportional to the combination of apriori distribution $P(\theta)$ and likelihood of the data $P(x|\theta)$. The only sufficient
-requirement for this assumptions is that the apriori distribution is a proper probabilistic distribution 
-\parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje}.
+is proportional to the combination of apriori distribution $P(\theta)$ and likelihood of the data $P(x|\theta)$.
 
-The choice of the apriori distribution depends on the knowledge that is known before the analysis. This knowledge can come from past research,
-specific domain knowledge or the meaning of individual parameters. If, for example, it is known that a parameter is surely strictly positive,
+The choice of the apriori distribution depends on the knowledge that is known before the analysis. If, for example, it 
+is known that a parameter is surely strictly positive,
 distributions such as the chi-squared, gamma, exponential or inverse-gamma can be used. Another approach might be to estimate some
 transformation of a parameter. \parencite[Chap. 4.4]{McElreath2020_StatisticalRethinkingBayesian} chooses to model linear regression with
 $\ln \beta_j$, which can have any sign. After estimation, the samples from logarithmic posterior distribution can be 

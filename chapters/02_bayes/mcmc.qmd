@@ -5,7 +5,7 @@ simulations are used to sample data from a known population distribution, given 
 in the same environment and get insight on what methods might be better in what conditions. Monte Carlo simulations can also be used to estimate the bias,
 overconfidence, or statistical errors that will be expected when using such methods on samples from the real world. It can be used to measure the
 precision of point estimates or the expected width of confidence intervals \parencite{HopkinsEtAl2024_HowWeKnow}. Monte Carlo chains
-are simply *\enquote{assessing the properties of a target distribution by generating representative random values.}* \parencite[Chap. 7.4.5]{Kruschke2015_DoingBayesianData}. The analytical equation for a posterior distribution is often unknown, and the use of a simple Monte Carlo 
+are simply *\enquote{assessing the properties of a target distribution by generating representative random values.}* \parencite[Chap. 7.4.5]{Kruschke2015_DoingBayesianData}. The analytical form of posterior distribution is often unknown, and the use of a simple Monte Carlo 
 sampling technique is not sufficient to examine its properties.
 
 Markov Chain is a stochastic process that describes the probability of moving into a different state. The probability of transitioning into 

@@ -6,12 +6,12 @@ The Gibbs sampler (GS) is a special case of MHA that cleverly sets the proposal 
 more quickly to the posterior distribution. The main idea arises from adaptive MHA that try to update the proposal distribution
 slightly after some iterations, which might increase the efficiency. Instead of updating the proposal distribution or adjusting it's
 step size, GS chooses proposal distributions for each parameter individually. The choice is done based on a known, conjugate posterior
-distribution for each parameter \parencite[9.2.1]{McElreath2020_StatisticalRethinkingBayesian}. GS is often better in multidimensional models, where the full posterior distribution is unknown, but the conditional posteriors of parameters is known and values can be
-sampled from them \parencite[Chap. 11.1]{Gelman2014_BayesianDataAnalysis}.
+distribution for each parameter \parencite[9.2.1]{McElreath2020_StatisticalRethinkingBayesian}. GS is often better in multidimensional models, where the full posterior distribution is unknown, but the conditional posteriors of indivudiual  parameters is known 
+and values can be sampled from them \parencite[Chap. 11.1]{Gelman2014_BayesianDataAnalysis}.
 
 GS is especially useful in hierarchical models, where the conditional probabilities naturally arise. 
 \parencite[Chap. 7.4.4]{Kruschke2015_DoingBayesianData} notes that GS is a special case of MHA. He compares both algorithms to a 
-random walk through the parameter space, where the next step depends only on the current step. While MHA tries to create a step in every
+MH random walk through the parameter space, where the next step depends only on the current step. While MHA tries to create a step in every
 direction at once, GS does one step in every direction sequentially. In a multidimensional parameter space $\Theta = [\theta_1, \theta_2]$,
 MHA generates a new proposal from a proposal multidimensional distribution, so
 
@@ -47,7 +47,7 @@ Note that the figure is a combination of Figures 11.1 and 11.2 from the original
 The left panel shows convergence of MHA, where the step is taken into all directions at once. The right panel shows convergence in 
 steps, where step in either horizontal or vertical direction is taken a at a time. 
 
-The efficiency of GS is useful in multidimensional or hierarchical models. \parencite{LuChen2022_BayesianAnalysisLongitudinal} found that a
+The efficiency of GS has been reviewed in multiple publications. \parencite{LuChen2022_BayesianAnalysisLongitudinal} found that a
 variation of Gibbs sampler is more effective in a multivariate probit model that deals with longitudinal data than other forms of MHA. 
 \parencite{KarrasEtAl2022_DistributedGibbsSampling} uses GS implemented in Python and PySpark to efficiently sample from the posterior of a 
 general Latent Dirichlet Allocation models. In quantum statistical mechanics, variation of the GS offers smaller variance and autocorrelation
