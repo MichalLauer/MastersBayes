@@ -6,6 +6,7 @@ library(ggplot2)
 library(knitr)
 library(latex2exp)
 library(rstan)
+library(loo)
 
 # Setup ------------------------------------------------------------------------
 Sys.setlocale("LC_ALL", "en")
@@ -52,6 +53,8 @@ ret |>
   )) |>
   kable(caption = "Description of log returns of GOOGL")
 
+# Correlation ------------------------------------------------------------------
+
 # Prior for nu -----------------------------------------------------------------
 alpha <- 0.89
 sh <- 4
@@ -79,7 +82,7 @@ tibble(x = seq(0, 40, length.out = 500)) |>
     title = TeX(r"(Prior knowledge about $\nu$)"),
     subtitle = TeX(paste0(
       "$\\nu \\sim \\Gamma(\\alpha = ", sh, ", \\beta = ", rt, ")$",
-      ", ", alpha*100, "% CI: (", lower, ", ", upper, ")"
+      ", ", alpha*100, "% PI: (", lower, ", ", upper, ")"
     )),
     x = TeX(r"($\nu$)"),
     y = TeX(r"(P($\nu$))")
@@ -115,7 +118,7 @@ tibble(x = seq(0, 4, length.out = 500)) |>
     title = TeX(r"(Prior knowledge about $\alpha_0$)"),
     subtitle = TeX(paste0(
       "$\\alpha_0 \\sim \\Gamma(\\alpha = ", sh, ", \\beta = ", rt, ")$",
-      ", ", alpha*100, "% CI: (", lower, ", ", upper, ")"
+      ", ", alpha*100, "% PI: (", lower, ", ", upper, ")"
     )),
     x = TeX(r"($\alpha_0$)"),
     y = TeX(r"(P($\alpha_0$))")
@@ -184,19 +187,19 @@ data <- list(
   y = y
 )
 
-a <- Sys.time()
-models <-
-  tibble(
-    p = 1:8,
-    name = paste0("ARCH(", p, ")")
-  ) |>
-  rowwise() |>
-  mutate(
-    model = list(
-      get_model(p = p, name = name, data = data)
-    )
-  )
-print(Sys.time() - a)
+# a <- Sys.time()
+# models <-
+#   tibble(
+#     p = 1:8,
+#     name = paste0("ARCH(", p, ")")
+#   ) |>
+#   rowwise() |>
+#   mutate(
+#     model = list(
+#       get_model(p = p, name = name, data = data)
+#     )
+#   )
+# print(Sys.time() - a)
 # saveRDS(models, file = "./R/googl/data/ARCH.RDS")
 # models <- readRDS("./R/googl/data/ARCH.RDS")
 
@@ -473,25 +476,40 @@ ggsave(filename = "./img/googl/arch/posterior_volatility.png",
        width = 1920, height = 1080, units = "px")
 
 # Prediction -------------------------------------------------------------------
-i <- 8
-tibble(
-  Index = index(ret)[-seq_len(i)],
-  true = ret[-seq_len(i)],
-  l = apply(
-    extract(models$model[[i]], pars = "y_pred")$y_pred,
-    2,
-    \(x) quantile(x, 0.055)
-  ),
-  u = apply(
-    extract(models$model[[i]], pars = "y_pred")$y_pred,
-    2,
-    \(x) quantile(x, 0.945)
-  ),
-) |>
+x <-
+  pmap(models, \(p, name, model) {
+  tibble(
+    Index = index(ret)[-seq_len(p)],
+    true = coredata(ret[-seq_len(p)]),
+    Model = name,
+    l = apply(
+      extract(model, pars = "y_pred")$y_pred,
+      2,
+      \(x) quantile(x, 0.055)
+    ),
+    u = apply(
+      extract(model, pars = "y_pred")$y_pred,
+      2,
+      \(x) quantile(x, 0.945)
+    ),
+  )
+}) |>
+  bind_rows()
+
+x |>
   ggplot(aes(x = Index)) +
-  geom_line(aes(y = true), color = "green") +
-  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.4) +
-  theme_bw()
+  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
+  geom_line(aes(y = true)) +
+  facet_wrap(vars(Model), nrow = 2) +
+  theme_bw() +
+  labs(
+    title = TeX(r"(Comparison of posterior distributions for $\sigma$)"),
+    subtitle = TeX(r"(with shaded 89% percentile interval)"),
+    x = NULL, y = TeX(r"($\sigma$)")
+  )
+
+ggsave(filename = "./img/googl/arch/posterior_prediction.png",
+       width = 1920, height = 1080, units = "px")
 
 # Total ------------------------------------------------------------------------
 pmap(models, \(p, name, model) {
@@ -514,6 +532,26 @@ pmap(models, \(p, name, model) {
 ggsave(filename = "./img/googl/arch/posterior_total.png",
        width = 1920, height = 1080, units = "px")
 
-# ----
-library(loo)
-loo(extract_log_lik(models$model[[1]]))
+# Comparison -------------------------------------------------------------------
+ll1 <- extract_log_lik(models$model[[1]])[, -seq_len(7)]
+ll2 <- extract_log_lik(models$model[[2]])[, -seq_len(6)]
+ll3 <- extract_log_lik(models$model[[3]])[, -seq_len(5)]
+ll4 <- extract_log_lik(models$model[[4]])[, -seq_len(4)]
+ll5 <- extract_log_lik(models$model[[5]])[, -seq_len(3)]
+ll6 <- extract_log_lik(models$model[[6]])[, -seq_len(2)]
+ll7 <- extract_log_lik(models$model[[7]])[, -seq_len(1)]
+ll8 <- extract_log_lik(models$model[[8]])
+
+lo1 <- loo(ll1)
+lo2 <- loo(ll2)
+lo3 <- loo(ll3)
+lo4 <- loo(ll4)
+lo5 <- loo(ll5)
+lo6 <- loo(ll6)
+lo7 <- loo(ll7)
+lo8 <- loo(ll8)
+
+loo_compare(lo1, lo2, lo3, lo4, lo5, lo6, lo7, lo8) |>
+  as_tibble() |>
+  select(1:2) |>
+  kable(caption = r"(GOOGL/ARCH: Comparison of models using ELPD)")

@@ -26,7 +26,7 @@ Cross-Validation (LFO-CV) and finds that results based on both metrics offer sim
 \parencite{GronauWagenmakers2019_RejoinderMoreLimitations} discusses the use of LOO-CV and LFO-CV and notes that since
 LOO-CV assumes that the data is independent, simple cross-validation is *\enquote{theoretically unsatisfactory when
 applied to time series data}*. However, they further argue that all data form a time series and have a temporal order.
-The use of LOO-CV on time series data can hence be controversial. The use of LFO-CV can become computationaly
+The use of LOO-CV on time series data can hence be controversial. The use of LFO-CV can become computationally
 exhaustive because it requires refitting the model for every evaluation.
 \parencite{BurknerEtAl2020_ApproximateLeavefutureoutCrossvalidation} proposes approximate LFO-CV that
 *\enquote{drastically reduces the computational costs while also providing informative diagnostics about the quality of
@@ -54,10 +54,10 @@ R \parencite[ver. 4.4.3]{RCoreTeam2023_LanguageEnvironmentStatistical}. The data
 using package `{quantmod}` \parencite[ver. 0.4.27]{RyanUlrich2025_QuantmodQuantitativeFinancial} which uses Yahoo
 Finance in the background. The time span for every model is a three-year window from 31st of March, 2022 to 31st of
 March, 2025. The data are collected daily, however, financial markets are usually closed on holidays or weekends. The
-raw closing prices are transformed to log returns defined in @eq-log-returns. Visualisations are provided either with
+raw closing prices are transformed to log returns defined in @eq-log-returns. Visualizations are provided either with
 package `{zoo}` \parencite[ver. 1.8.14]{ZeileisGrothendieck2005_ZooS3Infrastructure} or `{ggplot2}`
 \parencite[ver. 3.5.2]{Wickham2016_Ggplot2ElegantGraphics}. Tables are transformed from R structure to LaTeX using
-`{knitr}` \parencite[ver. 1.50]{Xie2014_KnitrComprehensiveTool}. R language communiates with the Stan software using
+`{knitr}` \parencite[ver. 1.50]{Xie2014_KnitrComprehensiveTool}. R language communicates with the Stan software using
 `{rstan}` \parencite[ver. 2.32.7]{StanDevelopmentTeam2024_RStanInterfaceStan} that can be used for estimation and
 sampling. Data are transformed using packages `{dplyr}` \parencite[ver. 1.1.4]{WickhamEtAl2023_DplyrGrammarData},
 `{tidyr}` \parencite[ver. 1.3.1]{WickhamEtAl2024_TidyrTidyMessy} and `{purrr}`

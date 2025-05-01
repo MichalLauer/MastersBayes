@@ -1,27 +1,27 @@
-All the models assume shocks distributed with Student's distribution with parameter $\nu$. This is because
-financial time series data often assume heavy tails and in Figure @tbl-googl-logret supports this. It is assumed that 
+All the models assume shocks distributed with Student's distribution with parameter $\nu$. This is because financial
+time series data often assume heavy tails that were also visible on Figure @tbl-googl-logret. It is assumed that
 
 $$
 \nu \sim \Gamma(\alpha = 4, \beta = 0.4).
 $$
 
-This implies that it is expected degrees of freedom, before observing data, is between $3.53$ and $19.03$ with
-probability $0.89$. The expected volatility is 10. Because heavier tails are expected, the degrees of freedom 
-$\nu$ are probably smaller. The full distribution is shown in Figure @fig-googl-arch-apr-nu.
+This implies that prior belief about degrees of freedom, before observing data, is between $3.53$ and $19.03$ with
+probability $0.89$. The parameter is expected to be 10. The full distribution is shown in Figure
+@fig-googl-arch-apr-nu.
 
-![GOOGL/ARCH: prior distribution for $\nu$](./img/googl/arch/apriori_nu.png){#fig-googl-arch-apr-nu}
+![GOOGL/ARCH: Prior distribution for $\nu$](./img/googl/arch/apriori_nu.png){#fig-googl-arch-apr-nu}
 
 Since models work with log returns, the expected log return at time $t$ is zero and only variance is modeled. Constant
 volatility $\alpha_0$ can be greater than 1 and thus is modeled using $\Gamma(\alpha = 2, \beta = 4)$. This implies
-that 89% credible interval of $(0.09, 1.16)$ that is quite wide and allows both low and high values. Full
-aprior distribution is in Figure @fig-googl-arch-apr-alpha0.
+that 89% percentile interval of $(0.09, 1.16)$ that is quite wide and allows both low and high values. Full prior
+distribution is in Figure @fig-googl-arch-apr-alpha0.
 
-![GOOGL/ARCH: prior distribution for $\alpha_0$](./img/googl/arch/apriori_alpha0.png){#fig-googl-arch-apr-alpha0}
+![GOOGL/ARCH: Prior distribution for $\alpha_0$](./img/googl/arch/apriori_alpha0.png){#fig-googl-arch-apr-alpha0}
 
-Finally, coefficients $\alpha_i$ for $i = 1, \dots, m$ are modelled using $\Beta(2, 6)$. Because stationairy is 
-reinforced in the Stan definitio, coefficients greater than zero are not possible and thus the Gamma distribution
-not proper. The 89% credible interval for all coefficients is $(0.06, 0.51)$ because higher values would
-imply high memory that is not assumed in this model. The full prior can be seen in Figure @fig-googl-arch-apr-alphai.
+Finally, coefficients $\alpha_i$ for $i = 1, \dots, p$ are modelled using $\Beta(2, 6)$. Because stationarity is
+reinforced in the Stan model, coefficients greater than zero are not possible and a Beta distribution is used. The 89%
+percentile interval for all coefficients is $(0.06, 0.51)$. The prior belief implies that because higher values are not
+probable because this would imply high memory memory. The full prior can be seen in Figure @fig-googl-arch-apr-alphai.
 
 ![GOOGL/ARCH: prior distribution for $\alpha_i$](./img/googl/arch/apriori_alpha_i.png){#fig-googl-arch-apr-alphai}
 
