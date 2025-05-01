@@ -1,4 +1,4 @@
-The practical part of this thesis focuses on the application of ARCH$(m)$, GARCH$(m, q)$ and SV models on various financial time 
+The practical part of this thesis focuses on the application of ARCH$(p)$, GARCH$(p, q)$ and SV models on various financial time 
 series data. First, the prior distributions are visually described and their meaningfulness is argued. To estimate the models,
 custom Stan programs are written and printed in Appendix @sec-app-stan. When writing and defining the Stan scripts, readability and 
 clear instructions are preferred over optimization. This ensures that the code is clear to non-Stan users, however it might

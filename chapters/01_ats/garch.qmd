@@ -1,4 +1,4 @@
-The variance for ARCH(m) model given in Equation @eq-var-arch is simple and effective, but sometimes not adequate for 
+The variance for ARCH$(p)$  model given in Equation @eq-var-arch is simple and effective, but sometimes not adequate for 
 real data. General autoregressive conditional heteroscedasticity (GARCH) model, proposed by Boreslav 
 \parencite{Bollerslev1986_GeneralizedAutoregressiveConditional}, is
 more flexible and offer better long-term memory for forecasting \parencite{AL-Najjar2016_ModellingEstimationVolatility}. GARCH

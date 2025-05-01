@@ -1,0 +1,14 @@
+The GARCH model will build on ARCH specification and use the same shock distribution and priors for
+$\nu$, $\alpha_0$ and $\alpha_i$. New parameters $\beta_i$ will share the same prior distribution as $\alpha_i$,
+because it their limitations are very similar (although their interpretation is not). In a GARCH$(p, q)$ model,
+the restriction for a stationary model is that
+
+$$
+\sum_{i=1}^p \alpha_i + \sum_{i=1}^q \beta_i <s 1.
+$$
+
+In Stan, this is uphold by a simplex vector of length $p + q + 1$ with the use of a slack variable. As the literature
+review suggests, only a models of order up to 2 are estimated.
+
+The posterior distribution for parameter $\nu$ can be seen in Figure XXX.
+

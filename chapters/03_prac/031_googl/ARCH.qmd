@@ -94,7 +94,7 @@ All posterior distributions look very similar and their central tendencies are d
 
 Table: GOOGL/ARCH: Tabular description of posterior for $\nu$ {#tbl-googl-arch-post-nu}
 
-|ARCH(m)  |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
+|ARCH(p)  |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
 |:--------|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|
 |Average  |6.26  |6.54  |6.37  |6.26  |6.23  |6.29  |6.27  |6.81  |
 |SD       |1.26  |1.37  |1.30  |1.26  |1.23  |1.24  |1.21  |1.42  |
@@ -120,7 +120,7 @@ very different from the prior distribution. This is furhter examined in Table @t
 
 Table: GOOGL/ARCH: Tabular description of posterior for $\alpha_0$ {#tbl-googl-arch-post-alpha0}
 
-|ARCH(m)  |m = 1  |m = 2  |m = 3  |m = 4  |m = 5  |m = 6  |m = 7  |m = 8  |
+|ARCH(p)  |m = 1  |m = 2  |m = 3  |m = 4  |m = 5  |m = 6  |m = 7  |m = 8  |
 |:--------|:------|:------|:------|:------|:------|:------|:------|:------|
 |Average  |0.0002 |0.0002 |0.0002 |0.0002 |0.0002 |0.0001 |0.0001 |0.0001 |
 |SD       |0.0000 |0.0000 |0.0000 |0.0000 |0.0000 |0.0000 |0.0000 |0.0000 |
@@ -143,7 +143,7 @@ across all models is provided in Table @tbl-googl-arch-post-alpha1
 
 Table: GOOGL/ARCH: Tabular description of posterior for $\alpha_1$ {#tbl-googl-arch-post-alpha1}
 
-|ARCH(m)  |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
+|ARCH(p)  |m = 1 |m = 2 |m = 3 |m = 4 |m = 5 |m = 6 |m = 7 |m = 8 |
 |:--------|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|
 |Average  |0.13  |0.10  |0.09  |0.08  |0.08  |0.07  |0.07  |0.07  |
 |SD       |0.04  |0.04  |0.04  |0.04  |0.03  |0.03  |0.03  |0.03  |
@@ -151,7 +151,7 @@ Table: GOOGL/ARCH: Tabular description of posterior for $\alpha_1$ {#tbl-googl-a
 |CI_upper |0.19  |0.17  |0.15  |0.14  |0.14  |0.13  |0.12  |0.12  |
 
 The expected effect decreases with more lags and for $m \geq 4$ it is around 0.08. The 89% credible intervals
-between ARCH$(m = 1)$ and ARCH$(m = 8)$ are different and it is probable that both models put different emphasis
+between ARCH$(1)$ and ARCH$(8)$ are different and it is probable that both models put different emphasis
 on the instantinuous volatility. The same thing can be observed on other parameters in Figure @fig-googl-arch-post-alpha-i
 
 ![GOOGl/ARCH: Posterior distribution for $\alpha_i$](./img/googl/arch/posterior_alpha_i.png){#fig-googl-arch-post-alpha-i}
@@ -174,7 +174,7 @@ Table: GOOGL/ARCH: Expected $\alpha_i$ for all models {#tbl-googl-arch-post-alph
 
 Looking left-to-right, the coefficients shrink as the order $m$ increses. Every column
 represents a single model. Dashes imply that the coefficient is not present for a particular
-model. ARCH$(m = 1)$ can have only $\alpha_1$, model ARCH$(m = 2)$ only $\alpha_1, \alpha_2$ and so on. Finally, a 
+model. ARCH$(1)$ can have only $\alpha_1$, model ARCH$(2)$ only $\alpha_1, \alpha_2$ and so on. Finally, a 
 perspective on the estimated volatility is in Figure 
 @fig-googl-arch-post-volatility.
 

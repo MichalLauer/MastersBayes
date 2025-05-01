@@ -18,7 +18,7 @@ $\beta$. The gamma distribution is strictly positive and positively skewed. It r
 coefficients $\alpha_1, \dots, \alpha_m$, they assume joint dirichlet prior distribution with parameters $\omega_1, \dots, \omega_m$. 
 Dirichlet distribution is a multivariate beta distribution whose coordinates in $m$-dimensional space always sum to one. This fulfills the assumptions
 for a stable ARCH mode and the individual coefficients are assumed to be independent. Authors set the distribution of $\epsilon$ to be normally
-distributed and conveniently call such model *Normal-ARCH(m)*. Interestingly, authors did not use MCMC methods but a Lindsey approximation that
+distributed and conveniently call such model *Normal-ARCH(p)*. Interestingly, authors did not use MCMC methods but a Lindsey approximation that
 leverages Taylor series. As the authors themselves note, this method is not suitable for complicated models and an be used in a limited manner.
 
 \parencite{KaufmannFruhwirth-Schnatter2002_BayesianAnalysisSwitching} analyses switching ARCH models and their use of the Dirichlet distribution 

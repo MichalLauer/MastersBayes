@@ -6,31 +6,32 @@ library(ggplot2)
 library(knitr)
 library(latex2exp)
 library(rstan)
-# Setup
+
+# Setup ------------------------------------------------------------------------
 Sys.setlocale("LC_ALL", "en")
 options(knitr.kable.NA = ' - ')
 symbol <- "GOOGL"
 from   <- "2022-03-31"
 to     <- "2025-03-31"
 
-# Get and plot data
+# Get and plot data ------------------------------------------------------------
 data <-
   symbol |>
   getSymbols(from = from, to = to, auto.assign = FALSE) |>
   _[, 1]
 png("./img/googl/closing.png", width = 1920, height = 1080, res = 200)
-plot(data)
+plot(data, main = "Closing price for $GOOGL")
 dev.off()
 
 # Get and plot returns
 ret <- log(data$GOOGL.Open/lag(data$GOOGL.Open))[-1]
 png("./img/googl/logret.png", width = 1920, height = 1080, res = 200)
-plot(ret, ylim = c(-0.09, 0.16))
+plot(ret, ylim = c(-0.16, 0.16), main = "Log returns for $GOOGL")
 points(ret[which.min(ret)], col = "red", pch = 4, lwd=2)
 points(ret[which.max(ret)], col = "green", pch = 4, lwd=2)
 dev.off()
 
-# Compute statistics for returns
+# Compute statistics for log returns  ------------------------------------------
 ret |>
   fortify() |>
   as_tibble() |>
@@ -51,13 +52,14 @@ ret |>
   )) |>
   kable(caption = "Description of log returns of GOOGL")
 
-# Prior for nu ---------------------------------------------------------------
+# Prior for nu -----------------------------------------------------------------
 alpha <- 0.89
 sh <- 4
 rt <- 0.4
 lower <- qgamma((1-alpha)/2, shape = sh, rate = rt)
+lower <- sprintf("%.2f", lower)
 upper <- qgamma((1+alpha)/2, shape = sh, rate = rt)
-print(paste(lower, upper))
+upper <- sprintf("%.2f", upper)
 tibble(x = seq(0, 40, length.out = 500)) |>
   ggplot(aes(x = x)) +
   stat_function(fun = dgamma, args = list(shape = sh, rate = rt)) +
@@ -76,7 +78,9 @@ tibble(x = seq(0, 40, length.out = 500)) |>
   labs(
     title = TeX(r"(Prior knowledge about $\nu$)"),
     subtitle = TeX(paste0(
-      "$\\nu \\sim \\Gamma(\\alpha = ", sh, ", \\beta = ", rt, ")$")),
+      "$\\nu \\sim \\Gamma(\\alpha = ", sh, ", \\beta = ", rt, ")$",
+      ", ", alpha*100, "% CI: (", lower, ", ", upper, ")"
+    )),
     x = TeX(r"($\nu$)"),
     y = TeX(r"(P($\nu$))")
   )
@@ -89,8 +93,9 @@ alpha <- 0.89
 sh <- 2
 rt <- 4
 lower <- qgamma((1-alpha)/2, shape = sh, rate = rt)
+lower <- sprintf("%.2f", lower)
 upper <- qgamma((1+alpha)/2, shape = sh, rate = rt)
-print(paste(lower, upper))
+upper <- sprintf("%.2f", upper)
 tibble(x = seq(0, 4, length.out = 500)) |>
   ggplot(aes(x = x)) +
   stat_function(fun = dgamma, args = list(shape = sh, rate = rt)) +
@@ -107,9 +112,11 @@ tibble(x = seq(0, 4, length.out = 500)) |>
     legend.position = "bottom"
   ) +
   labs(
-    title = TeX(r"Prior knowledge about $\alpha_0$)"),
+    title = TeX(r"(Prior knowledge about $\alpha_0$)"),
     subtitle = TeX(paste0(
-      "$\\alpha_0 \\sim \\Gamma(\\alpha = ", sh, ", \\beta = ", rt, ")$")),
+      "$\\alpha_0 \\sim \\Gamma(\\alpha = ", sh, ", \\beta = ", rt, ")$",
+      ", ", alpha*100, "% CI: (", lower, ", ", upper, ")"
+    )),
     x = TeX(r"($\alpha_0$)"),
     y = TeX(r"(P($\alpha_0$))")
   )
@@ -121,8 +128,9 @@ alpha <- 0.89
 s1 <- 2
 s2 <- 6
 lower <- qbeta((1-alpha)/2, shape1 = s1, shape2 = s2)
+lower <- sprintf("%.2f", lower)
 upper <- qbeta((1+alpha)/2, shape1 = s1, shape2 = s2)
-print(paste(lower, upper))
+upper <- sprintf("%.2f", upper)
 tibble(x = seq(0, 1, length.out = 1000)) |>
   ggplot(aes(x = x)) +
   stat_function(fun = dbeta, args = list(shape1 = s1, shape2 = s2)) +
@@ -141,7 +149,9 @@ tibble(x = seq(0, 1, length.out = 1000)) |>
   labs(
     title = TeX(r"(Prior knowledge about $\alpha_i$)"),
     subtitle = TeX(paste0(
-      "$\\alpha_i \\sim \\Beta(", s1, ", ", s2, ")$")),
+      "$\\alpha_i \\sim \\Beta(", s1, ", ", s2, ")$",
+      ", ", alpha*100, "% CI: (", lower, ", ", upper, ")"
+    )),
     x = TeX(r"($\alpha_i $)"),
     y = TeX(r"(P($\alpha_i $))")
   )
@@ -154,15 +164,15 @@ y <-
   coredata(ret) |>
   as.vector()
 
-get_model <- function(m, data) {
-  data$m <- m
+get_model <- function(p, name, data) {
+  print(paste("Modeling", name))
+  data$p <- p
 
-  print(paste("Modeling", m))
   stan(
     file = "./stan/ARCH.stan",
     model_name = "ARCH",
     data = data,
-    seed = m,
+    seed = p,
     iter = 8000,
     warmup = 2000,
     cores = parallel::detectCores() - 1
@@ -175,74 +185,76 @@ data <- list(
 )
 
 a <- Sys.time()
-models <- map(1:8, \(m) get_model(m = m, data = data))
+models <-
+  tibble(
+    p = 1:8,
+    name = paste0("ARCH(", p, ")")
+  ) |>
+  rowwise() |>
+  mutate(
+    model = list(
+      get_model(p = p, name = name, data = data)
+    )
+  )
 print(Sys.time() - a)
 # saveRDS(models, file = "./R/googl/data/ARCH.RDS")
 # models <- readRDS("./R/googl/data/ARCH.RDS")
 
 # Model statistics -------------------------------------------------------------
-map(1:8, \(x) {
+pmap(models, \(p, name, model) {
   as_tibble(
-    summary(models[[x]], pars = c("nu", "alpha", "alpha0"))$summary,
+    summary(model, pars = c("nu", "alpha", "alpha0"))$summary,
     rownames = "param"
   ) |>
-    mutate(m = x) |>
-    filter(param != paste0("alpha[", x + 1, "]"))
+    mutate(name = name) |>
+    filter(param != paste0("alpha[", p + 1, "]"))
 }) |>
   bind_rows() |>
-  select(m, param, Rhat) |>
+  select(name, param, Rhat) |>
   mutate(
-    m = paste("m =", m),
     param = ordered(
       param,
-      levels = c("nu", "alpha0", paste0("alpha[", 1:8, "]")))
+      levels = c("nu", "alpha0", paste0("alpha[", models$p, "]")))
   ) |>
   pivot_wider(
-    names_from = m,
+    names_from = name,
     values_from = Rhat
   ) |>
   arrange(param) |>
   kable(caption = "GOOGL/ARCH: Shrinkage factors")
 
-map(1:8, \(x) {
+pmap(models, \(p, name, model) {
   as_tibble(
-    summary(
-      models[[x]],
-      pars = c("nu", "alpha", "alpha0"),
-      probs = NULL)$summary,
+    summary(model, pars = c("nu", "alpha", "alpha0"))$summary,
     rownames = "param"
   ) |>
-    mutate(m = x) |>
-    filter(param != paste0("alpha[", x + 1, "]"))
+    mutate(name = name) |>
+    filter(param != paste0("alpha[", p + 1, "]"))
 }) |>
   bind_rows() |>
-  select(m, param, n_eff) |>
+  select(name, param, n_eff) |>
   mutate(
-    m = paste("m =", m),
     param = ordered(param,
                     levels = c("nu", "alpha0",
                                paste0("alpha[", 1:8, "]")))
 
   ) |>
   pivot_wider(
-    names_from = m,
+    names_from = name,
     values_from = n_eff
   ) |>
   arrange(param) |>
   kable(caption = "GOOGL/ARCH: ESS")
 
 # Compare degrees of freedom ---------------------------------------------------
-map(1:8, \(x) {
+pmap(models, \(p, name, model) {
   tibble(
-    arch = x,
-    nu = extract(models[[x]], pars = "nu")$nu
+    Model = name,
+    x = extract(model, pars = "nu")$nu
   )
 }) |>
   bind_rows() |>
-  mutate(
-    `ARCH(m)` = factor(paste("m =", arch))
-  ) |>
-  ggplot(aes(x = nu, color = `ARCH(m)`)) +
+  ggplot(aes(x = x, color = Model)) +
   geom_density() +
   theme_bw() +
   labs(
@@ -255,48 +267,44 @@ ggsave(filename = "./img/googl/arch/posterior_nu.png",
        width = 1920, height = 1080, units = "px")
 
 alpha <- 0.89
-map(1:8, \(x) {
+pmap(models, \(p, name, model) {
   tibble(
-    arch = x,
-    nu = extract(models[[x]], pars = "nu")$nu
+    Model = name,
+    x = extract(model, pars = "nu")$nu
   )
 }) |>
   bind_rows() |>
-  group_by(arch) |>
+  group_by(Model) |>
   summarise(
-    Average = mean(nu),
-    SD = sd(nu),
-    CI_lower = quantile(nu, (1-alpha)/2),
-    CI_upper = quantile(nu, (1+alpha)/2)
+    Average = mean(x),
+    SD = sd(x),
+    CI_lower = quantile(x, (1-alpha)/2),
+    CI_upper = quantile(x, (1+alpha)/2)
   ) |>
   mutate(
-    arch = paste("m =", arch),
     across(
       .cols = where(is.double),
       .fns = \(x) sprintf("%.2f", x)
     )
   ) |>
   pivot_longer(
-    cols = -arch,
-    names_to = "ARCH(m)"
+    cols = -Model,
+    names_to = "Statistics"
   ) |>
   pivot_wider(
-    names_from = "arch"
+    names_from = Model
   ) |>
   kable(caption = "GOOGL/ARCH: Tabular description of posterior for $\nu$")
 
 # Compare intercept ------------------------------------------------------------
-map(1:8, \(x) {
+pmap(models, \(p, name, model) {
   tibble(
-    arch = x,
-    a0 = extract(models[[x]], pars = "alpha0")$alpha0
+    Model = name,
+    x = extract(model, pars = "alpha0")$alpha0
   )
 }) |>
   bind_rows() |>
-  mutate(
-    `Arch(m)` = factor(paste("m =", arch))
-  ) |>
-  ggplot(aes(x = a0, color = `Arch(m)`)) +
+  ggplot(aes(x = x, color = Model)) +
   geom_density() +
   scale_x_continuous(labels = scales::label_number()) +
   theme_bw() +
@@ -310,49 +318,44 @@ ggsave(filename = "./img/googl/arch/posterior_alpha0.png",
        width = 1920, height = 1080, units = "px")
 
 alpha <- 0.89
-map(1:8, \(x) {
+pmap(models, \(p, name, model) {
   tibble(
-    arch = x,
-    a0 = extract(models[[x]], pars = "alpha0")$alpha0
+    Model = name,
+    x = extract(model, pars = "alpha0")$alpha0
   )
 }) |>
   bind_rows() |>
-  group_by(arch) |>
+  group_by(Model) |>
   summarise(
-    Average = mean(a0),
-    SD = sd(a0),
-    CI_lower = quantile(a0, (1-alpha)/4),
-    CI_upper = quantile(a0, (1+alpha)/4)
+    Average = mean(x),
+    SD = sd(x),
+    CI_lower = quantile(x, (1-alpha)/4),
+    CI_upper = quantile(x, (1+alpha)/4)
   ) |>
   mutate(
-    arch = paste("m =", arch),
     across(
       .cols = where(is.double),
       .fns = \(x) sprintf("%.4f", x)
     )
   ) |>
   pivot_longer(
-    cols = -arch,
-    names_to = "ARCH(m)"
+    cols = -Model,
+    names_to = "Statistics"
   ) |>
   pivot_wider(
-    names_from = "arch"
+    names_from = Model
   ) |>
   kable(caption = "GOOGL/ARCH: Tabular description of posterior for $\alpha_0$")
 
 # Compare alpha1 ---------------------------------------------------------------
-i <- 1
-map(i:8, \(x) {
+pmap(models, \(p, name, model) {
   tibble(
-    arch = x,
-    a = extract(models[[x]], pars = "alpha")$alpha[, i]
+    Model = name,
+    x = extract(model, pars = "alpha")$alpha[, 1]
   )
 }) |>
   bind_rows() |>
-  mutate(
-    `ARCH(m)` = factor(paste("m =", arch))
-  ) |>
-  ggplot(aes(x = a, color = `ARCH(m)`)) +
+  ggplot(aes(x = x, color = Model)) +
   geom_density() +
   theme_bw() +
   labs(
@@ -364,53 +367,52 @@ map(i:8, \(x) {
 ggsave(filename = "./img/googl/arch/posterior_alpha1.png",
        width = 1920, height = 1080, units = "px")
 
-map(i:8, \(x) {
+pmap(models, \(p, name, model) {
   tibble(
-    arch = x,
-    a = extract(models[[x]], pars = "alpha")$alpha[, i]
+    Model = name,
+    x = extract(model, pars = "alpha")$alpha[, 1]
   )
 }) |>
   bind_rows() |>
-  group_by(arch) |>
+  group_by(Model) |>
   summarise(
-    Average = round(mean(a), 2),
-    SD = round(sd(a), 2),
-    CI_lower = quantile(a, (1-alpha)/2),
-    CI_upper = quantile(a, (1+alpha)/2)
+    Average = round(mean(x), 2),
+    SD = round(sd(x), 2),
+    CI_lower = quantile(x, (1-alpha)/2),
+    CI_upper = quantile(x, (1+alpha)/2)
   ) |>
   mutate(
-    arch = paste("m =", arch),
     across(
       .cols = where(is.double),
       .fns = \(x) sprintf("%.2f", x)
     )
   ) |>
   pivot_longer(
-    cols = -arch,
-    names_to = "ARCH(m)"
+    cols = -Model,
+    names_to = "Statistics"
   ) |>
   pivot_wider(
-    names_from = "arch"
+    names_from = Model
   ) |>
   kable(caption = paste0("GOOGL/ARCH: Posterio for $\alpha_1$"))
 
 # All parameters ---------------------------------------------------------------
-map(1:8, \(i) {
-  map(i:8, \(x) {
-    tibble(
-      coeff = i,
-      arch = x,
-      a = extract(models[[x]], pars = "alpha")$alpha[, i]
-    )
-  }) |>
+map(models$p, \(i) {
+  models[seq(from = i, to = nrow(models)), ] |>
+    pmap(\(p, name, model) {
+      tibble(
+        coeff = i,
+        Model = name,
+        x = extract(model, pars = "alpha")$alpha[, i]
+      )
+    }) |>
     bind_rows()
 }) |>
   bind_rows() |>
   mutate(
-    `ARCH(m)` = factor(paste("m =", arch)),
     coeff = factor(paste("i =", coeff))
   ) |>
-  ggplot(aes(x = a, color = `ARCH(m)`)) +
+  ggplot(aes(x = x, color = Model)) +
   facet_wrap(vars(`coeff`), scales = "free") +
   geom_density() +
   theme_bw() +
@@ -423,46 +425,43 @@ map(1:8, \(i) {
 ggsave(filename = "./img/googl/arch/posterior_alpha_i.png",
        width = 1920, height = 1080, units = "px")
 
-map(1:8, \(i) {
-  map(i:8, \(x) {
-    tibble(
-      coeff = i,
-      arch = x,
-      a = extract(models[[x]], pars = "alpha")$alpha[, i]
-    )
-  }) |>
+map(models$p, \(i) {
+  models[seq(from = i, to = nrow(models)), ] |>
+    pmap(\(p, name, model) {
+      tibble(
+        coeff = i,
+        Model = name,
+        x = extract(model, pars = "alpha")$alpha[, i]
+      )
+    }) |>
     bind_rows()
 }) |>
   bind_rows() |>
   mutate(
-    `ARCH(m)` = factor(paste("m =", arch)),
     coeff = factor(paste("i =", coeff))
   ) |>
-  group_by(coeff, `ARCH(m)`) |>
-  summarise(x = sprintf("%.2f", mean(a)),
+  group_by(coeff, Model) |>
+  summarise(x = sprintf("%.2f", mean(x)),
             .groups = "drop") |>
   pivot_wider(
-    names_from = `ARCH(m)`,
+    names_from = Model,
     values_from = x,
     values_fill =  "-"
   ) |>
   kable(caption = r"(GOOGL/ARCH: Expected $\alpha_i$ for all models)")
 
 # Time series ------------------------------------------------------------------
-map(1:8, \(x) {
+pmap(models, \(p, name, model) {
   tibble(
-    index = index(ret)[-seq_len(x)],
-    arch = x,
-    v = colMeans(sqrt(extract(models[[x]], pars = "sigma2")$sigma2))
+    index = index(ret)[-seq_len(p)],
+    Model = name,
+    x = colMeans(sqrt(extract(model, pars = "sigma2")$sigma))
   )
 }) |>
   bind_rows() |>
-  mutate(
-    `ARCH(m)` = factor(paste0("ARCH(", arch, ")"))
-  ) |>
-  ggplot(aes(x = index, y = v, color = `ARCH(m)`)) +
+  ggplot(aes(x = index, y = x, color = Model)) +
   geom_line(show.legend = FALSE) +
-  facet_wrap(~`ARCH(m)`) +
+  facet_wrap(~ Model) +
   theme_bw() +
   labs(
     title = "Comparison of estimated volatility",
@@ -470,40 +469,51 @@ map(1:8, \(x) {
     y = TeX(r"($\sigma$)")
   )
 
-
 ggsave(filename = "./img/googl/arch/posterior_volatility.png",
        width = 1920, height = 1080, units = "px")
 
 # Prediction -------------------------------------------------------------------
-i <- 5
+i <- 8
 tibble(
   Index = index(ret)[-seq_len(i)],
   true = ret[-seq_len(i)],
-  l = apply(extract(models[[i]], pars = "y_pred")$y_pred, 2, \(x) quantile(x, 0.055)),
-  u = apply(extract(models[[i]], pars = "y_pred")$y_pred, 2, \(x) quantile(x, 0.945)),
+  l = apply(
+    extract(models$model[[i]], pars = "y_pred")$y_pred,
+    2,
+    \(x) quantile(x, 0.055)
+  ),
+  u = apply(
+    extract(models$model[[i]], pars = "y_pred")$y_pred,
+    2,
+    \(x) quantile(x, 0.945)
+  ),
 ) |>
   ggplot(aes(x = Index)) +
   geom_line(aes(y = true), color = "green") +
   geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.4) +
   theme_bw()
 
-map(1:8, \(i) {
+# Total ------------------------------------------------------------------------
+pmap(models, \(p, name, model) {
   tibble(
-    Index = index(ret)[-seq_len(i)],
-    true = coredata(ret[-seq_len(i)]),
-    l = apply(extract(models[[i]], pars = "y_pred")$y_pred, 2, \(x) quantile(x, 0.055)),
-    u = apply(extract(models[[i]], pars = "y_pred")$y_pred, 2, \(x) quantile(x, 0.945))
-  ) |>
-    mutate(`ARCH(m)` = paste0("ARCH(", i, ")"))
+    Model = name,
+    x = extract(model, pars = "total")$total
+  )
 }) |>
   bind_rows() |>
-  ggplot(aes(x = Index, y = true)) +
-  geom_line(color = "green") +
-  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.4) +
-  facet_wrap(vars(`ARCH(m)`), nrow = 2) +
+  ggplot(aes(x = x, color = Model)) +
+  geom_density() +
   theme_bw() +
-  labs(title = "Returns with 89% CI",
-       x = NULL, y = TeX(r"($p$)"))
+  scale_x_continuous(limits = c(0, 1)) +
+  labs(
+    title = TeX(r"(Sum of coefficients)"),
+    y = TeX(r"($P(\sum|x)$)"),
+    x =  TeX(r"(\sum$)"),
+  )
 
-ggsave(filename = "./img/googl/arch/posterior_prediction.png",
+ggsave(filename = "./img/googl/arch/posterior_total.png",
        width = 1920, height = 1080, units = "px")
+
+# ----
+library(loo)
+loo(extract_log_lik(models$model[[1]]))
