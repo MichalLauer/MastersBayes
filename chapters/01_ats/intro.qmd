@@ -7,5 +7,5 @@ independent. In time series data, a point at time $t$ is dependent on values up-
 \parencite{HindlsEtAl2018_StatistikaEkonomii} states that analysis of time series data is the most important analysis for economic data. All economic
 data is *somehow* dependent on its past values and this dependence need to be reflected. One way of analyzing a time series is by forecasting future
 values. This can be done using either point estimates or confidence intervals. Another approach, that is considered in this thesis, is the forecast
-of future volatility. Because a lot of popular techniques, such as the Black–Scholes model, assume homoscedasticity, it is only natural to model
+of future volatility. Because a lot of popular techniques, such as the Black–Scholes model, assume homoskedasticity , it is only natural to model
 the underlying volatility.

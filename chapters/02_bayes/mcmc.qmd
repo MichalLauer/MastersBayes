@@ -24,7 +24,7 @@ to explore the whole posterior distribution without analytical expression \paren
 combination of Markov Chain samples that are used to describe the true posterior distribution. On these samples, it is possible to compute
 properties of the posterior distribution, such as the expected value, median, mode, or any interval metric.
 
-[^mc-stan]: Stacionarity in Markov Chains is something different than stacionarity in Time series.
+[^mc-stan]: Stationarity in Markov Chains is something different than stationarity in Time series.
 
 There are several methods that use the MCMC methodology. The most popular methods are the Metropolis–Hastings algorithm, 
 Metropolis Algorithm, and the Gibbs Sampler, which are later explored in this thesis. Although MCMC sampling is guaranteed to 

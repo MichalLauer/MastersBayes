@@ -9,7 +9,7 @@ important than the accuracy.
 The issue can be solved with samplers based on Variational Inference (VI). Variational inference transform the sampling problem
 from a stochastic processes to an optimization task. Instead of sampling a large number of samples whose stationary distribution
 is the true posterior, VI tries to find a distribution that is close to the posterior distribution measured by a Kullback–Leibler Divergence (KLD).
-It is a measure of how two probability distribution are simmilar to each other. In bayesian statistics, it measures the 
+It is a measure of how two probability distribution are similar to each other. In bayesian statistics, it measures the 
 \enquote{distance} between the true posterior $P(\theta | x)$ and arbitrary distribution function $q$. Interestingly, KLD naturally raises in many statistical methods. One example
 can be the maximum likelihood estimation that naturally minimizes the KLD \parencite{ranganath2017black}.
 

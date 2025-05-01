@@ -8,7 +8,7 @@ parameters and their properties, such as unbiasedness or consistency. His most i
 of tools to conduct hypothesis testing. Other than a great statistician and mathematician, Fisher was also an advocate of frequentist and objective
 approach.
 
-Fisher famously criticised bayesian statistics, then referred to as *inverse* statistics, as a *\enquote{
+Fisher famously criticized bayesian statistics, then referred to as *inverse* statistics, as a *\enquote{
 inverse probability, which like an impenetrable jungle arrests progress towards precision of statistical concepts}*. Interestingly, his stance
 has not been always consistent and in his early work on Maximum likelihood estimation, he pleads to *\enquote{
 to having based his argument upon the principle of inverse probability}*. \parencite{Zabell2022_FisherBayesPredictive} further
@@ -84,7 +84,7 @@ probability of heads is 0,5 \parencite{BartosEtAl2024_FairCoinsTend}.
 In the past, the main drawback of bayesian statistics has been it's computational complexity. Advanced methods, such as hierarchical
 models, can become very complex and it is not possible to express their posterior distribution in a closed form. As
 such, researchers were limited 
-to some set of special distributions which are analyticaly tractable, but do not have to describe the real world in the most precise way.
+to some set of special distributions which are analytically tractable, but do not have to describe the real world in the most precise way.
 Thanks to the recent advancements in numerical methods, simulation techniques and availability of computational resources, bayesian
 methods are more accessible than ever. Even though the computational possibilities
 have greatly improved, very complex models can still take relatively long to estimate and do not have to be feasible in cases where quick
