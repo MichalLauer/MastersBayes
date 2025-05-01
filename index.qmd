@@ -124,6 +124,8 @@
 \item [NUTS] No-U-Turn Sampler
 \item [VI] Variational Inference
 \item [KLD] Kullback–Leibler Divergence
+\item [LOO-CV] Leave-One-Out Cross-Validation
+\item [ELPD] Log Pointwise Predictive Density 
 \end{description}
 \end{multicols}
 ```
