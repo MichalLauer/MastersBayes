@@ -1,5 +1,5 @@
 All the models assume shocks distributed with Student's distribution with parameter $\nu$. This is because financial
-time series data often assume heavy tails that were also visible on Figure @tbl-googl-logret. It is assumed that
+time series data often assume heavy tails that were also visible on Figure @tbl-nvda-logret. It is assumed that
 
 $$
 \nu \sim \Gamma(\alpha = 4, \beta = 0.4).
@@ -7,23 +7,24 @@ $$
 
 This implies that prior belief about degrees of freedom, before observing data, is between $3.53$ and $19.03$ with
 probability $0.89$. The parameter is expected to be 10. The full distribution is shown in Figure
-@fig-googl-arch-apr-nu.
+@fig-nvda-arch-apr-nu.
 
-![GOOGL/ARCH: Prior distribution for $\nu$](./img/googl/arch/apriori_nu.png){#fig-googl-arch-apr-nu}
+![NVDA/ARCH: Prior distribution for $\nu$](./img/nvda/arch/apriori_nu.png){#fig-nvda-arch-apr-nu}
 
 Since models work with log returns, the expected log return at time $t$ is zero and only variance is modeled. Constant
 volatility $\alpha_0$ can be greater than 1 and thus is modeled using $\Gamma(\alpha = 2, \beta = 4)$. This implies
 that 89% percentile interval of $(0.09, 1.16)$ that is quite wide and allows both low and high values. Full prior
-distribution is in Figure @fig-googl-arch-apr-alpha0.
+distribution is in Figure @fig-nvda-arch-apr-alpha0.
 
-![GOOGL/ARCH: Prior distribution for $\alpha_0$](./img/googl/arch/apriori_alpha0.png){#fig-googl-arch-apr-alpha0}
+![NVDA/ARCH: Prior distribution for $\alpha_0$](./img/nvda/arch/apriori_alpha0.png){#fig-nvda-arch-apr-alpha0}
 
-Finally, coefficients $\alpha_i$ for $i = 1, \dots, p$ are modelled using $\Beta(2, 6)$. Because stationarity is
+Finally, coefficients $\alpha_i$ for $i = 1, \dots, p$ are modelled using $\Beta(2, 2)$. Because stationarity is
 reinforced in the Stan model, coefficients greater than zero are not possible and a Beta distribution is used. The 89%
-percentile interval for all coefficients is $(0.06, 0.51)$. The prior belief implies that because higher values are not
-probable because this would imply high memory memory. The full prior can be seen in Figure @fig-googl-arch-apr-alphai.
+percentile interval for all coefficients is $(0.14, 0.86)$. The prior belief implies that both higher and lower values
+are possible because the series experiences autocorrelation. The full prior can be seen in Figure
+@fig-nvda-arch-apr-alphai.
 
-![GOOGL/ARCH: prior distribution for $\alpha_i$](./img/googl/arch/apriori_alpha_i.png){#fig-googl-arch-apr-alphai}
+![NVDA/ARCH: prior distribution for $\alpha_i$](./img/nvda/arch/apriori_alpha_i.png){#fig-nvda-arch-apr-alphai}
 
 In order to achieve stationary and stable models, constraint $\sum_{i=1}^m a_i < 1$ is applied in the Stan definition.
 To model $m$ parameters that sum to 1, a simplex vector of size $m + 1$ is defined. Its key characteristic is

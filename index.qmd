@@ -273,13 +273,13 @@ knitr::opts_chunk$set(
 
 {{< include chapters/03_prac/intro.qmd >}}
 
-## Ticker GOOGL
+## Ticker NVDA
 
-{{< include chapters/03_prac/031_googl/googl.qmd >}}
+{{< include chapters/03_prac/031_nvda/nvda.qmd >}}
 
 ### ARCH models
 
-{{< include chapters/03_prac/031_googl/ARCH.qmd >}}
+{{< include chapters/03_prac/031_nvda/ARCH.qmd >}}
 
 ```{=tex}
 %%% Závěr

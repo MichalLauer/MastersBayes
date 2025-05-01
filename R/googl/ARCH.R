@@ -11,7 +11,7 @@ library(loo)
 # Setup ------------------------------------------------------------------------
 Sys.setlocale("LC_ALL", "en")
 options(knitr.kable.NA = ' - ')
-symbol <- "GOOGL"
+symbol <- "NVDA"
 from   <- "2022-03-31"
 to     <- "2025-03-31"
 
@@ -20,23 +20,23 @@ data <-
   symbol |>
   getSymbols(from = from, to = to, auto.assign = FALSE) |>
   _[, 1]
-png("./img/googl/closing.png", width = 1920, height = 1080, res = 200)
-plot(data, main = "Closing price for $GOOGL")
+png("./img/nvda/closing.png", width = 1920, height = 1080, res = 200)
+plot(data, main = "Closing price for $NVDA")
 dev.off()
 
 # Get and plot returns
-ret <- log(data$GOOGL.Open/lag(data$GOOGL.Open))[-1]
-png("./img/googl/logret.png", width = 1920, height = 1080, res = 200)
-plot(ret, ylim = c(-0.16, 0.16), main = "Log returns for $GOOGL")
-points(ret[which.min(ret)], col = "red", pch = 4, lwd=2)
-points(ret[which.max(ret)], col = "green", pch = 4, lwd=2)
+ret <- log(data$NVDA.Open/lag(data$NVDA.Open))[-1]
+png("./img/nvda/logret.png", width = 1920, height = 1080, res = 200)
+plot(ret, ylim = c(-0.16, 0.16), main = "Log returns for $NVDA")
+points(ret[which.min(ret)], col = "red", pch = 4, lwd = 2)
+points(ret[which.max(ret)], col = "green", pch = 4, lwd = 2)
 dev.off()
 
 # Compute statistics for log returns  ------------------------------------------
 ret |>
   fortify() |>
   as_tibble() |>
-  mutate(x = GOOGL.Open) |>
+  mutate(x = NVDA.Open) |>
   summarise(
     Start = min(Index),
     End = max(Index),
@@ -51,9 +51,15 @@ ret |>
     .cols = where(is.double),
     .fns = \(x) sprintf("%.2f", x)
   )) |>
-  kable(caption = "Description of log returns of GOOGL")
+  kable(caption = "Description of log returns of NVDA")
 
 # Correlation ------------------------------------------------------------------
+par(mfrow = c(2,2))
+pacf(ret^2, main = TeX(r"(Partial ACF of $p^2$)"))
+acf(ret^2, main = TeX(r"(ACF of $p^2$)"))
+pacf(abs(ret), main = TeX(r"(Partial ACF of $|p|$)"))
+acf(abs(ret), main = TeX(r"(ACF of $|p|$)"))
+par(mfrow = c(1, 1))
 
 # Prior for nu -----------------------------------------------------------------
 alpha <- 0.89
@@ -87,7 +93,7 @@ tibble(x = seq(0, 40, length.out = 500)) |>
     x = TeX(r"($\nu$)"),
     y = TeX(r"(P($\nu$))")
   )
-ggsave(filename = "./img/googl/arch/apriori_nu.png",
+ggsave(filename = "./img/nvda/arch/apriori_nu.png",
        width = 1920, height = 1080, units = "px")
 
 
@@ -123,13 +129,13 @@ tibble(x = seq(0, 4, length.out = 500)) |>
     x = TeX(r"($\alpha_0$)"),
     y = TeX(r"(P($\alpha_0$))")
   )
-ggsave(filename = "./img/googl/arch/apriori_alpha0.png",
+ggsave(filename = "./img/nvda/arch/apriori_alpha0.png",
        width = 1920, height = 1080, units = "px")
 
 # Prior for alpha_i ----------------------------------------------------------
 alpha <- 0.89
 s1 <- 2
-s2 <- 6
+s2 <- 2
 lower <- qbeta((1-alpha)/2, shape1 = s1, shape2 = s2)
 lower <- sprintf("%.2f", lower)
 upper <- qbeta((1+alpha)/2, shape1 = s1, shape2 = s2)
@@ -158,7 +164,8 @@ tibble(x = seq(0, 1, length.out = 1000)) |>
     x = TeX(r"($\alpha_i $)"),
     y = TeX(r"(P($\alpha_i $))")
   )
-ggsave(filename = "./img/googl/arch/apriori_alpha_i.png",
+
+ggsave(filename = "./img/nvda/arch/apriori_alpha_i.png",
        width = 1920, height = 1080, units = "px")
 
 
