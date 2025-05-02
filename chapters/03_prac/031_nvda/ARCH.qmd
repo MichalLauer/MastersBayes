@@ -146,7 +146,7 @@ Table: NVDA/ARCH: Tabular description of posterior for $\alpha_1$. {#tbl-nvda-ar
 |CI_lower   |0.07    |0.05    |0.04    |0.04    |0.03    |0.03    |0.03    |0.03    |
 |CI_upper   |0.22    |0.19    |0.17    |0.17    |0.17    |0.16    |0.16    |0.17    |
 
-The expected effect decreases with more lags and for $m \geq 5$ is around 0.09. The 89% credible intervals between
+The expected effect decreases with more lags and for $m \geq 5$ is around 0.09. The 89% percentile intervals between
 ARCH$(1)$ and ARCH$(8)$ are very similar and as the order increases, the upper limit decreases. The same thing can be
 observed on some other parameters in Figure @fig-nvda-arch-post-alpha-i
 
@@ -187,7 +187,7 @@ The sum of all parameters is strictly between 0 and 1. Even though the probabili
 with increasing order $p$, it never reaches closely to 1 and all models can be considered stationary.
 
 To pick the best model, first a visual comparison between the predicted volatility and the true returns is used. Since
-the expected log returns are zero, posterior credible intervals at each index $t$ are used to assess the volatility.
+the expected log returns are zero, posterior percentile intervals at each index $t$ are used to assess the volatility.
 Figure @fig-nvda-arch-post-prediction compares all models and their log returns.
 
 ![NVDA/ARCH: Predictions across all models.](./img/nvda/arch/posterior_prediction.png){#fig-nvda-arch-post-prediction}

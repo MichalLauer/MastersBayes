@@ -287,8 +287,8 @@ pmap(models, \(p, name, model) {
   summarise(
     Average = mean(x),
     SD = sd(x),
-    CI_lower = quantile(x, (1-alpha)/2),
-    CI_upper = quantile(x, (1+alpha)/2)
+    CI_lower = quantile(x, (1 - alpha)/2),
+    CI_upper = quantile(x, (1 + alpha)/2)
   ) |>
   mutate(
     across(
@@ -337,8 +337,8 @@ pmap(models, \(p, name, model) {
   summarise(
     Average = mean(x),
     SD = sd(x),
-    CI_lower = quantile(x, (1-alpha)/4),
-    CI_upper = quantile(x, (1+alpha)/4)
+    CI_lower = quantile(x, (1 - alpha)/4),
+    CI_upper = quantile(x, (1 + alpha)/4)
   ) |>
   mutate(
     across(
@@ -386,8 +386,8 @@ pmap(models, \(p, name, model) {
   summarise(
     Average = round(mean(x), 2),
     SD = round(sd(x), 2),
-    CI_lower = quantile(x, (1-alpha)/2),
-    CI_upper = quantile(x, (1+alpha)/2)
+    CI_lower = quantile(x, (1 - alpha)/2),
+    CI_upper = quantile(x, (1 + alpha)/2)
   ) |>
   mutate(
     across(
@@ -511,12 +511,12 @@ df_pred <-
       l = apply(
         extract(model, pars = "y_pred")$y_pred,
         2,
-        \(x) quantile(x, 0.055)
+        \(x) quantile(x, (1 - alpha)/2)
       ),
       u = apply(
         extract(model, pars = "y_pred")$y_pred,
         2,
-        \(x) quantile(x, 0.945)
+        \(x) quantile(x, (1 + alpha)/2)
       ),
     )
   }) |>
