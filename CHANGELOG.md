@@ -12,12 +12,13 @@
 - přidání krátké zmínky o Laplaceho aproximaci na konec kapitoly 2.3
 - přidání krátkého odstavce o výhodách bayes. metod díky hierarchickým modelům mezi kapitolami 2 a 2.1
 - přidána teoretická část
-    - TODO: Opravit z ARCH(m) na ARCH(p)
-    - TODO: Opravit na GARCH(p, q)
+
 ## Poznámky:
 
 - jinou citační formu použít nelze, musíme mít APA7 a je to v templatu
-
+- ty tlusté čáry se pokusím opravit
+- nějaké tabulky nejsou ok
+- Figure 3.22
 
 # Verze 2.0
 

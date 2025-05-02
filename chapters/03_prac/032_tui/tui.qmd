@@ -1,24 +1,24 @@
-The second application will use the ticker \$TUI1.DE that represents TUI Group, a travel agency that operates across
-europe. The analyzed time range is the same as for $NVDA. The time series can be seen in Figure @fig-tui-raw
+The second application will use the ticker TUI1.DE that represents TUI Group, a travel agency that operates across
+europe. The analyzed time range is the same as for NVDA. The time series can be seen in Figure @fig-tui-raw
 
-![Closing price for ticker \$TUI1.DE](./img/tui/closing.png){#fig-tui-raw}
+![Closing price for ticker TUI1.DE](./img/tui/closing.png){#fig-tui-raw}
 
 There is no apparent growth and the underlying close price is oscillating around 8. The log returns can be seen on 
 Figure @fig-tui-logret.
 
-![Log returns for ticker \$TUI1.DE](./img/tui/logret.png){#fig-tui-logret}
+![Log returns for ticker TUI1.DE](./img/tui/logret.png){#fig-tui-logret}
 
 The log returns exhibit periods of high and low volatility, The greatest day-to-day change is around 10 % in both
 directions. The autocorrelation can be also observed on Figure @fig-tui-pacf.
 
 
-![ACF and PACF for ticker \$TUI1.DE](./img/tui/pacf.png){#fig-tui-pacf}
+![ACF and PACF for ticker TUI1.DE](./img/tui/pacf.png){#fig-tui-pacf}
 
 The charts show historical spikes in both ACF and PACF functions. This suggest that volatility modeling might be
 appropriate. To model the underlying volatility, only the SV model will be used for a couple of reasons. First,
 research presented in the theoretical part suggests that SV models are more suitable for a lot of TSD analysis because
-of it's high flexibility through two stochastic processes. Secondly, analysis of \$NVDA showed that the SV model is
+of their high flexibility through two stochastic processes. Secondly, analysis of NVDA showed that the SV model is
 capable of capturing the underlying volatility in a more precise way and visual analysis showed that it outperformed
 volatility prediction from both ARCH and GARCH models. Finally, including another full comparison of various
 ARCH/GARCH/SV models would have minimal benefit because the interpretation of bayesian models has been thoroughly
-introduced in the last chapter. Doing so would also significantly exceeded the page count requirements of this thesis.
+introduced in the last chapters. Doing so would also significantly exceeded the page count requirements of this thesis.

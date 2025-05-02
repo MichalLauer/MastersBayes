@@ -2,7 +2,7 @@ The practical part of this thesis focuses on the application of ARCH$(p)$, GARCH
 time series data. First, the prior distributions are visually described and their meaningfulness is argued. To estimate
 the models, custom Stan programs are written and printed in Appendix @sec-app-stan. All models are defined such that
 the stationarity requirements are met. This is done through a simplex vector whose values sum to one. To fulfill the
-requirement that the sum of coefficients is less than one without implying that their sum must but be equal to one, a
+requirement that the sum of coefficients is less than one without implying that their sum must but equal to one, a
 slack variable is introduced. For example, a model with $p$ parameters defines a simplex vector of length $p + 1$. To
 further evaluate model quality, in-sample predictions and log-likelihoods are computed. Since the primary aim of this
 thesis is to explore and explain the underlying volatility structure rather than to make out-of-sample forecasts,
@@ -43,10 +43,10 @@ the approximation}.*
 require special handling of time dependence to prevent data leakage.
 
 This thesis uses LOO-CV instead of LFO-CV or approximate LFO-CV for two main reasons. First, to use LFO-CV on a
-time-series with around 900 data points, the model would need to be refit at least 890 times[^refit]. Because this
-thesis will estimate 13 different model, the comparison would not be possible. As such, approximately LFO-CV is a
-natural replacement that could be used. It's implementation is Stan is not trivial and it's use is mainly through the
-`{brms}` package, described in a `{loo}` vignette[^vig].
+time-series with a lot of data points is very computationally expensive. [^refit]. Because this
+thesis will estimate 18 different models, the comparison would not be possible. As such, approximately LFO-CV is a
+natural replacement that could be used. It's implementation in Stan is not trivial and it's use is mainly through the
+`{brms}` package, described in a `{loo}` vignette[^vig]. Hence the LOO-CV is used instead.
 
 [^refit]: This number can vary based on different models.
 
@@ -62,8 +62,8 @@ using package `{quantmod}` \parencite[ver. 0.4.27]{RyanUlrich2025_QuantmodQuanti
 Finance in the background. The time span for every model is a three-year window from 31st of March, 2022 to 31st of
 March, 2025. The data are collected daily, however, financial markets are usually closed on holidays or weekends. The
 raw closing prices are transformed to log returns defined in @eq-log-returns. Visualizations are provided either with
-package `{zoo}` \parencite[ver. 1.8.14]{ZeileisGrothendieck2005_ZooS3Infrastructure} or `{ggplot2}`
-\parencite[ver. 3.5.2]{Wickham2016_Ggplot2ElegantGraphics}. Tables are transformed from R structure to LaTeX using
+package `{zoo}` \parencite[ver. 1.8.14]{ZeileisGrothendieck2005_ZooS3Infrastructure}, `{ggplot2}`
+\parencite[ver. 3.5.2]{Wickham2016_Ggplot2ElegantGraphics} or base R functions. Tables are transformed from R structure to LaTeX using
 `{knitr}` \parencite[ver. 1.50]{Xie2014_KnitrComprehensiveTool}. R language communicates with the Stan software using
 `{rstan}` \parencite[ver. 2.32.7]{StanDevelopmentTeam2024_RStanInterfaceStan} that can be used for estimation and
 sampling. Data are transformed using packages `{dplyr}` \parencite[ver. 1.1.4]{WickhamEtAl2023_DplyrGrammarData},

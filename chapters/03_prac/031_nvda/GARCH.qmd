@@ -1,6 +1,6 @@
 The GARCH model will build on ARCH specification and use the same shock distribution and priors for
 $\nu$, $\alpha_0$ and $\alpha_i$. New parameters $\beta_i$ will share the same prior distribution as $\alpha_i$,
-because it their limitations are very similar (although their interpretation is not). In total, 8 different
+because their limitations are very similar (although their interpretation is not). In total, 8 different
 GARCH models have been estimated. The order of $p$ is set to 5 because it has been selected as the best
 order for a simple ARCH$(p)$ model. New estimated models range from GARCH$(5, 1)$ to GARCH$(5, 8)$ which should
 enable more flexible volatility modeling.
@@ -65,8 +65,8 @@ Table: NVDA/GARCH: Tabular description of posterior for $\nu$. {#tbl-nvda-garch-
 |:----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
 |Average    |7.12        |7.06        |7.07        |7.03        |6.99        |6.99        |7.01        |7.00        |
 |SD         |1.47        |1.44        |1.45        |1.43        |1.42        |1.43        |1.42        |1.41        |
-|CI_lower   |5.14        |5.11        |5.11        |5.12        |5.10        |5.06        |5.11        |5.10        |
-|CI_upper   |9.70        |9.59        |9.64        |9.56        |9.47        |9.49        |9.52        |9.47        |
+|PI$_{0.055}$   |5.14        |5.11        |5.11        |5.12        |5.10        |5.06        |5.11        |5.10        |
+|PI$_{0.945}$   |9.70        |9.59        |9.64        |9.56        |9.47        |9.49        |9.52        |9.47        |
 
 The estimated instantinuous volatility measured with $\alpha_0$ is shown in Figure @fig-nvda-garch-post-alpha0.
 
@@ -82,8 +82,8 @@ Table: NVDA/GARCH: Tabular description of posterior for $\alpha_0$. {#tbl-nvda-g
 |:----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
 |Average    |0.0004      |0.0003      |0.0003      |0.0002      |0.0002      |0.0002      |0.0002      |0.0002      |
 |SD         |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |
-|CI_lower   |0.0002      |0.0002      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |
-|CI_upper   |0.0004      |0.0003      |0.0003      |0.0002      |0.0002      |0.0002      |0.0002      |0.0001      |
+|PI$_{0.055}$   |0.0002      |0.0002      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |
+|PI$_{0.945}$   |0.0004      |0.0003      |0.0003      |0.0002      |0.0002      |0.0002      |0.0002      |0.0001      |
 
 Even though the posterior distributions look differently, the magnitude by which they differ is rather small and
 probably does not have meaningful impact on the underlying volatility. The smallest 89% percentile interval
@@ -104,16 +104,15 @@ Table: NVDA/GARCH: Tabular description of posterior for $\beta_1$.  {#tbl-nvda-g
 |:----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
 |Average    |0.14        |0.12        |0.10        |0.09        |0.08        |0.07        |0.07        |0.06        |
 |SD         |0.08        |0.07        |0.06        |0.06        |0.05        |0.05        |0.04        |0.04        |
-|CI_lower   |0.03        |0.02        |0.02        |0.02        |0.02        |0.01        |0.01        |0.01        |
-|CI_upper   |0.29        |0.26        |0.22        |0.20        |0.18        |0.16        |0.15        |0.14        |
+|PI$_{0.055}$   |0.03        |0.02        |0.02        |0.02        |0.02        |0.01        |0.01        |0.01        |
+|PI$_{0.945}$   |0.29        |0.26        |0.22        |0.20        |0.18        |0.16        |0.15        |0.14        |
 
 The expectation gradually decreases and the 89% PI changes from $(0.03, 0.29)$ to $(0.01, 0.14)$. The same
-effect can be observed with other coefficients in Figure @fig-nvda-garch-post-beta1 and Table
-@tab-nvda-garch-post-beta-i.
+effect can be observed with other coefficients in Figure @fig-nvda-garch-post-beta1 and Table @tbl-nvda-garch-post-beta-i.
 
 ![NVDA/GARCH: Posterior distribution for $\beta_1$.](./img/nvda/garch/posterior_beta1.png){#fig-nvda-garch-post-beta1}
 
-Table: NVDA/GARCH: Expected $\beta_i$ for all models. {#tab-nvda-garch-post-beta-i}
+Table: NVDA/GARCH: Expected $\beta_i$ for all models. {#tbl-nvda-garch-post-beta-i}
 
 |coeff |GARCH(5, 1) |GARCH(5, 2) |GARCH(5, 3) |GARCH(5, 4) |GARCH(5, 5) |GARCH(5, 6) |GARCH(5, 7) |GARCH(5, 8) |
 |:-----|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
@@ -135,7 +134,7 @@ model can be read from top-to-bottom and it is interesting to see that they are 
 The red GARCH$(5, 1)$ model is similar to the best ARCH$(5)$ model, but the conditional volatility of the first lag is
 preserved. As the complexity increases, individual volatility shock have longer tails and their effect on additional
 observations increases. This effect can be observed between years 2023 and 2024 where the biggest spike occurs. In the
-first model, the volatility sharply drops after just a few time points. The bottom middle model has considers lag of 8
+first model, the volatility sharply drops after just a few time points. The bottom middle model considers lag of 8
 and the single shock has large effect on volatility that follows. This can also be observed at the beginning of year
 2025 where two large spikes happened. In the simplest model, the volatility sharply increases and decreases, allowing
 the effect to not be heavily affected. In contrast, the most complex model does not sharply decrease and the
@@ -155,9 +154,9 @@ stationary. The in-sample predictions of volatility compared with the observed l
 
 The same properties as in Figure @fig-nvda-garch-post-volatility are visible and simple models do not preserve high
 volatility for longer periods, while complex models do. Based solely on visual analysis, the models all decently
-capture the underlying volatility. The same conclusion can be drawn from comparison Table @nvda-arch-post-loo.
+capture the underlying volatility. The same conclusion can be drawn from comparison Table @tbl-nvda-arch-post-loo.
 
-Table: NVDA/GARCH: Comparison of models using ELPD. {#nvda-garch-post-loo}
+Table: NVDA/GARCH: Comparison of models using ELPD. {#tbl-nvda-garch-post-loo}
 
 |Model       |   elpd_diff|   se_diff|
 |:-----------|-----------:|---------:|

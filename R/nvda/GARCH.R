@@ -454,7 +454,7 @@ df_pred |>
   geom_line(aes(y = true)) +
   theme_bw() +
   labs(
-    title = TeX(r"(Most optimal model: GARCH(5))"),
+    title = TeX(r"(Most optimal model: GARCH(5, 1))"),
     subtitle = TeX(r"(with shaded 89% percentile interval)"),
     x = NULL, y = TeX(r"($p$)")
   )

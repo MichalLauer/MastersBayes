@@ -20,20 +20,20 @@ distribution is in Figure @fig-nvda-arch-apr-alpha0.
 
 Finally, coefficients $\alpha_i$ for $i = 1, \dots, p$ are modelled using $\Beta(2, 2)$. Because stationarity is
 reinforced in the Stan model, coefficients greater than zero are not possible and a Beta distribution is used. The 89%
-percentile interval for all coefficients is $(0.14, 0.86)$. The prior belief implies that both higher and lower values
+percentile interval for all coefficients is $(0.14, 0.86)$. The prior belief implies that both semi high and lower values
 are possible because the series experiences autocorrelation. The full prior can be seen in Figure
 @fig-nvda-arch-apr-alphai.
 
 ![NVDA/ARCH: prior distribution for $\alpha_i$.](./img/nvda/arch/apriori_alpha_i.png){#fig-nvda-arch-apr-alphai}
 
-The whole model could be described as:
+The whole model could be defined as:
 
 $$
 \begin{aligned}
-y_t &\sim \sqrt \sigma_t \epsilon_t \\
+p_t &\sim \sqrt \sigma_t \epsilon_t \\
 \epsilon_t &\sim T(\nu) \\
 \nu &\sim \Gamma(\alpha = 4, \beta = 0.4) \\
-\sigma^2_t &= \alpha_0 + \sum_{i=1}^m \alpha_i y^2_{t - i} \\
+\sigma^2_t &= \alpha_0 + \sum_{i=1}^m \alpha_i p^2_{t - i} \\
 \alpha_0 &\sim \Gamma(\alpha = 2, \beta = 4) \\
 \alpha_i &\sim B(2, 2)
 \end{aligned}
@@ -45,7 +45,7 @@ Shrink factor for every model and parameter is displayed in Table @tbl-nvda-arch
 
 Table: NVDA/ARCH: Shrinkage factors. {#tbl-nvda-arch-shrinkage}
 
-|param    |  ARCH(1)|   ARCH(2)|  ARCH(3)|   ARCH(4)|   ARCH(5)|   ARCH(6)|   ARCH(7)|   ARCH(8)|
+|parameter|  ARCH(1)|   ARCH(2)|  ARCH(3)|   ARCH(4)|   ARCH(5)|   ARCH(6)|   ARCH(7)|   ARCH(8)|
 |:--------|--------:|---------:|--------:|---------:|---------:|---------:|---------:|---------:|
 |nu       | 1.000052| 0.9999489| 1.000375| 1.0001874| 1.0000615| 0.9999564| 1.0000243| 0.9999658|
 |alpha0   | 1.000137| 0.9999063| 1.000294| 0.9999753| 1.0000590| 1.0002034| 0.9999352| 1.0002607|
@@ -58,12 +58,12 @@ Table: NVDA/ARCH: Shrinkage factors. {#tbl-nvda-arch-shrinkage}
 |alpha[7] |        -|         -|        -|         -|         -|         -| 1.0000054| 1.0001173|
 |alpha[8] |        -|         -|        -|         -|         -|         -|         -| 0.9998867|
 
-It is apparent that not a single shrinkage factor is greater than 1.1 and this suggest satisfactory convergence.
-Another look can be through the ESS in Table @tbl-nvda-arch-ess.
+It is apparent that not a single shrinkage factor is greater than 1.1 which suggest satisfactory convergence. Another
+look can be through the ESS in Table @tbl-nvda-arch-ess.
 
 Table: NVDA/ARCH: ESS. {#tbl-nvda-arch-ess}
 
-|param    |  ARCH(1)|  ARCH(2)|  ARCH(3)|  ARCH(4)|  ARCH(5)|  ARCH(6)|  ARCH(7)|  ARCH(8)|
+|parameter|  ARCH(1)|  ARCH(2)|  ARCH(3)|  ARCH(4)|  ARCH(5)|  ARCH(6)|  ARCH(7)|  ARCH(8)|
 |:--------|--------:|--------:|--------:|--------:|--------:|--------:|--------:|--------:|
 |nu       | 13346.02| 16758.07| 17668.40| 19547.51| 21062.21| 24029.70| 22192.66| 20174.71|
 |alpha0   | 14413.55| 17670.42| 15627.39| 16606.97| 15037.47| 15630.70| 14571.68| 14705.28|
@@ -76,13 +76,12 @@ Table: NVDA/ARCH: ESS. {#tbl-nvda-arch-ess}
 |alpha[7] |        -|        -|        -|        -|        -|        -| 27118.33| 26001.47|
 |alpha[8] |        -|        -|        -|        -|        -|        -|        -| 26909.11|
 
-In total, $4 * 6000 = 24000$ samples are considered during inference. Simple models have relatively smaller
-ESS, which might suggest inefficient sampling. All parameters across all models have ESS greater than 13 000
+All parameters across all models have ESS greater than 13 000
 and thus the inference should reliably describe the posterior distribution. Stan recorded no chain divergence which
 means the chains are very similar.
 
 Since all models assume to be shock distributed with Students distribution, the parameter $\nu$ is of interest. Figure 
-@fig-nvda-arch-post-nu shows all posterior distribution by model.
+@fig-nvda-arch-post-nu shows all posterior distributions by model.
 
 ![NVDA/ARCH: Posterior distribution for $\nu$.](./img/nvda/arch/posterior_nu.png){#fig-nvda-arch-post-nu}
 
@@ -95,24 +94,23 @@ Table: NVDA/ARCH: Tabular description of posterior for $\nu$. {#tbl-nvda-arch-po
 |:----------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|
 |Average    |7.19    |7.07    |7.02    |7.19    |7.19    |7.21    |7.13    |7.29    |
 |SD         |1.53    |1.48    |1.48    |1.50    |1.49    |1.51    |1.46    |1.49    |
-|CI_lower   |5.16    |5.11    |5.07    |5.19    |5.18    |5.18    |5.17    |5.27    |
-|CI_upper   |9.92    |9.69    |9.61    |9.82    |9.79    |9.82    |9.72    |9.86    |
+|PI$_{0.055}$   |5.16    |5.11    |5.07    |5.19    |5.18    |5.18    |5.17    |5.27    |
+|PI$_{0.945}$   |9.92    |9.69    |9.61    |9.82    |9.79    |9.82    |9.72    |9.86    |
 
-All marginal posterior distributions have the expectation 7 degrees of freedom. The posterior of all models
-overlaps which may suggest that the degrees of freedom is similar in all models. These results suggest that the
-volatility of the \$NVDA ticker has heavy tails and is not normally distributed. All models have most probably finite
-variance.
+All marginal posterior distributions have the expectation 7 degrees of freedom. The posterior of all models overlaps
+which may suggest that the degrees of freedom is similar in all models. These results suggest that the volatility of
+the NVDA ticker has heavy tails and is not normally distributed. All models have most probably finite variance.
 
-Another estimated parameter is the instantinuous volatility $\alpha_0$, whose posteriors throughout all models is 
-shown in Figure @fig-nvda-arch-post-alpha0.
+Another estimated parameter is the instantinuous volatility $\alpha_0$, whose posterior distributions throughout all
+models are shown in Figure @fig-nvda-arch-post-alpha0.
 
 ![NVDA/ARCH: Posterior distribution for $\alpha_0$.](./img/nvda/arch/posterior_alpha0.png){#fig-nvda-arch-post-alpha0}
 
-All the posteriors look similar but as the order of the model increases, the less 
-instantinuous volatility is expected. This makes sense, because additional lags explain more
-volatility and less weight to the instantinuous volatility is assigned. Looking at it's central
-tendency, the expected instantinuous volatility does not change by a large magnitude. The posteriors are however
-very different from the prior distribution. This is further examined in Table @tbl-nvda-arch-post-alpha0.
+All the posteriors look similar but as the order of the model increases, the less instantinuous volatility is expected.
+This makes sense, because additional lags explain more volatility and less weight to the instantinuous volatility is
+assigned. Looking at it's central tendency, the expected instantinuous volatility does not change by a large magnitude.
+The posteriors are however very different from the prior distribution. This is further examined in Table
+@tbl-nvda-arch-post-alpha0.
 
 Table: NVDA/ARCH: Tabular description of posterior for $\alpha_0$. {#tbl-nvda-arch-post-alpha0}
 
@@ -120,14 +118,14 @@ Table: NVDA/ARCH: Tabular description of posterior for $\alpha_0$. {#tbl-nvda-ar
 |:----------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|
 |Average    |0.0007  |0.0007  |0.0006  |0.0005  |0.0004  |0.0004  |0.0004  |0.0003  |
 |SD         |0.0001  |0.0001  |0.0001  |0.0001  |0.0001  |0.0001  |0.0001  |0.0001  |
-|CI_lower   |0.0006  |0.0005  |0.0004  |0.0004  |0.0003  |0.0003  |0.0002  |0.0002  |
-|CI_upper   |0.0007  |0.0007  |0.0006  |0.0005  |0.0004  |0.0004  |0.0004  |0.0003  |
+|PI$_{0.055}$   |0.0006  |0.0005  |0.0004  |0.0004  |0.0003  |0.0003  |0.0002  |0.0002  |
+|PI$_{0.945}$   |0.0007  |0.0007  |0.0006  |0.0005  |0.0004  |0.0004  |0.0004  |0.0003  |
 
 Even though the posterior distributions look different, the magnitude of such difference
 is very small and can be observed only on the fourth decimal place. The magnitude probably does not have any
 valuable effect on the final volatility.
 
-The posterior distributions for coefficients $\alpha_1$ are shown in @fig-nvda-arch-post-alpha1.
+The posterior distributions for coefficients $\alpha_1$ are shown in Figure @fig-nvda-arch-post-alpha1.
 
 ![NVDA/ARCH: Posterior distribution for $\alpha_1$.](./img/nvda/arch/posterior_alpha1.png){#fig-nvda-arch-post-alpha1}
 
@@ -143,21 +141,20 @@ Table: NVDA/ARCH: Tabular description of posterior for $\alpha_1$. {#tbl-nvda-ar
 |:----------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|
 |Average    |0.14    |0.11    |0.10    |0.10    |0.09    |0.09    |0.09    |0.09    |
 |SD         |0.05    |0.05    |0.04    |0.04    |0.04    |0.04    |0.04    |0.04    |
-|CI_lower   |0.07    |0.05    |0.04    |0.04    |0.03    |0.03    |0.03    |0.03    |
-|CI_upper   |0.22    |0.19    |0.17    |0.17    |0.17    |0.16    |0.16    |0.17    |
+|PI$_{0.055}$   |0.07    |0.05    |0.04    |0.04    |0.03    |0.03    |0.03    |0.03    |
+|PI$_{0.945}$   |0.22    |0.19    |0.17    |0.17    |0.17    |0.16    |0.16    |0.17    |
 
-The expected effect decreases with more lags and for $m \geq 5$ is around 0.09. The 89% percentile intervals between
-ARCH$(1)$ and ARCH$(8)$ are very similar and as the order increases, the upper limit decreases. The same thing can be
-observed on some other parameters in Figure @fig-nvda-arch-post-alpha-i
+The expected effect decreases with more lags and for $m \geq 5$ is around 0.09. The same thing can be observed on some
+other parameters in Figure @fig-nvda-arch-post-alpha-i
 
 ![NVDA/ARCH: Posterior distribution for $\alpha_i$.](./img/nvda/arch/posterior_alpha_i.png){#fig-nvda-arch-post-alpha-i}
 
-The shrinkage of $\alpha_1$ can be seen on $\alpha_3$ and $\alpha_6$. Other parameters have stable posterior
+The same shrinkage can be seen on $\alpha_2$ and $\alpha_3$. Other parameters have stable posterior
 distributions across models. Further detail of expectations can be seen in Table @tbl-nvda-arch-post-alpha-i.
 
 Table: NVDA/ARCH: Expected $\alpha_i$ for all models. {#tbl-nvda-arch-post-alpha-i}
 
-|coeff |ARCH(1) |ARCH(2) |ARCH(3) |ARCH(4) |ARCH(5) |ARCH(6) |ARCH(7) |ARCH(8) |
+| $\alpha_i$ |ARCH(1) |ARCH(2) |ARCH(3) |ARCH(4) |ARCH(5) |ARCH(6) |ARCH(7) |ARCH(8) |
 |:-----|:-------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|
 |i = 1 |0.14    |0.11    |0.10    |0.10    |0.09    |0.09    |0.09    |0.09    |
 |i = 2 |-       |0.08    |0.07    |0.07    |0.07    |0.08    |0.07    |0.06    |
@@ -194,7 +191,7 @@ Figure @fig-nvda-arch-post-prediction compares all models and their log returns.
 
 Simple models up to $m = 4$ do not have sufficient complexity to capture the underlying volatility and are flat. All
 other models look fairly similar and are able to capture period of low and high volatility. Formal comparison using
-LOO-CV is available in Figure @...
+LOO-CV is available in Figure @tbl-nvda-arch-post-loo.
 
 Table: NVDA/ARCH: Overview of LOO-CV comparison. {#tbl-nvda-arch-post-loo}
 

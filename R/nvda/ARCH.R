@@ -49,8 +49,8 @@ ret |>
     Max  = max(x)
   ) |>
   mutate(across(
-    .cols = where(is.double),
-    .fns = \(x) sprintf("%.2f", x)
+    .cols = 4:8,
+    .fns = \(x) sprintf("%.4f", x)
   )) |>
   kable(caption = "Description of log returns of NVDA")
 

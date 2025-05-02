@@ -21,18 +21,18 @@ only. Full prior is shown in Figure @fig-nvda-sv-apr-mu.
 
 ![NVDA/SV: Prior distribution for $\mu$.](./img/nvda/sv/apriori_mu.png){#fig-nvda-sv-apr-mu}
 
-Because neither very large nor very small, $\mu$ is expected in the 89% PI of $(0.07, 1.46)$. This covers wide range of
-probable average volatility. Finally, the SV models works with two stochastic components - the innovations for $y$ and
-the random shock $\eta$. Because the model will work with TSD, they are considered to have Student's distribution with
-individual parameters $\nu_\text{in}$ or the innovations and $\nu_\text{la}$ for the random shock accompanied in the
-latent variable. The combination of two stochastic components could enable greater explanation power of log returns
-and the distributions may not suffer from heavy tails. As such, the prior distribution for both parameters
-visualized in Figure @fig-nvda-sv-apr-nu is very wide to accommodate for such flexibility.
+Parameter $\mu$ is expected in the 89% PI of $(0.07, 1.46)$. This covers wide range of probable average volatility.
+Finally, the SV models works with two stochastic components - the innovations for $p$ and the random shock $\eta$.
+Because the model will work with TSD, they are considered to have Student's distribution with individual parameters
+$\nu_\text{in}$ for the innovations and $\nu_\text{la}$ for the random shock accompanied in the latent variable. The
+combination of two stochastic components could enable greater explanation power of log returns and the distributions
+may not suffer from heavy tails. As such, the prior distribution for both parameters is visualized in Figure
+@fig-nvda-sv-apr-nu.
 
 ![NVDA/SV: Prior distribution for $\nu_\text{in}$ and $\nu_\text{la}$.](./img/nvda/sv/apriori_nu.png){#fig-nvda-sv-apr-nu}
 
-The 89% PI ranges from 8.56 to 41.55 which suggests to the model that the parameters can vary. The whole model
-could be written as:
+The 89% PI ranges from 8.56 to 41.55 which suggests to the model that the parameters can vary. The whole model could be
+written as:
 
 $$
 \begin{aligned}
@@ -57,7 +57,7 @@ Table: NVDA/SV: Shrinkage factors. {#tbl-nvda-sv-shrinkage-ess}
 |nu_in | 0.9999708| 34132.36|
 |nu_la | 1.0000390| 39875.37|
 
-The model was estimated on identical settings as previous model. The Shrinkage factor and ESS are both satisfactory.
+The model was estimated on identical settings as previous models. The Shrinkage factor and ESS are both satisfactory.
 The chains merged adequately and the smallest ESS is sufficient for further statistical inference. The posterior
 distribution for parameter $\phi$ is on Figure @fig-nvda-sv-post-phi.
 
@@ -72,14 +72,14 @@ Table: NVDA/SV: Tabular description of posterior for $\phi$. {#tbl-nvda-sv-post-
 |:-------|:------|:--------|:--------|
 |0.9925  |0.0041 |0.9853   |0.9984   |
 
-The 89% CI interval implies that the effect of previous latent variable is most probably between 0.9853 and 0.9984.
+The 89% PI interval implies that the effect of previous latent variable is most probably between 0.9853 and 0.9984.
 The expected persistence is 0.99 with very low standard deviation, suggesting a tight posterior. The posterior
 distribution for $\mu$ is visualized in Figure @fig-nvda-sv-post-mu.
 
 ![NVDA/SV: Posterior distribution for $\mu$.](./img/nvda/sv/posterior_mu.png){#fig-nvda-sv-post-mu}
 
-The peak of the posterior distribution is between 0 ad 0.5 suggesting low average volatility. Description is
-provided in Table @tbl-nvda-sv-post-mu.
+The peak of the posterior distribution is between 0 and 0.5 suggesting low average volatility. Description is provided
+in Table @tbl-nvda-sv-post-mu.
 
 Table: NVDA/SV: Tabular description of posterior for $\mu$. {#tbl-nvda-sv-post-mu}
 
@@ -87,26 +87,26 @@ Table: NVDA/SV: Tabular description of posterior for $\mu$. {#tbl-nvda-sv-post-m
 |:-------|:------|:--------|:--------|
 |0.6479  |0.5408 |0.0459   |1.6813   |
 
-The average volatility is expected to be 0,65 with 89% CI of $(0.05, 1.68)$. Finally, estimated degrees of freedom
-of both stochastic elements are in Figure @fig-nvda-sv-post-nu.
+The average volatility is expected to be 0,65 with 89% PI of $(0.05, 1.68)$. Finally, estimated degrees of freedom of
+both stochastic elements are in Figure @fig-nvda-sv-post-nu.
 
 ![NVDA/SV: Posterior distribution for $\nu$.](./img/nvda/sv/posterior_nu.png){#fig-nvda-sv-post-nu}
 
 The red posterior distribution that describes degrees of freedom for the innovation are located around 15 - 30 degrees
-off freedom. The blue posterior for the random shock of latent variable is a little higher and is centered around 35.
+of freedom. The blue posterior for the random shock of latent variable is a little higher and is centered around 35.
 Posteriors are described in Table @tbl-nvda-sv-post-nu.
 
 Table: NVDA/SV: Tabular description of posteriors for $\nu$. {#tbl-nvda-sv-post-nu}
 
 |Parameter |Average |SD      |CI_lower |CI_upper |
 |:---------|:-------|:-------|:--------|:--------|
-|nu_in     |30.4539 |10.9878 |15.8909  |50.3112  |
-|nu_la     |37.9717 |11.6805 |22.0689  |58.8402  |
+| $\nu_\text{in}$ |30.4539 |10.9878 |15.8909  |50.3112  |
+| $\nu_\text{la}$ |37.9717 |11.6805 |22.0689  |58.8402  |
 
 The 89% PI highly overlap, which suggests that the degrees of freedom for both stochastic processes are not so
-different. The results suggests that the model is able to capture large volatility and with degrees of freedom
-around 30, a normally distributed shock or innovations could also be considered. The implied volatility is
-visualized on Figure @fig-nvda-sv-volatility.
+different. The results suggests that the model is able to capture large volatility and with degrees of freedom around
+30, a normally distributed shock or innovations could also be considered. The implied volatility is visualized on
+Figure @fig-nvda-sv-volatility.
 
 ![NVDA/SV: Estimated volatility.](./img/nvda/sv/posterior_volatility.png){#fig-nvda-sv-volatility}
 
@@ -115,6 +115,6 @@ clustering is also present. The comparison against observed log returns is on Fi
 
 ![NVDA/SV: Volatility prediction.](./img/nvda/sv/posterior_prediction.png){#fig-nvda-sv-prediction}
 
-The SV model is capable of estimating periods of low and high volatility fairly well. Notably, most of high and low
-log returns are within the shaded PI. The volatility is also not overconfident and the model is able to decrease
-implied volatility after large spikes, such as the one in 2023. 
+The SV model is capable of estimating periods of low and high volatility fairly well. Notably, most of high and low log
+returns are within the shaded PI. The volatility is also not overconfident and the model is able to decrease implied
+volatility after large spikes, such as the one in 2023.
