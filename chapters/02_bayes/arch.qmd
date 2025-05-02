@@ -30,4 +30,4 @@ expected.
 [^interps]: The model contains multiple intercepts because it *switches* them based on time.
 
 Both papers use custom, non-informative priors. Since this model is relatively non-complex, standard MCMC methods are sufficient. The implementation
-of ARCH model in Stan can be seen in Appendix #TODO.
+of ARCH model in Stan can be seen in Code \ref{code-arch}.

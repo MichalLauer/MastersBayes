@@ -19,6 +19,7 @@
 - ty tlusté čáry se pokusím opravit
 - nějaké tabulky nejsou ok
 - Figure 3.22
+- abstrakt
 
 # Verze 2.0
 
