@@ -1,5 +1,5 @@
 To compare models, visual inspection provides a significant insight about the quality of estimated volatility.
-Comparing Figures @fig-nvda-arch-post-final, @fig-nvda-garch-post-final and @fig-nvda-arch-sv-prediction, it is clear
+Comparing Figures @fig-nvda-arch-post-final, @fig-nvda-garch-post-final and @fig-nvda-sv-prediction, it is clear
 that the stochastic model is able to most reliably estimate underlying asset volatility. The process can react well to
 periods of low and high volatility as well as extreme values that can be observed in the middle of years 2023 and 2024.
 The comparison is done on in-sample predictions of log returns and thus the results might not properly reflect

@@ -64,9 +64,9 @@ distribution for parameter $\phi$ is on Figure @fig-nvda-sv-post-phi.
 ![NVDA/SV: Posterior distribution for $\phi$.](./img/nvda/sv/posterior_phi.png){#fig-nvda-sv-post-phi}
 
 Compared to the prior distribution, the posterior is heavily skewed towards 1 and suggests high positive volatility
-persistence. The description of posterior is in Table @tbl-nvda-arch-post-phi.
+persistence. The description of posterior is in Table @tbl-nvda-sv-post-phi.
 
-Table: NVDA/GARCH: Tabular description of posterior for $\phi$. {#tbl-nvda-arch-post-phi}
+Table: NVDA/SV: Tabular description of posterior for $\phi$. {#tbl-nvda-sv-post-phi}
 
 |Average |SD     |CI_lower |CI_upper |
 |:-------|:------|:--------|:--------|
@@ -106,14 +106,14 @@ Table: NVDA/SV: Tabular description of posteriors for $\nu$. {#tbl-nvda-sv-post-
 The 89% PI highly overlap, which suggests that the degrees of freedom for both stochastic processes are not so
 different. The results suggests that the model is able to capture large volatility and with degrees of freedom
 around 30, a normally distributed shock or innovations could also be considered. The implied volatility is
-visualized on Figure @fig-nvda-arch-sv-volatility.
+visualized on Figure @fig-nvda-sv-volatility.
 
-![NVDA/SV: Estimated volatility.](./img/nvda/sv/posterior_volatility.png){#fig-nvda-arch-sv-volatility}
+![NVDA/SV: Estimated volatility.](./img/nvda/sv/posterior_volatility.png){#fig-nvda-sv-volatility}
 
 The volatility is very dynamic and variable. Periods of low and high volatility can be observed and volatility
-clustering is also present. The comparison against observed log returns is on Figure @fig-nvda-arch-sv-prediction.
+clustering is also present. The comparison against observed log returns is on Figure @fig-nvda-sv-prediction.
 
-![NVDA/SV: Volatility prediction.](./img/nvda/sv/posterior_prediction.png){#fig-nvda-arch-sv-prediction}
+![NVDA/SV: Volatility prediction.](./img/nvda/sv/posterior_prediction.png){#fig-nvda-sv-prediction}
 
 The SV model is capable of estimating periods of low and high volatility fairly well. Notably, most of high and low
 log returns are within the shaded PI. The volatility is also not overconfident and the model is able to decrease

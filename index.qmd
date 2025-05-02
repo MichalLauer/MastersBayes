@@ -217,7 +217,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/01_ats/garch.qmd >}}
 
-### Model of Stochastic volatility  {#sec-sv}
+### Model of Stochastic volatility {#sec-sv}
 
 {{< include chapters/01_ats/sv.qmd >}}
 
@@ -285,13 +285,21 @@ knitr::opts_chunk$set(
 
 {{< include chapters/03_prac/031_nvda/GARCH.qmd >}}
 
-### SV models
+### SV model {#sec-nvda-sv}
 
 {{< include chapters/03_prac/031_nvda/SV.qmd >}}
 
 ### Conclusion
 
 {{< include chapters/03_prac/031_nvda/conclusion.qmd >}}
+
+## TUI1.DE
+
+{{< include chapters/03_prac/032_tui/tui.qmd >}}
+
+### SV Model
+
+{{< include chapters/03_prac/032_tui/SV.qmd >}}
 
 ```{=tex}
 %%% Závěr

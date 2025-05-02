@@ -377,3 +377,17 @@ df_pred |>
 
 ggsave(filename = "./img/nvda/sv/posterior_prediction.png",
        width = 1920, height = 1080, units = "px")
+
+df_pred |>
+  ggplot(aes(x = Index)) +
+  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
+  geom_line(aes(y = true)) +
+  theme_bw() +
+  labs(
+    title = TeX(r"(Comparison of posterior distributions for $\exp(h/2)$)"),
+    subtitle = TeX(r"(with shaded 89% percentile interval)"),
+    x = NULL, y = TeX(r"($\exp(h/2)$)")
+  )
+
+ggsave(filename = "./img/tui/sv/posterior_prediction.png",
+       width = 1920, height = 1080, units = "px")
