@@ -301,9 +301,6 @@ knitr::opts_chunk$set(
 \part*{\Prilohy\thispagestyle{empty}}
 \appendix
 ```
-# Simulation algorithms in R
-
-{{< include chapters/99_appendix/mcmc.qmd >}}
 
 # Stan models {#sec-app-stan}
 

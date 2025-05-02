@@ -81,7 +81,7 @@ tibble(x = seq(0, 40, length.out = 500)) |>
                 geom = "area",
                 alpha = 0.5) +
   scale_fill_manual(name = NULL, values = c("density" = "skyblue"),
-                    labels = c("density" = "89% credible interval")) +
+                    labels = c("density" = "89% percentile interval")) +
   theme_bw() +
   theme(
     legend.position = "bottom"
@@ -116,7 +116,7 @@ tibble(x = seq(0, 4, length.out = 500)) |>
                 geom = "area",
                 alpha = 0.5) +
   scale_fill_manual(name = NULL, values = c("density" = "skyblue"),
-                    labels = c("density" = "89% credible interval")) +
+                    labels = c("density" = "89% percentile interval")) +
   theme_bw() +
   theme(
     legend.position = "bottom"
@@ -136,9 +136,9 @@ ggsave(filename = "./img/nvda/arch/apriori_alpha0.png",
 # Prior for alpha_i ----------------------------------------------------------
 s1 <- 2
 s2 <- 2
-lower <- qbeta((1-alpha)/2, shape1 = s1, shape2 = s2)
+lower <- qbeta((1 - alpha)/2, shape1 = s1, shape2 = s2)
 lower <- sprintf("%.2f", lower)
-upper <- qbeta((1+alpha)/2, shape1 = s1, shape2 = s2)
+upper <- qbeta((1 + alpha)/2, shape1 = s1, shape2 = s2)
 upper <- sprintf("%.2f", upper)
 tibble(x = seq(0, 1, length.out = 1000)) |>
   ggplot(aes(x = x)) +
@@ -150,7 +150,7 @@ tibble(x = seq(0, 1, length.out = 1000)) |>
                 geom = "area",
                 alpha = 0.5) +
   scale_fill_manual(name = NULL, values = c("density" = "skyblue"),
-                    labels = c("density" = "89% credible interval")) +
+                    labels = c("density" = "89% percentile interval")) +
   theme_bw() +
   theme(
     legend.position = "bottom"

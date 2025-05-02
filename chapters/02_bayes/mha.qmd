@@ -33,5 +33,3 @@ stationary chains is that the transition probabilities between two states are pr
 $$
 P(\theta^*|y) J_t(\theta^* | \theta_{t-1}) = P(\theta_{t-1}|y) J_t(\theta_{t-1} | \theta^*).
 $$
-
-Sample code in R for MHA can be see in Appendix \ref{code-mha}.

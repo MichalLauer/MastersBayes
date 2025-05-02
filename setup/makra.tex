@@ -195,6 +195,22 @@
   SemiBoldFont = *-SemiBold
 ]{FiraCode}
 
+\lstdefinelanguage{Stan}{
+  language=C++,
+  morekeywords={
+    data, parameters, model, transformed data, transformed parameters, 
+    generated quantities, real, int, vector, matrix, array, 
+    for, in, while, if, else,
+    target, lp__, 
+    normal, cauchy, beta, gamma, exponential, uniform, bernoulli,
+    binomial, poisson, neg_binomial, student_t, lognormal
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+}
+
 \lstnewenvironment{code}[3]{
   \vspace{2em}
   \lstset{

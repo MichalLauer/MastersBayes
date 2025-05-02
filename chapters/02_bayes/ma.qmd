@@ -45,5 +45,4 @@ To make the algorithm itself more efficient, special Adaptive Metropolis Algorit
 an optimal symmetrical proposal distribution or update the covariance matrix of such distribution. This approach allows the user to
 more efficiently explore the parameter space of complex bayesian models. The final chains are more stable, suffer from smaller autocorrelation and
 offer better ESS. The description of more adaptive algorithms, discussion of other algorithms and comparison can be found 
-in \parencite{LiangEtAl2010_AdvancedMarkovChain}. Sample R code for MA sampling can be seen
-in Appendix \ref{code-ma}.
+in \parencite{LiangEtAl2010_AdvancedMarkovChain}.

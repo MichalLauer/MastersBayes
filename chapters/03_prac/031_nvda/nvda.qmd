@@ -9,7 +9,7 @@ visualized in @fig-nvda-logret, statistical description is provided in Table @tb
 
 ![Log returns for ticker NVDA](./img/nvda/logret.png){#fig-nvda-logret}
 
-Table: Description of log returns of NVDA
+Table: Description of log returns of NVDA {#tbl-nvda-logret}
 
 |Start    |End      |   n|Average |Variance |St. dev. |Min   |Max  |
 |:--------|:--------|---:|:-------|:--------|:--------|:-----|:----|
