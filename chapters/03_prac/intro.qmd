@@ -1,16 +1,23 @@
 The practical part of this thesis focuses on the application of ARCH$(p)$, GARCH$(p, q)$ and SV models on financial
 time series data. First, the prior distributions are visually described and their meaningfulness is argued. To estimate
-the models, custom Stan programs are written and printed in Appendix @sec-app-stan. When writing and defining the Stan
-scripts, readability and clear instructions are preferred over optimization. This ensures that the code is clear to
-non-Stan users, however it might suffer from low efficiency. If optimization and speed is of importance, several R
-packages provide code that is optimized for quick and reliable estimate of stochasticity. In general bayesian models
-can be modeled using the `{brms}` that provides functions for generalized linear and non-linear multivariate and
-multilevel models. It's main advantage is that users do not have to know explicit Stan syntax and can define bayesian
-models using R syntax \parencite{Burkner2018_AdvancedBayesianMultilevel}. Specifically for GARCH models, `{bayesGARCH}`
-provides functions with optimized workflows that are able to estimate GARCH$(1, 1)$ model with Student's innovations
-\parencite{Ardia2008_FinancialRiskManagement}. Finally, procedures in `{stochvol}` are described as *\enquote{Efficient
-algorithms for fully Bayesian estimation of stochastic volatility (SV) models with and without asymmetry (leverage)}*
-\parencite{HosszejniKastner2021_ModelingUnivariateMultivariate}.
+the models, custom Stan programs are written and printed in Appendix @sec-app-stan. All models are defined such that
+the stationarity requirements are met. This is done through a simplex vector whose values sum to one. To fulfill the
+requirement that the sum of coefficients is less than one without implying that their sum must but be equal to one, a
+slack variable is introduced. For example, a model with $p$ parameters defines a simplex vector of length $p + 1$. To
+further evaluate model quality, in-sample predictions and log-likelihoods are computed. Since the primary aim of this
+thesis is to explore and explain the underlying volatility structure rather than to make out-of-sample forecasts,
+potential data leakage due to the use of the full time range is not considered problematic.
+
+When writing and defining the Stan scripts, readability and clear instructions are preferred over optimization. This
+ensures that the code is clear to non-Stan users, however it might suffer from low efficiency. If optimization and
+speed is of importance, several R packages provide code that is optimized for quick and reliable estimate of
+stochasticity. In general bayesian models can be modeled using the `{brms}` that provides functions for generalized
+linear and non-linear multivariate and multilevel models. It's main advantage is that users do not have to know
+explicit Stan syntax and can define bayesian models using R syntax \parencite{Burkner2018_AdvancedBayesianMultilevel}.
+Specifically for GARCH models, `{bayesGARCH}` provides functions with optimized workflows that are able to estimate
+GARCH$(1, 1)$ model with Student's innovations \parencite{Ardia2008_FinancialRiskManagement}. Finally, procedures in
+`{stochvol}` are described as *\enquote{Efficient algorithms for fully Bayesian estimation of stochastic volatility
+(SV) models with and without asymmetry (leverage)}* \parencite{HosszejniKastner2021_ModelingUnivariateMultivariate}.
 
 In this thesis, various models of every class are estimated, studied and the single best model is selected. Comparison
 of bayesian models is a large topic in bayesian statistics (e.g. \parencite{George2005_BayesianModelSelection},

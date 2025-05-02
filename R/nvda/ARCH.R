@@ -14,6 +14,7 @@ options(knitr.kable.NA = ' - ')
 symbol <- "NVDA"
 from   <- "2022-03-31"
 to     <- "2025-03-31"
+alpha  <- 0.89
 
 # Get and plot data ------------------------------------------------------------
 data <-
@@ -54,15 +55,16 @@ ret |>
   kable(caption = "Description of log returns of NVDA")
 
 # Correlation ------------------------------------------------------------------
+png("./img/nvda/pacf.png", width = 1920, height = 1080, res = 200)
 par(mfrow = c(2,2))
 pacf(ret^2, main = TeX(r"(Partial ACF of $p^2$)"))
 acf(ret^2, main = TeX(r"(ACF of $p^2$)"))
 pacf(abs(ret), main = TeX(r"(Partial ACF of $|p|$)"))
 acf(abs(ret), main = TeX(r"(ACF of $|p|$)"))
 par(mfrow = c(1, 1))
+dev.off()
 
 # Prior for nu -----------------------------------------------------------------
-alpha <- 0.89
 sh <- 4
 rt <- 0.4
 lower <- qgamma((1-alpha)/2, shape = sh, rate = rt)
@@ -98,7 +100,6 @@ ggsave(filename = "./img/nvda/arch/apriori_nu.png",
 
 
 # Prior for alpha0 -----------------------------------------------------------
-alpha <- 0.89
 sh <- 2
 rt <- 4
 lower <- qgamma((1-alpha)/2, shape = sh, rate = rt)
@@ -133,7 +134,6 @@ ggsave(filename = "./img/nvda/arch/apriori_alpha0.png",
        width = 1920, height = 1080, units = "px")
 
 # Prior for alpha_i ----------------------------------------------------------
-alpha <- 0.89
 s1 <- 2
 s2 <- 2
 lower <- qbeta((1-alpha)/2, shape1 = s1, shape2 = s2)
@@ -174,26 +174,26 @@ y <-
   coredata(ret) |>
   as.vector()
 
-get_model <- function(p, name, data) {
-  print(paste("Modeling", name))
-  data$p <- p
-
-  stan(
-    file = "./stan/ARCH.stan",
-    model_name = "ARCH",
-    data = data,
-    seed = p,
-    iter = 8000,
-    warmup = 2000,
-    cores = parallel::detectCores() - 1
-  )
-}
-
-data <- list(
-  T = length(y),
-  y = y
-)
-
+# get_model <- function(p, name, data) {
+#   print(paste("Modeling", name))
+#   data$p <- p
+#
+#   stan(
+#     file = "./stan/ARCH.stan",
+#     model_name = "ARCH",
+#     data = data,
+#     seed = p,
+#     iter = 8000,
+#     warmup = 2000,
+#     cores = parallel::detectCores() - 1
+#   )
+# }
+#
+# data <- list(
+#   T = length(y),
+#   y = y
+# )
+#
 # a <- Sys.time()
 # models <-
 #   tibble(
@@ -207,8 +207,8 @@ data <- list(
 #     )
 #   )
 # print(Sys.time() - a)
-# saveRDS(models, file = "./R/googl/data/ARCH.RDS")
-# models <- readRDS("./R/googl/data/ARCH.RDS")
+# saveRDS(models, file = "./R/nvda/data/ARCH.RDS")
+# models <- readRDS("./R/nvda/data/ARCH.RDS")
 
 # Model statistics -------------------------------------------------------------
 pmap(models, \(p, name, model) {
@@ -231,7 +231,7 @@ pmap(models, \(p, name, model) {
     values_from = Rhat
   ) |>
   arrange(param) |>
-  kable(caption = "GOOGL/ARCH: Shrinkage factors")
+  kable(caption = "NVDA/ARCH: Shrinkage factors")
 
 pmap(models, \(p, name, model) {
   as_tibble(
@@ -246,7 +246,7 @@ pmap(models, \(p, name, model) {
   mutate(
     param = ordered(param,
                     levels = c("nu", "alpha0",
-                               paste0("alpha[", 1:8, "]")))
+                               paste0("alpha[", models$p, "]")))
 
   ) |>
   pivot_wider(
@@ -254,7 +254,7 @@ pmap(models, \(p, name, model) {
     values_from = n_eff
   ) |>
   arrange(param) |>
-  kable(caption = "GOOGL/ARCH: ESS")
+  kable(caption = "NVDA/ARCH: ESS")
 
 # Compare degrees of freedom ---------------------------------------------------
 pmap(models, \(p, name, model) {
@@ -273,10 +273,9 @@ pmap(models, \(p, name, model) {
     x = TeX(r"(\nu)")
   )
 
-ggsave(filename = "./img/googl/arch/posterior_nu.png",
+ggsave(filename = "./img/nvda/arch/posterior_nu.png",
        width = 1920, height = 1080, units = "px")
 
-alpha <- 0.89
 pmap(models, \(p, name, model) {
   tibble(
     Model = name,
@@ -304,7 +303,7 @@ pmap(models, \(p, name, model) {
   pivot_wider(
     names_from = Model
   ) |>
-  kable(caption = "GOOGL/ARCH: Tabular description of posterior for $\nu$")
+  kable(caption = "NVDA/ARCH: Tabular description of posterior for $\nu$")
 
 # Compare intercept ------------------------------------------------------------
 pmap(models, \(p, name, model) {
@@ -324,10 +323,9 @@ pmap(models, \(p, name, model) {
     x = TeX(r"($\alpha_0$)")
   )
 
-ggsave(filename = "./img/googl/arch/posterior_alpha0.png",
+ggsave(filename = "./img/nvda/arch/posterior_alpha0.png",
        width = 1920, height = 1080, units = "px")
 
-alpha <- 0.89
 pmap(models, \(p, name, model) {
   tibble(
     Model = name,
@@ -355,7 +353,7 @@ pmap(models, \(p, name, model) {
   pivot_wider(
     names_from = Model
   ) |>
-  kable(caption = "GOOGL/ARCH: Tabular description of posterior for $\alpha_0$")
+  kable(caption = "NVDA/ARCH: Tabular description of posterior for $\alpha_0$")
 
 # Compare alpha1 ---------------------------------------------------------------
 pmap(models, \(p, name, model) {
@@ -374,7 +372,7 @@ pmap(models, \(p, name, model) {
     x =  TeX(r"($\alpha_1$)"),
   )
 
-ggsave(filename = "./img/googl/arch/posterior_alpha1.png",
+ggsave(filename = "./img/nvda/arch/posterior_alpha1.png",
        width = 1920, height = 1080, units = "px")
 
 pmap(models, \(p, name, model) {
@@ -404,7 +402,7 @@ pmap(models, \(p, name, model) {
   pivot_wider(
     names_from = Model
   ) |>
-  kable(caption = paste0("GOOGL/ARCH: Posterio for $\alpha_1$"))
+  kable(caption = paste0("NVDA/ARCH: Posterio for $\alpha_1$"))
 
 # All parameters ---------------------------------------------------------------
 map(models$p, \(i) {
@@ -432,7 +430,7 @@ map(models$p, \(i) {
     x =  TeX(r"($\alpha_i$)")
   )
 
-ggsave(filename = "./img/googl/arch/posterior_alpha_i.png",
+ggsave(filename = "./img/nvda/arch/posterior_alpha_i.png",
        width = 1920, height = 1080, units = "px")
 
 map(models$p, \(i) {
@@ -458,9 +456,9 @@ map(models$p, \(i) {
     values_from = x,
     values_fill =  "-"
   ) |>
-  kable(caption = r"(GOOGL/ARCH: Expected $\alpha_i$ for all models)")
+  kable(caption = r"(NVDA/ARCH: Expected $\alpha_i$ for all models)")
 
-# Time series ------------------------------------------------------------------
+# Volatility -------------------------------------------------------------------
 pmap(models, \(p, name, model) {
   tibble(
     index = index(ret)[-seq_len(p)],
@@ -479,43 +477,7 @@ pmap(models, \(p, name, model) {
     y = TeX(r"($\sigma$)")
   )
 
-ggsave(filename = "./img/googl/arch/posterior_volatility.png",
-       width = 1920, height = 1080, units = "px")
-
-# Prediction -------------------------------------------------------------------
-x <-
-  pmap(models, \(p, name, model) {
-  tibble(
-    Index = index(ret)[-seq_len(p)],
-    true = coredata(ret[-seq_len(p)]),
-    Model = name,
-    l = apply(
-      extract(model, pars = "y_pred")$y_pred,
-      2,
-      \(x) quantile(x, 0.055)
-    ),
-    u = apply(
-      extract(model, pars = "y_pred")$y_pred,
-      2,
-      \(x) quantile(x, 0.945)
-    ),
-  )
-}) |>
-  bind_rows()
-
-x |>
-  ggplot(aes(x = Index)) +
-  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
-  geom_line(aes(y = true)) +
-  facet_wrap(vars(Model), nrow = 2) +
-  theme_bw() +
-  labs(
-    title = TeX(r"(Comparison of posterior distributions for $\sigma$)"),
-    subtitle = TeX(r"(with shaded 89% percentile interval)"),
-    x = NULL, y = TeX(r"($\sigma$)")
-  )
-
-ggsave(filename = "./img/googl/arch/posterior_prediction.png",
+ggsave(filename = "./img/nvda/arch/posterior_volatility.png",
        width = 1920, height = 1080, units = "px")
 
 # Total ------------------------------------------------------------------------
@@ -536,29 +498,98 @@ pmap(models, \(p, name, model) {
     x =  TeX(r"(\sum$)"),
   )
 
-ggsave(filename = "./img/googl/arch/posterior_total.png",
+ggsave(filename = "./img/nvda/arch/posterior_sum.png",
+       width = 1920, height = 1080, units = "px")
+
+# Prediction -------------------------------------------------------------------
+df_pred <-
+  pmap(models, \(p, name, model) {
+    tibble(
+      Index = index(ret)[-seq_len(p)],
+      true = coredata(ret[-seq_len(p)]),
+      Model = name,
+      l = apply(
+        extract(model, pars = "y_pred")$y_pred,
+        2,
+        \(x) quantile(x, 0.055)
+      ),
+      u = apply(
+        extract(model, pars = "y_pred")$y_pred,
+        2,
+        \(x) quantile(x, 0.945)
+      ),
+    )
+  }) |>
+  bind_rows()
+
+df_pred |>
+  ggplot(aes(x = Index)) +
+  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
+  geom_line(aes(y = true)) +
+  facet_wrap(vars(Model), nrow = 2) +
+  theme_bw() +
+  labs(
+    title = TeX(r"(Comparison of posterior distributions for $\sigma$)"),
+    subtitle = TeX(r"(with shaded 89% percentile interval)"),
+    x = NULL, y = TeX(r"($\sigma$)")
+  )
+
+ggsave(filename = "./img/nvda/arch/posterior_prediction.png",
        width = 1920, height = 1080, units = "px")
 
 # Comparison -------------------------------------------------------------------
-ll1 <- extract_log_lik(models$model[[1]])[, -seq_len(7)]
-ll2 <- extract_log_lik(models$model[[2]])[, -seq_len(6)]
-ll3 <- extract_log_lik(models$model[[3]])[, -seq_len(5)]
-ll4 <- extract_log_lik(models$model[[4]])[, -seq_len(4)]
-ll5 <- extract_log_lik(models$model[[5]])[, -seq_len(3)]
-ll6 <- extract_log_lik(models$model[[6]])[, -seq_len(2)]
-ll7 <- extract_log_lik(models$model[[7]])[, -seq_len(1)]
-ll8 <- extract_log_lik(models$model[[8]])
+pmap(models, \(p, name, model) {
+  if (p != 8) {
+    ll <- extract_log_lik(model)[, -seq_len(8 - p)]
+  } else {
+    ll <- extract_log_lik(model)
+  }
 
-lo1 <- loo(ll1)
-lo2 <- loo(ll2)
-lo3 <- loo(ll3)
-lo4 <- loo(ll4)
-lo5 <- loo(ll5)
-lo6 <- loo(ll6)
-lo7 <- loo(ll7)
-lo8 <- loo(ll8)
+  loo(ll)
+}) |>
+  setNames(models$name) |>
+  loo_compare() |>
+  as_tibble(rownames = "Model") |>
+  select(1:3) |>
+  kable(caption = r"(NVDA/ARCH: Comparison of models using ELPD.)")
 
-loo_compare(lo1, lo2, lo3, lo4, lo5, lo6, lo7, lo8) |>
+# Description ------------------------------------------------------------------
+models |>
+  filter(Model == "ARCH(5)") |>
+  ( \(x) {
+    extract(x$model[[1]], pars = c(
+      "nu", "alpha0", paste0("alpha[", seq_len(x$p), "]")
+    ))
+  })() |>
   as_tibble() |>
-  select(1:2) |>
-  kable(caption = r"(GOOGL/ARCH: Comparison of models using ELPD)")
+  pivot_longer(
+    cols = everything(),
+    names_to = "Parameter"
+  ) |>
+  group_by(Parameter) |>
+  summarise(
+    `E(X)` = mean(value),
+    Median = median(value),
+    PI_lower = quantile(value, probs = (1 - alpha) / 2),
+    PI_upper = quantile(value, probs = (1 + alpha) / 2)
+  ) |>
+  mutate(across(
+    .cols = where(is.numeric),
+    .fns = \(x) sprintf("%.4f", x)
+  )) |>
+  kable(caption = "NVDA/ARCH: Description of the final model.")
+
+df_pred |>
+  filter(Model == "ARCH(5)") |>
+  ggplot(aes(x = Index)) +
+  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
+  geom_line(aes(y = true)) +
+  theme_bw() +
+  labs(
+    title = TeX(r"(Most optimal model: ARCH(5))"),
+    subtitle = TeX(r"(with shaded 89% percentile interval)"),
+    x = NULL, y = TeX(r"($p$)")
+  )
+
+ggsave(filename = "./img/nvda/arch/posterior_final.png",
+       width = 1920, height = 1080, units = "px")

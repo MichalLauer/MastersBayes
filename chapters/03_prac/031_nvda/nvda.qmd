@@ -1,25 +1,30 @@
-The analyzed financial asset is *Alphabet Inc Class A* under ticker GOOGL. The closing price is visualized in Figure
-@fig-googl-raw.
+The analyzed financial asset is the stock price of Nvidia Corporation under ticker \$NVDA. The closing price is
+visualized in Figure @fig-nvda-raw.
 
-![Closing price for ticker GOOGL](./img/googl/closing.png){#fig-googl-raw}
+![Closing price for ticker NVDA](./img/nvda/closing.png){#fig-nvda-raw}
 
 The development of closing price is nonstationary because the mean is not time-invariant. Issue of heteroskedasticity
-is also relevant, for example the periods of growth between 1st of September, 2023 and 1st of March, 2024 look more
-variable than in the next period between 1st of March, 2024 and 1st of September, 2024. The log returns are visualized
-in @fig-googl-logret where the red cross represents the worst day-to-day decrease while green cross the contrary.
-Statistical description is provided in Table @tbl-googl-logret.
+is also apparent and the volatility of return in 2022 is much smaller than in the peak of 2024. The log returns are
+visualized in @fig-nvda-logret, statistical description is provided in Table @tbl-nvda-logret.
 
-![Log returns for ticker GOOGL](./img/googl/logret.png){#fig-googl-logret}
+![Log returns for ticker NVDA](./img/nvda/logret.png){#fig-nvda-logret}
 
-Table: Description of log returns of GOOGL {#tbl-googl-logret}
+Table: Description of log returns of NVDA
 
-|Start      |End        |n      |Average |Variance |St. dev. |Min   |Max  |
-|:----------|:----------|:------|:-------|:--------|:--------|:-----|:----|
-|2022-04-01 |2025-03-28 |750    |0.00    |0.00     |0.02     |-0.07 |0.14 |
+|Start    |End      |   n|Average |Variance |St. dev. |Min   |Max  |
+|:--------|:--------|---:|:-------|:--------|:--------|:-----|:----|
+|19083.00 |20175.00 | 750|0.00    |0.00     |0.04     |-0.17 |0.24 |
 
 From a visual inspection, it looks like the log returns have constant mean of zero with small standard deviation of
-0.02. This is also supported by literature review and a zero mean is usually expected. The series still suffers from
-heteroskedasticity where periods of high and low volatility can be observed. The largest loss can be observed on 25th
-of October, 2023. Experts argue it was cause by poor quarterly financial earning \parencite{WSJ2023_StockMarketNews}.
-The greatest day-to-day change can be observed on 26th of April, 2024. This can be attributed to quarterly records that
-overcame all expectations \parencite{Chudoba2024_DobraCislaAlphabetu}.
+0.04. This is also supported by literature review and a zero mean is usually expected. The growth in the last years can
+be attributed to the growth of AI as NVIDIA is the main producer of graphical cards and chips that are deeply connected
+to expansion of AI. The volatility could be caused by political instability, such as the tariff war between USA and
+China that happened after president Trump has been selected for his second term. The war in ukraine that started in
+2021 also increased tension around Taiwan, where resides the main producer of chips around the world, TSMC.
+
+The ACF and PACF of squared log returns and the absolute returns is shown in Figure @fig-nvda-pacf.
+
+![ACF and PACF for ticker NVDA](./img/nvda/pacf.png){#fig-nvda-pacf}
+
+The top line shows the PACF and ACF functions of squared log returns while the bottom row shows the PACF and ACF
+of absolute values. It is apparent that the series suffers from non-linear dependence. This implies that volatility clustering can become an issue and models of conditional volatility could be helpful.

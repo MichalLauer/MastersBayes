@@ -6,16 +6,17 @@ data {
 
 parameters {
   real<lower=0> alpha0; // Intercept
-  simplex[p + 1] alpha; // Coefficients
+  simplex[p + 1] alpha; // Coefficients with stationarity
   real<lower=1> nu;     // Degrees of freedom
 }
 
 transformed parameters {
-  vector[T - p] sigma2 = rep_vector(alpha0, T - p);
+  vector[T - p] sigma2 = rep_vector(alpha0, T - p); // Conditional variance
 
+  // Skip first *p* observations as there are no lags for them
   for (i in 1:(T - p)) {
     for (j in 1:p) {
-      sigma2[i] += alpha[j] * square(y[i + p - j]); // Conditional variance
+      sigma2[i] += alpha[j] * square(y[i + p - j]);
     }
   }
 }
@@ -23,7 +24,7 @@ transformed parameters {
 model {
   nu     ~ gamma(4, 0.4);
   alpha0 ~ gamma(2, 4);
-  alpha  ~ beta(2, 6);
+  alpha  ~ beta(2, 2);
 
   for (i in 1:(T - p)) {
     y[i + p] ~ student_t(nu, 0, sqrt(sigma2[i]));
