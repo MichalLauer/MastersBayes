@@ -281,6 +281,10 @@ knitr::opts_chunk$set(
 
 {{< include chapters/03_prac/031_nvda/ARCH.qmd >}}
 
+### GARCH models
+
+{{< include chapters/03_prac/031_nvda/GARCH.qmd >}}
+
 ```{=tex}
 %%% Závěr
 {

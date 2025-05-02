@@ -31,94 +31,99 @@ y <-
   coredata(ret) |>
   as.vector()
 
-get_model <- function(p, q, name, data) {
-  print(paste("Modeling", name))
-  data$p <- p
-  data$q <- q
+# get_model <- function(p, q, name, data) {
+#   print(paste("Modeling", name))
+#   data$p <- p
+#   data$q <- q
+#
+#   stan(
+#     file = "./stan/GARCH.stan",
+#     model_name = "GARCH",
+#     data = data,
+#     seed = as.numeric(paste0(p, q)),
+#     iter = 8000,
+#     warmup = 2000,
+#     cores = parallel::detectCores() - 1
+#   )
+# }
 
-  stan(
-    file = "./stan/ARCH.stan",
-    model_name = "GARCH",
-    data = data,
-    seed = p,
-    iter = 8000,
-    warmup = 2000,
-    cores = parallel::detectCores() - 1
-  )
-}
+# data <- list(
+#   T = length(y),
+#   y = y
+# )
 
-data <- list(
-  T = length(y),
-  y = y
-)
-
-a <- Sys.time()
-models <-
-  expand.grid(
-    p = 5,
-    q = 1:8
-  ) |>
-  mutate(
-    name = paste0("GARCH(", p, ", ", q, ")")
-  ) |>
-  rowwise() |>
-  mutate(
-    model = list(
-      get_model(p = p, q = q, name = name, data = data)
-    )
-  )
-print(Sys.time() - a)
+# a <- Sys.time()
+# models <-
+#   expand.grid(
+#     p = 5,
+#     q = 1:8
+#   ) |>
+#   mutate(
+#     Model = paste0("GARCH(", p, ", ", q, ")")
+#   ) |>
+#   rowwise() |>
+#   mutate(
+#     model = list(
+#       get_model(p = p, q = q, name = name, data = data)
+#     )
+#   )
+# print(Sys.time() - a)
 # saveRDS(models, file = "./R/nvda/data/GARCH.RDS")
 # models <- readRDS("./R/nvda/data/GARCH.RDS")
 
 # Model statistics -------------------------------------------------------------
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   as_tibble(
-    summary(model, pars = c("nu", "alpha", "alpha0"))$summary,
+    summary(model, pars = c("nu", "alpha", "beta", "alpha0"))$summary,
     rownames = "param"
   ) |>
-    mutate(name = name) |>
-    filter(param != paste0("alpha[", p + 1, "]"))
+    mutate(Model = name)
 }) |>
   bind_rows() |>
-  select(name, param, Rhat) |>
+  select(Model, param, Rhat) |>
   mutate(
     param = ordered(
       param,
-      levels = c("nu", "alpha0", paste0("alpha[", models$p, "]")))
+      levels = c("nu", "alpha0",
+                 paste0("alpha[", seq_len(unique(models$p)), "]"),
+                 paste0("beta[", models$q, "]")
+      )
+    )
   ) |>
   pivot_wider(
-    names_from = name,
+    names_from = Model,
     values_from = Rhat
   ) |>
   arrange(param) |>
-  kable(caption = "NVDA/ARCH: Shrinkage factors")
+  kable(caption = "NVDA/GARCH: Shrinkage factors")
 
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   as_tibble(
-    summary(model, pars = c("nu", "alpha", "alpha0"))$summary,
+    summary(model, pars = c("nu", "alpha", "beta", "alpha0"))$summary,
     rownames = "param"
   ) |>
-    mutate(name = name) |>
-    filter(param != paste0("alpha[", p + 1, "]"))
+    mutate(Model = name)
 }) |>
   bind_rows() |>
-  select(name, param, n_eff) |>
+  select(Model, param, n_eff) |>
   mutate(
-    param = ordered(param,
-                    levels = c("nu", "alpha0",
-                               paste0("alpha[", models$p, "]")))
-
+    param = ordered(
+      param,
+      levels = c("nu", "alpha0",
+                 paste0("alpha[", seq_len(unique(models$p)), "]"),
+                 paste0("beta[", models$q, "]")
+      )
+    )
   ) |>
   pivot_wider(
     names_from = name,
     values_from = n_eff
   ) |>
   arrange(param) |>
-  kable(caption = "NVDA/ARCH: ESS")
+  kable(caption = "NVDA/GARCH: ESS")
 
 # Compare degrees of freedom ---------------------------------------------------
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   tibble(
     Model = name,
     x = extract(model, pars = "nu")$nu
@@ -134,10 +139,10 @@ pmap(models, \(p, name, model) {
     x = TeX(r"(\nu)")
   )
 
-ggsave(filename = "./img/nvda/arch/posterior_nu.png",
+ggsave(filename = "./img/nvda/garch/posterior_nu.png",
        width = 1920, height = 1080, units = "px")
 
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   tibble(
     Model = name,
     x = extract(model, pars = "nu")$nu
@@ -164,10 +169,10 @@ pmap(models, \(p, name, model) {
   pivot_wider(
     names_from = Model
   ) |>
-  kable(caption = "NVDA/ARCH: Tabular description of posterior for $\nu$")
+  kable(caption = "NVDA/GARCH: Tabular description of posterior for $\nu$")
 
 # Compare intercept ------------------------------------------------------------
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   tibble(
     Model = name,
     x = extract(model, pars = "alpha0")$alpha0
@@ -184,10 +189,10 @@ pmap(models, \(p, name, model) {
     x = TeX(r"($\alpha_0$)")
   )
 
-ggsave(filename = "./img/nvda/arch/posterior_alpha0.png",
+ggsave(filename = "./img/nvda/garch/posterior_alpha0.png",
        width = 1920, height = 1080, units = "px")
 
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   tibble(
     Model = name,
     x = extract(model, pars = "alpha0")$alpha0
@@ -214,13 +219,13 @@ pmap(models, \(p, name, model) {
   pivot_wider(
     names_from = Model
   ) |>
-  kable(caption = "NVDA/ARCH: Tabular description of posterior for $\alpha_0$")
+  kable(caption = "NVDA/GARCH: Tabular description of posterior for $\alpha_0$")
 
-# Compare alpha1 ---------------------------------------------------------------
-pmap(models, \(p, name, model) {
+# Compare beta1 ---------------------------------------------------------------
+pmap(models, \(p, q, name, model) {
   tibble(
     Model = name,
-    x = extract(model, pars = "alpha")$alpha[, 1]
+    x = extract(model, pars = "beta")$beta[, 1]
   )
 }) |>
   bind_rows() |>
@@ -228,18 +233,18 @@ pmap(models, \(p, name, model) {
   geom_density() +
   theme_bw() +
   labs(
-    title = TeX(r"(Posterior densities of $\alpha_1$)"),
-    y = TeX(r"($P(\alpha_1|x)$)"),
-    x =  TeX(r"($\alpha_1$)"),
+    title = TeX(r"(Posterior densities of $\beta_1$)"),
+    y = TeX(r"($P(\beta_1|x)$)"),
+    x =  TeX(r"($\beta_1$)"),
   )
 
-ggsave(filename = "./img/nvda/arch/posterior_alpha1.png",
+ggsave(filename = "./img/nvda/garch/posterior_beta1.png",
        width = 1920, height = 1080, units = "px")
 
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   tibble(
     Model = name,
-    x = extract(model, pars = "alpha")$alpha[, 1]
+    x = extract(model, pars = "beta")$beta[, 1]
   )
 }) |>
   bind_rows() |>
@@ -247,8 +252,8 @@ pmap(models, \(p, name, model) {
   summarise(
     Average = round(mean(x), 2),
     SD = round(sd(x), 2),
-    CI_lower = quantile(x, (1-alpha)/2),
-    CI_upper = quantile(x, (1+alpha)/2)
+    CI_lower = quantile(x, (1 - alpha)/2),
+    CI_upper = quantile(x, (1 + alpha)/2)
   ) |>
   mutate(
     across(
@@ -263,16 +268,16 @@ pmap(models, \(p, name, model) {
   pivot_wider(
     names_from = Model
   ) |>
-  kable(caption = paste0("NVDA/ARCH: Posterio for $\alpha_1$"))
+  kable(caption = paste0("NVDA/GARCH: Posterio for $\beta_1$"))
 
 # All parameters ---------------------------------------------------------------
-map(models$p, \(i) {
+map(models$q, \(i) {
   models[seq(from = i, to = nrow(models)), ] |>
-    pmap(\(p, name, model) {
+    pmap(\(p, q, name, model) {
       tibble(
         coeff = i,
         Model = name,
-        x = extract(model, pars = "alpha")$alpha[, i]
+        x = extract(model, pars = "beta")$beta[, i]
       )
     }) |>
     bind_rows()
@@ -286,21 +291,21 @@ map(models$p, \(i) {
   geom_density() +
   theme_bw() +
   labs(
-    title = TeX(r"(Posterior densities of constrained parameters $\alpha_i$)"),
-    y = TeX(r"($P(\alpha_i | x)$)"),
-    x =  TeX(r"($\alpha_i$)")
+    title = TeX(r"(Posterior densities of constrained parameters $\beta_i$)"),
+    y = TeX(r"($P(\beta_i | x)$)"),
+    x =  TeX(r"($\beta_i$)")
   )
 
-ggsave(filename = "./img/nvda/arch/posterior_alpha_i.png",
+ggsave(filename = "./img/nvda/garch/posterior_beta_i.png",
        width = 1920, height = 1080, units = "px")
 
-map(models$p, \(i) {
+map(models$q, \(i) {
   models[seq(from = i, to = nrow(models)), ] |>
-    pmap(\(p, name, model) {
+    pmap(\(p, q, name, model) {
       tibble(
         coeff = i,
         Model = name,
-        x = extract(model, pars = "alpha")$alpha[, i]
+        x = extract(model, pars = "beta")$beta[, i]
       )
     }) |>
     bind_rows()
@@ -317,10 +322,10 @@ map(models$p, \(i) {
     values_from = x,
     values_fill =  "-"
   ) |>
-  kable(caption = r"(NVDA/ARCH: Expected $\alpha_i$ for all models)")
+  kable(caption = r"(NVDA/GARCH: Expected $\beta_i$ for all models)")
 
 # Volatility -------------------------------------------------------------------
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   tibble(
     index = index(ret)[-seq_len(p)],
     Model = name,
@@ -338,11 +343,11 @@ pmap(models, \(p, name, model) {
     y = TeX(r"($\sigma$)")
   )
 
-ggsave(filename = "./img/nvda/arch/posterior_volatility.png",
+ggsave(filename = "./img/nvda/garch/posterior_volatility.png",
        width = 1920, height = 1080, units = "px")
 
 # Total ------------------------------------------------------------------------
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   tibble(
     Model = name,
     x = extract(model, pars = "total")$total
@@ -359,12 +364,12 @@ pmap(models, \(p, name, model) {
     x =  TeX(r"(\sum$)"),
   )
 
-ggsave(filename = "./img/nvda/arch/posterior_sum.png",
+ggsave(filename = "./img/nvda/garch/posterior_sum.png",
        width = 1920, height = 1080, units = "px")
 
 # Prediction -------------------------------------------------------------------
 df_pred <-
-  pmap(models, \(p, name, model) {
+  pmap(models, \(p, q, name, model) {
     tibble(
       Index = index(ret)[-seq_len(p)],
       true = coredata(ret[-seq_len(p)]),
@@ -395,11 +400,11 @@ df_pred |>
     x = NULL, y = TeX(r"($\sigma$)")
   )
 
-ggsave(filename = "./img/nvda/arch/posterior_prediction.png",
+ggsave(filename = "./img/nvda/garch/posterior_prediction.png",
        width = 1920, height = 1080, units = "px")
 
 # Comparison -------------------------------------------------------------------
-pmap(models, \(p, name, model) {
+pmap(models, \(p, q, name, model) {
   if (p != 8) {
     ll <- extract_log_lik(model)[, -seq_len(8 - p)]
   } else {
@@ -412,14 +417,16 @@ pmap(models, \(p, name, model) {
   loo_compare() |>
   as_tibble(rownames = "Model") |>
   select(1:3) |>
-  kable(caption = r"(NVDA/ARCH: Comparison of models using ELPD.)")
+  kable(caption = r"(NVDA/GARCH: Comparison of models using ELPD.)")
 
 # Description ------------------------------------------------------------------
 models |>
-  filter(Model == "ARCH(5)") |>
+  filter(name == "GARCH(5, 1)") |>
   ( \(x) {
     extract(x$model[[1]], pars = c(
-      "nu", "alpha0", paste0("alpha[", seq_len(x$p), "]")
+      "nu", "alpha0",
+      paste0("alpha[", seq_len(unique(models$p)), "]"),
+      paste0("beta[", models$q, "]")
     ))
   })() |>
   as_tibble() |>
@@ -438,19 +445,19 @@ models |>
     .cols = where(is.numeric),
     .fns = \(x) sprintf("%.4f", x)
   )) |>
-  kable(caption = "NVDA/ARCH: Description of the final model.")
+  kable(caption = "NVDA/GARCH: Description of the final model.")
 
 df_pred |>
-  filter(Model == "ARCH(5)") |>
+  filter(Model == "GARCH(5, 1)") |>
   ggplot(aes(x = Index)) +
   geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
   geom_line(aes(y = true)) +
   theme_bw() +
   labs(
-    title = TeX(r"(Most optimal model: ARCH(5))"),
+    title = TeX(r"(Most optimal model: GARCH(5))"),
     subtitle = TeX(r"(with shaded 89% percentile interval)"),
     x = NULL, y = TeX(r"($p$)")
   )
 
-ggsave(filename = "./img/nvda/arch/posterior_final.png",
+ggsave(filename = "./img/nvda/garch/posterior_final.png",
        width = 1920, height = 1080, units = "px")

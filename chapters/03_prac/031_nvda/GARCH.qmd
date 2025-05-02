@@ -1,14 +1,180 @@
 The GARCH model will build on ARCH specification and use the same shock distribution and priors for
 $\nu$, $\alpha_0$ and $\alpha_i$. New parameters $\beta_i$ will share the same prior distribution as $\alpha_i$,
-because it their limitations are very similar (although their interpretation is not). In a GARCH$(p, q)$ model,
-the restriction for a stationary model is that
+because it their limitations are very similar (although their interpretation is not). In total, 8 different
+GARCH models have been estimated. The order of $p$ is set to 5 because it has been selected as the best
+order for a simple ARCH$(p)$ model. New estimated models range from GARCH$(5, 1)$ to GARCH$(5, 8)$ which should
+enable more flexible volatility modeling.
 
-$$
-\sum_{i=1}^p \alpha_i + \sum_{i=1}^q \beta_i <s 1.
-$$
+The convergence through the Shrinkage parameter is displayed in Table @tbl-nvda-garch-shrinkage.
 
-In Stan, this is uphold by a simplex vector of length $p + q + 1$ with the use of a slack variable. As the literature
-review suggests, only a models of order up to 2 are estimated.
+Table: NVDA/GARCH: Shrinkage factors. {#tbl-nvda-garch-shrinkage}
 
-The posterior distribution for parameter $\nu$ can be seen in Figure XXX.
+|param    | GARCH(5, 1)| GARCH(5, 2)| GARCH(5, 3)| GARCH(5, 4)| GARCH(5, 5)| GARCH(5, 6)| GARCH(5, 7)| GARCH(5, 8)|
+|:--------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|
+|nu       |   0.9999225|   1.0000368|   0.9999179|   0.9998948|   1.0000435|   0.9999781|   1.0000122|   1.0000399|
+|alpha0   |   0.9999157|   1.0000907|   1.0001337|   1.0001215|   0.9999673|   1.0000146|   0.9999611|   1.0000151|
+|alpha[1] |   1.0002371|   0.9999465|   0.9999494|   1.0000520|   1.0000607|   0.9998890|   0.9999256|   0.9998972|
+|alpha[2] |   1.0000240|   0.9999801|   0.9999378|   0.9999506|   0.9999922|   1.0000231|   0.9998962|   0.9999252|
+|alpha[3] |   1.0000130|   0.9998811|   0.9999857|   1.0000552|   0.9999370|   1.0000095|   1.0000036|   0.9998823|
+|alpha[4] |   0.9999143|   0.9999081|   0.9999444|   0.9999576|   0.9998929|   0.9999018|   0.9999549|   0.9999197|
+|alpha[5] |   0.9999499|   0.9999174|   0.9999431|   1.0001499|   0.9998828|   0.9999461|   0.9998797|   0.9998903|
+|beta[1]  |   0.9999140|   1.0000139|   1.0000007|   1.0001121|   0.9999456|   0.9999339|   0.9998862|   1.0000044|
+|beta[2]  |           -|   0.9999299|   0.9999026|   0.9999874|   1.0000249|   0.9999939|   0.9998598|   0.9998705|
+|beta[3]  |           -|           -|   1.0000548|   0.9999720|   0.9998814|   0.9999451|   0.9999346|   0.9999233|
+|beta[4]  |           -|           -|           -|   0.9999490|   0.9998971|   0.9999485|   1.0000046|   0.9999513|
+|beta[5]  |           -|           -|           -|           -|   0.9998682|   0.9998900|   1.0000647|   1.0000266|
+|beta[6]  |           -|           -|           -|           -|           -|   0.9999220|   0.9999177|   0.9998909|
+|beta[7]  |           -|           -|           -|           -|           -|           -|   0.9998828|   0.9999850|
+|beta[8]  |           -|           -|           -|           -|           -|           -|           -|   0.9998706|
 
+There seems to be no apparent issue in convergence. Computed ESS in Table @tbl-nvda-garch-ess and the smallest
+ESS is above 18 000 which suggests good inference properties.
+
+Table: NVDA/GARCH: ESS {#tbl-nvda-garch-ess}
+
+|param    | GARCH(5, 1)| GARCH(5, 2)| GARCH(5, 3)| GARCH(5, 4)| GARCH(5, 5)| GARCH(5, 6)| GARCH(5, 7)| GARCH(5, 8)|
+|:--------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|
+|nu       |    22902.31|    28240.54|    27353.66|    29502.58|    27520.61|    27241.93|    27125.24|    31545.49|
+|alpha0   |    19650.35|    20540.36|    21808.57|    19524.79|    19718.76|    18156.97|    19061.60|    22426.59|
+|alpha[1] |    25942.33|    29984.26|    31998.19|    30328.87|    30085.41|    27742.19|    28876.64|    33361.91|
+|alpha[2] |    25592.93|    31102.78|    34925.53|    32787.42|    34555.63|    31831.81|    33832.03|    35934.09|
+|alpha[3] |    28947.05|    32103.07|    34823.12|    34848.33|    35616.42|    32640.57|    33526.78|    40390.98|
+|alpha[4] |    28411.10|    33652.00|    36204.09|    40182.57|    38114.99|    37804.42|    37586.91|    37837.85|
+|alpha[5] |    28168.78|    30533.80|    35234.67|    36097.81|    33937.09|    30473.95|    35210.66|    36000.94|
+|beta[1]  |    18842.61|    26834.26|    31767.23|    28665.30|    31193.71|    28662.47|    31782.90|    36871.06|
+|beta[2]  |           -|    23099.42|    31050.96|    33677.19|    31135.15|    29307.87|    34470.47|    37122.55|
+|beta[3]  |           -|           -|    28301.04|    29535.90|    31555.13|    30089.36|    35646.29|    34918.67|
+|beta[4]  |           -|           -|           -|    26529.50|    30404.54|    31401.35|    33530.82|    38341.43|
+|beta[5]  |           -|           -|           -|           -|    28492.23|    26227.78|    33557.10|    36339.32|
+|beta[6]  |           -|           -|           -|           -|           -|    25448.56|    33777.37|    32479.50|
+|beta[7]  |           -|           -|           -|           -|           -|           -|    29677.65|    33600.40|
+|beta[8]  |           -|           -|           -|           -|           -|           -|           -|    32583.82|
+
+
+The posterior distributions for parameter $\nu$ can be seen in Figure @fig-nvda-garch-post-nu.
+
+![NVDA/GARCH: Posterior distribution for $\nu$.](./img/nvda/garch/posterior_nu.png){#fig-nvda-garch-post-nu}
+
+Similarly to ARCH models, all GARCH models estimate almost identical posterior distribution for degrees of freedom.
+Posterior table displayed in Table @tbl-nvda-garch-post-nu further highlights this as the expectations are almost
+identical. The 89% percentile intervals are also interchangeable.
+
+Table: NVDA/GARCH: Tabular description of posterior for $\nu$. {#tbl-nvda-garch-post-nu}
+
+|Statistics |GARCH(5, 1) |GARCH(5, 2) |GARCH(5, 3) |GARCH(5, 4) |GARCH(5, 5) |GARCH(5, 6) |GARCH(5, 7) |GARCH(5, 8) |
+|:----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
+|Average    |7.12        |7.06        |7.07        |7.03        |6.99        |6.99        |7.01        |7.00        |
+|SD         |1.47        |1.44        |1.45        |1.43        |1.42        |1.43        |1.42        |1.41        |
+|CI_lower   |5.14        |5.11        |5.11        |5.12        |5.10        |5.06        |5.11        |5.10        |
+|CI_upper   |9.70        |9.59        |9.64        |9.56        |9.47        |9.49        |9.52        |9.47        |
+
+The estimated instantinuous volatility measured with $\alpha_0$ is shown in Figure @fig-nvda-garch-post-alpha0.
+
+![NVDA/GARCH: Posterior distribution for $\alpha_0$.](./img/nvda/garch/posterior_alpha0.png){#fig-nvda-garch-post-alpha0}
+
+The same effect as for ARCH models can be observed. In smaller orders of $q$, the estimated posterior distribution
+is wider and higher. As the order increases, the posterior is thinner and centered around progressively smaller
+values. Table @tbl-nvda-garch-post-alpha0 further highlights this process.
+
+Table: NVDA/GARCH: Tabular description of posterior for $\alpha_0$. {#tbl-nvda-garch-post-alpha0}
+
+|Statistics |GARCH(5, 1) |GARCH(5, 2) |GARCH(5, 3) |GARCH(5, 4) |GARCH(5, 5) |GARCH(5, 6) |GARCH(5, 7) |GARCH(5, 8) |
+|:----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
+|Average    |0.0004      |0.0003      |0.0003      |0.0002      |0.0002      |0.0002      |0.0002      |0.0002      |
+|SD         |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |
+|CI_lower   |0.0002      |0.0002      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |0.0001      |
+|CI_upper   |0.0004      |0.0003      |0.0003      |0.0002      |0.0002      |0.0002      |0.0002      |0.0001      |
+
+Even though the posterior distributions look differently, the magnitude by which they differ is rather small and
+probably does not have meaningful impact on the underlying volatility. The smallest 89% percentile interval
+is estimated for GARCH$(5, 8)$ as $(0.001, 0.001)$.
+
+The posterior distribution of the effect of first lagged conditional heteroskedasticity is shown on Figure
+@fig-nvda-garch-post-beta1 through parameter $\beta_1$.
+
+![NVDA/GARCH: Posterior distribution for $\beta_1$.](./img/nvda/garch/posterior_beta1.png){#fig-nvda-garch-post-beta1}
+
+The simplest model, GARCH$(5, 1)$, has fat tails. As the complexity increases, the posterior distribution shrinks
+towards zero. This is probably caused again by the stationary constraint. Tabular description is in Table
+@tbl-nvda-garch-post-beta1.
+
+Table: NVDA/GARCH: Tabular description of posterior for $\beta_1$.  {#tbl-nvda-garch-post-beta1}
+
+|Statistics |GARCH(5, 1) |GARCH(5, 2) |GARCH(5, 3) |GARCH(5, 4) |GARCH(5, 5) |GARCH(5, 6) |GARCH(5, 7) |GARCH(5, 8) |
+|:----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
+|Average    |0.14        |0.12        |0.10        |0.09        |0.08        |0.07        |0.07        |0.06        |
+|SD         |0.08        |0.07        |0.06        |0.06        |0.05        |0.05        |0.04        |0.04        |
+|CI_lower   |0.03        |0.02        |0.02        |0.02        |0.02        |0.01        |0.01        |0.01        |
+|CI_upper   |0.29        |0.26        |0.22        |0.20        |0.18        |0.16        |0.15        |0.14        |
+
+The expectation gradually decreases and the 89% PI changes from $(0.03, 0.29)$ to $(0.01, 0.14)$. The same
+effect can be observed with other coefficients in Figure @fig-nvda-garch-post-beta1 and Table
+@tab-nvda-garch-post-beta-i.
+
+![NVDA/GARCH: Posterior distribution for $\beta_1$.](./img/nvda/garch/posterior_beta1.png){#fig-nvda-garch-post-beta1}
+
+Table: NVDA/GARCH: Expected $\beta_i$ for all models. {#tab-nvda-garch-post-beta-i}
+
+|coeff |GARCH(5, 1) |GARCH(5, 2) |GARCH(5, 3) |GARCH(5, 4) |GARCH(5, 5) |GARCH(5, 6) |GARCH(5, 7) |GARCH(5, 8) |
+|:-----|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
+|i = 1 |0.14        |0.12        |0.10        |0.09        |0.08        |0.07        |0.07        |0.06        |
+|i = 2 |-           |0.13        |0.11        |0.09        |0.08        |0.07        |0.07        |0.06        |
+|i = 3 |-           |-           |0.11        |0.09        |0.08        |0.07        |0.07        |0.06        |
+|i = 4 |-           |-           |-           |0.10        |0.09        |0.08        |0.07        |0.06        |
+|i = 5 |-           |-           |-           |-           |0.09        |0.08        |0.07        |0.06        |
+|i = 6 |-           |-           |-           |-           |-           |0.08        |0.07        |0.07        |
+|i = 7 |-           |-           |-           |-           |-           |-           |0.07        |0.06        |
+|i = 8 |-           |-           |-           |-           |-           |-           |-           |0.06        |
+
+Reading left-to-right, the effect of every additional order is expected to be smaller. The coefficients of every
+model can be read from top-to-bottom and it is interesting to see that they are largely the same. Figure
+@fig-nvda-garch-post-volatility shows the total estimated volatility in time across all models.
+
+![NVDA/GARCH: Posterior distribution for $\beta_1$.](./img/nvda/garch/posterior_volatility.png){#fig-nvda-garch-post-volatility}
+
+The red GARCH$(5, 1)$ model is similar to the best ARCH$(5)$ model, but the conditional volatility of the first lag is
+preserved. As the complexity increases, individual volatility shock have longer tails and their effect on additional
+observations increases. This effect can be observed between years 2023 and 2024 where the biggest spike occurs. In the
+first model, the volatility sharply drops after just a few time points. The bottom middle model has considers lag of 8
+and the single shock has large effect on volatility that follows. This can also be observed at the beginning of year
+2025 where two large spikes happened. In the simplest model, the volatility sharply increases and decreases, allowing
+the effect to not be heavily affected. In contrast, the most complex model does not sharply decrease and the
+time period between the two volatility jumps is expected to be more volatile. This is again because of the 
+past volatility that is preserved in time.
+
+To check stationary assumptions, Figure @fig-nvda-garch-post-sum provides comparison of posterior distributions that
+represent the total sum of coefficients.
+
+![NVDA/GARCH: Sum of parameters.](./img/nvda/garch/posterior_sum.png){#fig-nvda-garch-post-sum}
+
+The total sum increases with additional parameters, but always stays strictly below 1 and all the models are hence
+stationary. The in-sample predictions of volatility compared with the observed log returns are in Figure
+@fig-nvda-garch-post-prediction.
+
+![NVDA/GARCH: Predictions across all models.](./img/nvda/garch/posterior_prediction.png){#fig-nvda-garch-post-prediction}
+
+The same properties as in Figure @fig-nvda-garch-post-volatility are visible and simple models do not preserve high
+volatility for longer periods, while complex models do. Based solely on visual analysis, the models all decently
+capture the underlying volatility. The same conclusion can be drawn from comparison Table @nvda-arch-post-loo.
+
+Table: NVDA/GARCH: Comparison of models using ELPD. {#nvda-garch-post-loo}
+
+|Model       |   elpd_diff|   se_diff|
+|:-----------|-----------:|---------:|
+|GARCH(5, 4) |  0.00000000| 0.0000000|
+|GARCH(5, 3) | -0.03190573| 0.5439193|
+|GARCH(5, 2) | -0.06731415| 1.0897279|
+|GARCH(5, 5) | -0.07417937| 0.5600494|
+|GARCH(5, 1) | -0.26189720| 1.5766352|
+|GARCH(5, 6) | -0.75514939| 1.2787985|
+|GARCH(5, 7) | -0.89598855| 1.6072135|
+|GARCH(5, 8) | -1.58071429| 1.9324611|
+
+All the models perform very similarly and no model is the single best. The model with largest ELPD against the best
+model is GARCH$(5, 8)$, but the standard error is quite large and the results are not conclusive. The most optimal
+model is considered to be the GARCH$(5, 1)$ based on two reasons. First, since all models perform relatively similarly
+and all match the data well, there is no reason to pick a more complex model when a simple one is sufficient. Secondly,
+literature review suggests that GARCH models of lower orders are usually preferred, which also supports the choice of a
+simple model. The final model is shown in Figure @fig-nvda-garch-post-final.
+
+![NVDA/GARCH: Final model GARCH(5, 1).](./img/nvda/garch/posterior_final.png){#fig-nvda-garch-post-final}
