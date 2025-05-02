@@ -61,11 +61,11 @@ not only for point estimates, but for intervals as well. In bayesian statistics,
 
 [^trivial]: The computation itself is trivial. Definition of a proper bayesian model, its estimation, convergence validation or interpretation might not always be trivial.
 
-Other than credible intervals, bayesian statistic offer at least two additional type of credible intervals that are useful in statistical inference.
-The first one is Percentile Interval (PI) that defines a symmetrical center interval of width $\alpha$. For example, PI of width $0,8$ is
-a percentile interval denoted as $\langle q_{0.1}, q_{0.9}\rangle$. Another common interval is the Highest Density Interval (HDI) that
-denotes the narrowest interval that contains the posterior parameter $\theta$ with probability $\alpha$
-\parencite[Chap. 3.2]{McElreath2020_StatisticalRethinkingBayesian}.
+Bayesian statistic offer at least two additional type of credible intervals that are useful in statistical inference.
+The first one is Percentile Interval (PI) that defines a symmetrical center interval of width $\alpha$. For example, PI
+of width $0,8$ is a percentile interval denoted as $\langle q_{0.1}, q_{0.9}\rangle$. Another common interval is the
+Highest Density Interval (HDI) that denotes the narrowest interval that contains the posterior parameter $\theta$ with
+probability $\alpha$ \parencite[Chap. 3.2]{McElreath2020_StatisticalRethinkingBayesian}.
 
 One benefit of bayesian statistics is that it can be more precise in small samples where
 frequentist methods struggle because of insufficient repetitions. Issues in statistical inference, such as p-hacking or dichotomization of
@@ -99,5 +99,5 @@ solution. Finally, researchers might incorrectly interpret the final estimates a
 might be prevented by cautious analysis or checklist, such as \parencite{DepaoliVanDeSchoot2017_ImprovingTransparencyReplication}
 or \parencite{GelmanEtAl2020_BayesianWorkflow}, which highlight the most common missteps in bayesian data analysis.
 
-[^shared]: this issue is however shared and both frequentist and bayesian approach requires careful interpretation and 
+[^shared]: this issue is however shared and both frequentist and bayesian approach requires careful interpretation and
 skepticism.

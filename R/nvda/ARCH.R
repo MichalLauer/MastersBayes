@@ -49,8 +49,8 @@ ret |>
     Max  = max(x)
   ) |>
   mutate(across(
-    .cols = where(is.double),
-    .fns = \(x) sprintf("%.2f", x)
+    .cols = 4:8,
+    .fns = \(x) sprintf("%.4f", x)
   )) |>
   kable(caption = "Description of log returns of NVDA")
 
@@ -130,6 +130,7 @@ tibble(x = seq(0, 4, length.out = 500)) |>
     x = TeX(r"($\alpha_0$)"),
     y = TeX(r"(P($\alpha_0$))")
   )
+
 ggsave(filename = "./img/nvda/arch/apriori_alpha0.png",
        width = 1920, height = 1080, units = "px")
 
@@ -287,8 +288,8 @@ pmap(models, \(p, name, model) {
   summarise(
     Average = mean(x),
     SD = sd(x),
-    CI_lower = quantile(x, (1-alpha)/2),
-    CI_upper = quantile(x, (1+alpha)/2)
+    CI_lower = quantile(x, (1 - alpha)/2),
+    CI_upper = quantile(x, (1 + alpha)/2)
   ) |>
   mutate(
     across(
@@ -337,8 +338,8 @@ pmap(models, \(p, name, model) {
   summarise(
     Average = mean(x),
     SD = sd(x),
-    CI_lower = quantile(x, (1-alpha)/4),
-    CI_upper = quantile(x, (1+alpha)/4)
+    CI_lower = quantile(x, (1 - alpha)/4),
+    CI_upper = quantile(x, (1 + alpha)/4)
   ) |>
   mutate(
     across(
@@ -386,8 +387,8 @@ pmap(models, \(p, name, model) {
   summarise(
     Average = round(mean(x), 2),
     SD = round(sd(x), 2),
-    CI_lower = quantile(x, (1-alpha)/2),
-    CI_upper = quantile(x, (1+alpha)/2)
+    CI_lower = quantile(x, (1 - alpha)/2),
+    CI_upper = quantile(x, (1 + alpha)/2)
   ) |>
   mutate(
     across(
@@ -511,12 +512,12 @@ df_pred <-
       l = apply(
         extract(model, pars = "y_pred")$y_pred,
         2,
-        \(x) quantile(x, 0.055)
+        \(x) quantile(x, (1 - alpha)/2)
       ),
       u = apply(
         extract(model, pars = "y_pred")$y_pred,
         2,
-        \(x) quantile(x, 0.945)
+        \(x) quantile(x, (1 + alpha)/2)
       ),
     )
   }) |>

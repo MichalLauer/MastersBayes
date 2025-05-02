@@ -1,26 +1,26 @@
-The analyzed financial asset is the stock price of Nvidia Corporation under ticker \$NVDA. The closing price is
-visualized in Figure @fig-nvda-raw.
+The fist analyzed financial asset is the closing stock price of Nvidia Corporation under ticker NVDA. The closing
+price is visualized in Figure @fig-nvda-raw.
 
 ![Closing price for ticker NVDA](./img/nvda/closing.png){#fig-nvda-raw}
 
 The development of closing price is nonstationary because the mean is not time-invariant. Issue of heteroskedasticity
-is also apparent and the volatility of return in 2022 is much smaller than in the peak of 2024. The log returns are
-visualized in @fig-nvda-logret, statistical description is provided in Table @tbl-nvda-logret.
+is also apparent and the volatility of returns in 2022 is much smaller than in the peak of 2024. The log returns are
+visualized in Figure @fig-nvda-logret, statistical description is provided in Table @tbl-nvda-logret.
 
 ![Log returns for ticker NVDA](./img/nvda/logret.png){#fig-nvda-logret}
 
 Table: Description of log returns of NVDA {#tbl-nvda-logret}
 
-|Start    |End      |   n|Average |Variance |St. dev. |Min   |Max  |
-|:--------|:--------|---:|:-------|:--------|:--------|:-----|:----|
-|19083.00 |20175.00 | 750|0.00    |0.00     |0.04     |-0.17 |0.24 |
+|Start      |End        |   n|Average |Variance |St. dev. |Min     |Max    |
+|:----------|:----------|---:|:-------|:--------|:--------|:-------|:------|
+|2022-04-01 |2025-03-28 | 750|0.0019  |0.0012   |0.0353   |-0.1730 |0.2431 |
 
-From a visual inspection, it looks like the log returns have constant mean of zero with small standard deviation of
-0.04. This is also supported by literature review and a zero mean is usually expected. The growth in the last years can
-be attributed to the growth of AI as NVIDIA is the main producer of graphical cards and chips that are deeply connected
-to expansion of AI. The volatility could be caused by political instability, such as the tariff war between USA and
-China that happened after president Trump has been selected for his second term. The war in ukraine that started in
-2021 also increased tension around Taiwan, where resides the main producer of chips around the world, TSMC.
+From a visual inspection, it looks like the log returns have constant mean. This is also supported by literature review
+and a zero mean is usually expected. The growth in the last years can be attributed to the growth of AI as NVIDIA is
+the main producer of graphical cards and chips that are deeply connected to expansion of AI. The volatility could be
+caused by political instability, such as the tariff war between USA and China that happened after president Trump has
+been elected for his second term. The war in ukraine that started in 2021 also increased tension around Taiwan, where
+resides the main producer of chips around the world, TSMC.
 
 The ACF and PACF of squared log returns and the absolute returns is shown in Figure @fig-nvda-pacf.
 
