@@ -1,6 +1,6 @@
 ## ARCH(p)
 
-\begin{code}{Stan}{General ARCH(p) model}{code-arch}
+\begin{code}{Stan}{General ARCH model}{code-arch}
 data {
   int<lower=1> T; // Length of the TS
   int<lower=1> p; // Order of ARCH(p)
@@ -48,7 +48,7 @@ generated quantities {
 
 ## GARCH(p, q)
 
-\begin{code}{Stan}{General ARCH(p) model}{code-arch}
+\begin{code}{Stan}{General GARCH model}{code-garch}
 data {
   int<lower=1> T; // Length of the TS
   int<lower=1> p; // Order of GARCH(p, q)
@@ -107,7 +107,7 @@ generated quantities {
 
 ## SV
 
-\begin{code}{Stan}{General ARCH(p) model}{code-arch}
+\begin{code}{Stan}{General SV model}{code-sv}
 data {
   int<lower=1> T;       // Number of time periods
   vector[T] y;          // Observed returns

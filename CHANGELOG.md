@@ -18,7 +18,7 @@
 - jinou citační formu použít nelze, musíme mít APA7 a je to v templatu
 - ty tlusté čáry se pokusím opravit
 - nějaké tabulky nejsou ok
-- Figure 3.22
+- dodělat abstrakt
 
 # Verze 2.0
 

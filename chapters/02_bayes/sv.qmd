@@ -1,1 +1,23 @@
-Triantafyllopoulos2021_BayesianInferenceState - 7.3.3
+The use of SV models in bayesian statistics is natural because of several reasons. First, the flexibility to define
+various prior distributions to parameters can improve efficiency, speed and quality of estimation. The use of MCMC to
+estimate the posterior distribution is also employed in frequentist statistics.
+\parencite{Ait-SahaliaKimmel2007_MaximumLikelihoodEstimation} combines Monte Carlo simulations with maximum likelihood
+estimates to derive the volatility of option price. Authors are able to derive a closed-form solution that has desired
+statistical properties and can be used on real data analysis. \parencite{AndersenEtAl1999_EfficientMethodMoments}
+combines Monte Carlo simulations with methods of moments an extensive study that evaluates the sensitivity to sample
+size.
+
+SV models are also popular amongst bayesian time series analysis.
+\parencite{YangEtAl2021_AnalysisVolatilityCharacteristics} uses SV-N and SV-T models to explore the characteristics of
+Chinese and American Financial Markets. Authors state that SV models are *\enquote{essential models in the field of
+financial time series research, which can better characterize the time-varying characteristics of volatility.}*
+Authors compare models with the DIC criteria and the observe that the mean volatility is greater in US Stock markets.
+
+In a complex models where leverage effect and jumps are present, more advanced approaches are required.
+\parencite{XieShen2023_BayesianEstimationStochastic} proposes a new generalized skewed Student's distribution that is
+able to capture time series with heavy tails and leptokurtosis. Furthermore,
+\parencite{WangChan2023_StochasticModellingVolatility} uses multivariate SV models to explain volatility in electricity
+markets in Australia. Although the authors state that *\enquote{SV models have demonstrated their superiority in many
+financial applications}*, their use in electricity markets is quite limited. They propose a new model that connect
+SV models and Granger causality for efficient volatility modeling. Basic SV model implemented in Stan can be found in
+Code \ref{code-sv}.
