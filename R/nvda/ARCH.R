@@ -130,6 +130,7 @@ tibble(x = seq(0, 4, length.out = 500)) |>
     x = TeX(r"($\alpha_0$)"),
     y = TeX(r"(P($\alpha_0$))")
   )
+
 ggsave(filename = "./img/nvda/arch/apriori_alpha0.png",
        width = 1920, height = 1080, units = "px")
 
