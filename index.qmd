@@ -289,6 +289,10 @@ knitr::opts_chunk$set(
 
 {{< include chapters/03_prac/031_nvda/SV.qmd >}}
 
+### Conclusion
+
+{{< include chapters/03_prac/031_nvda/conclusion.qmd >}}
+
 ```{=tex}
 %%% Závěr
 {

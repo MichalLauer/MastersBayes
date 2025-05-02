@@ -57,8 +57,9 @@ Table: NVDA/SV: Shrinkage factors. {#tbl-nvda-sv-shrinkage-ess}
 |nu_in | 0.9999708| 34132.36|
 |nu_la | 1.0000390| 39875.37|
 
-The Shrinkage factor and ESS are both satisfactory. The chains merged adequately and the smallest ESS is sufficient for
-further statistical inference. The posterior distribution for parameter $\phi$ is on Figure @fig-nvda-sv-post-phi.
+The model was estimated on identical settings as previous model. The Shrinkage factor and ESS are both satisfactory.
+The chains merged adequately and the smallest ESS is sufficient for further statistical inference. The posterior
+distribution for parameter $\phi$ is on Figure @fig-nvda-sv-post-phi.
 
 ![NVDA/SV: Posterior distribution for $\phi$.](./img/nvda/sv/posterior_phi.png){#fig-nvda-sv-post-phi}
 
