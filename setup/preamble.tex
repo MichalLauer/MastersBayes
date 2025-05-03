@@ -49,11 +49,42 @@ I would like to thank my supervisor for their guidance in the world of bayesian 
 }
 
 %%% Abstrakt (doporučený rozsah cca 150-250 slov; nejedná se o zadání práce)
-\def\Abstrakt{%
-Abstrakt [CZE]
+\def\Abstrakt{
+
+Diplomová práce se zabývá modelováním volatility finančních časových řad. V teoretické části jsou představeny různé
+transformace, přičemž jako nejvhodnější forma pro analýzu volatility je zvolena logaritmická návratnost. Dále jsou
+popsány modely podmíněné heteroskedasticity, konkrétně ARCH, GARCH a stochastické volatilní (SV) modely, a to jak po
+teoretické, tak po praktické stránce. Následuje úvod do bayesovského přístupu, který je využit pro odhad uvedených
+modelů pomocí simulačních technik, zejména metod generujících vzorky z posteriorního rozdělení. Závěrem je uveden
+přehled simulačních přístupů k tvorbě posteriorních vzorků a propojení těchto modelů s bayesovským rámcem
+prostřednictvím dostupné literatury.
+
+V praktické části jsou analyzovány dvě finanční časové řady s projevy heteroskedasticity a shluků volatility. První
+řada je modelována pomocí ARCH, GARCH a SV modelů, přičemž výsledky ukazují, že SV model lépe vystihuje volatilní
+strukturu a dokáže se lépe přizpůsobit náhlým změnám. Na základě těchto výsledků je druhá časová řada modelována pouze
+pomocí SV modelu. Posteriorní rozdělení parametrů jsou mezi řadami podobná, avšak latentní volatilita se liší, což
+naznačuje odlišnou strukturu rizika. Výstupem práce jsou rovněž obecné skripty pro odhad uvedených modelů v nástroji
+Stan.
+
 }
+
 \def\AbstraktEN{%
-Abstrakt [ENG]
+
+This thesis focuses on modeling the volatility of financial time series. The theoretical part introduces various data
+transformations, selecting logarithmic returns as the most suitable form for volatility analysis. Subsequently, models
+of conditional heteroskedasticity are presented—specifically ARCH, GARCH, and stochastic volatility (SV) models — both
+from theoretical and practical perspectives. An introduction to the Bayesian approach follows, which is employed for
+estimating the aforementioned models using simulation-based techniques, particularly methods for generating samples
+from posterior distributions. The section concludes with an overview of simulation approaches for posterior sampling
+and the integration of these models within the Bayesian framework through a review of relevant literature.
+
+The empirical part analyzes two financial time series exhibiting signs of heteroskedasticity and volatility clustering.
+The first series is modeled using ARCH, GARCH, and SV models, with results indicating that the SV model more accurately
+captures the volatility structure and better adapts to sudden changes. Based on these findings, the second time series
+is modeled exclusively using the SV model. While posterior parameter distributions are similar across both series, the
+latent volatility differs, suggesting a distinct risk structure. The thesis also provides general-purpose scripts for
+estimating the discussed models using the Stan platform.
+
 }
 
 %%% 3 až 5 klíčových slov (doporučeno)
@@ -62,4 +93,4 @@ Abstrakt [ENG]
 
 % Quarto fixes
 \setcounter{secnumdepth}{2}
-\usepackage[output-decimal-marker={,}]{siunitx}
+\usepackage[output-decimal-marker={.}]{siunitx}
