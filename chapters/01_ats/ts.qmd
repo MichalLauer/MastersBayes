@@ -1,94 +1,89 @@
-Assume a data sequence $y$ that can be denoted using an index $t$. These indexes
-serve as ordering in time from the beginning $t=1$ to end $t = T$. This data sequence denotes a time series
+Assume a data sequence $y$ that can be denoted using an index $t$. These indexes serve as ordering in time from the
+beginning $t=1$ to the end $t = T$. This data sequence denotes a time series
 
 $$
 y_t \text{ for } t = 1, 2, \dots, T.
 $$
 
-Because TSD are generally dependent, their complete description requires a joint probability distribution
-function $F$[^csd-pdf]. This topic is discussed in \parencite[Chap. 1.3]{ShumwayStoffer2017_TimeSeriesAnalysis}
-and \parencite{ShumwayStoffer2017_TimeSeriesAnalysis}.
-For indexes $t_1, t_2, \dots, t_n$ where $n \in \mathbb{Z}$ and constants $c_1, c_2, \dots, c_n$,
-a general joint distribution function is defined as 
+Because TSD is generally dependent, their complete description requires a joint probability distribution function
+$F$[^csd-pdf]. This topic is discussed in \parencite[Chap. 1.3]{ShumwayStoffer2017_TimeSeriesAnalysis} and
+\parencite{ShumwayStoffer2017_TimeSeriesAnalysis}. For indexes $t_1, t_2, \dots, t_n$ where $n \in \mathbb{Z}$ and
+constants $c_1, c_2, \dots, c_n$, a general joint distribution function is defined as
 
-[^csd-pdf]: Cross-sectional data can also be described by a joint distribution function; however, this is often 
-unnecessary. They are typically assumed to be independently drawn from the same distribution, so a marginal 
-distribution function is usually sufficient. 
+[^csd-pdf]: Cross-sectional data can also be described by a joint distribution function; however, this is often
+unnecessary. They are typically assumed to be independently drawn from the same distribution, so a marginal
+distribution function is usually sufficient.
 
 $$
 F_{t_1, t_2, \dots, t_n}(c_1, c_2, \dots, c_n) = \text{Pr}(x_1 \leq c_1, x_2 \leq c_2, \dots, x_n \leq c_n).
 $$
 
-Because of the high dimensionality and complexity, these functions usually cannot be evaluated and the marginal
+Because of the high dimensionality and complexity, these functions usually cannot be evaluated, and the marginal
 distributions,
 
 $$
 f_t(x) = \frac{\delta F_t(x)}{\delta x},
 $$
 
-are often more informative. In addition to marginal distributions, a time series at time $t$ can be described by the
-mean function. Provided it exists, the mean function at time $t$ is defined by
-as 
+are often more informative. In addition to marginal distributions, the mean function can describe a time series at time
+$t$. Provided it exists, the mean function at time $t$ is defined by as
 
 $$
-\mu_{x_t} =  E(x_t) = \int_{-\infty}^\infty x f_t(x) \space dx.
+\mu_{x_t} =  E(x_t) = \int_{-\infty}^\infty x f_t(x) \space dx.
 $$
 
-To measure the dependence of time series, autocovariance function offers a measure of linear dependence between two
-different points $t$ and $s$. Such function is defined as
+To measure the time series dependence, the autocovariance function offers a measure of linear dependence between two
+points, $t$ and $s$. Such function is defined as
 
 $$
 \gamma_x(s, t) = E\left[ (x_s - \mu_s)(x_t - x_s)\right].
 $$
 
-If $t = s$, autocovariance measure the variance of time series at time $t$. If the function is the same for
-all indexes $t$, that is $\gamma(t) = \gamma(s)$ $t, s = 1, \dots, n$, the time series has a constant
-variance and is called homoskedastic. Otherwise, the series exhibits different variability at different times, and
-is called heteroskedastic.
+If $t = s$, autocovariance measures the time series variance at time $t$. If the function is the same for all indexes
+$t$, that is $\gamma(t) = \gamma(s)$ $t, s = 1, \dots, n$, the time series has a constant variance and is called
+homoskedastic. Otherwise, the series exhibits different variability at different times and is called heteroskedastic.
 
 ### Stationarity
 
-Stationarity is one of the most important properties that in TSD analysis and describes how does the properties of
-time series change in time. \parencite[Chap. 2.1]{Tsay2005_AnalysisFinancialTime} describes it as
-*\enquote{The foundation of time series analysis}*. If the probability distribution is identical at every time point $t$,
-the distribution 
-is strictly stationary. This means that shifting in any direction by any distance $h \in \mathbb{Z}$ does not change 
-the underlying distribution and
+Stationarity is one of the most important properties in TSD analysis and describes how the properties of time series
+change in time. \parencite[Chap. 2.1]{Tsay2005_AnalysisFinancialTime} describes it as *\enquote{The foundation of time
+series analysis}*. If the probability distribution is identical at every time point $t$, the distribution is strictly
+stationary. Shifting in any direction by any distance $h \in \mathbb{Z}$ does not change the underlying distribution
+and
 
 $$
 \text{Pr}(x_t \leq c) = \text{Pr}(x_{t+h} \leq c).
 $$
 
-for $c \in \mathbb{R}$. Same distribution function at any point $t$ implies that 
+for $c \in \mathbb{R}$. The same distribution function at any point $t$ implies that
 
 $$
 \mu_s = \mu_t,
 $$
 
-if the mean function exists. The variance is also the same and the linear dependence, measured by covariance,
-depends only on the time shift $h$. If the function exists, this relationship can be written as
+if the mean function exists. The variance is also the same, and the linear dependence, measured by covariance, depends
+only on the time shift $h$. If the function exists, this relationship can be written as
 
 $$
 \gamma(t, s) = \gamma(t + h, s + h).
 $$
 
-Strict stationarity is often too strong to be applied in practical examples. It also defines that the distribution
-is the same for *all* time points $t$, which is often impossible to assess from a single data set. Instead of a
-strictly stationary process, it is often sufficient to have a weakly stationary process. \parencite[Def. 1.7]{ShumwayStoffer2017_TimeSeriesAnalysis}
-defines a weakly stationary time series such that
+Strict stationarity is often too strong to be applied in practical examples. It also defines that the distribution is
+the same for *all* time points $t$, which is often impossible to assess from a single data set. Instead of a strictly
+stationary process, it is often sufficient to have a weakly stationary process.
+\parencite[Def. 1.7]{ShumwayStoffer2017_TimeSeriesAnalysis} defines a weakly stationary time series such that
 
 1) the mean value $\mu$ does not depend on time $t$, and
 2) the autocovariance function depends only on the time shift $h$.
 
-The main difference between strict and weak stationarity is that strong stationarity assumes identical distribution 
-functions while weak stationarity assumes only the first two moments to be invariant to time. This also means that if a
-series is strictly stationary, it is also weakly stationary. But the opposite is not true. Because of the hard
-implications imposed by strict stationarity, this thesis will always refer to weak stationarity under the term 
+The main difference between strict and weak stationarity is that strong stationarity assumes identical distribution
+functions while weak stationarity assumes only the first two moments invariant to time. This distinction also means
+that if a series is strictly stationary, it is also weakly stationary. However, the opposite is not true. Because of
+the hard implications imposed by strict stationarity, this thesis will always refer to weak stationarity under the term
 \enquote{stationarity}.
 
-Another issue that is often met in TSD analysis is heteroskedasticity. Different variability at different times
-implies that the time series is not stationary and specific approach must be considered. Heteroskedasticity is also
-very often connected to financial data, because one can find periods of high volatility markets and low volatility 
-markets \parencite[Chap. 3]{Tsay2005_AnalysisFinancialTime}. Models that can handle such time series are called Conditional 
-Heteroskedastic Models and will be the main topic of discussion in this thesis.
-
+Another issue that is often met in TSD analysis is heteroskedasticity. Different variability at different times implies
+that the time series is not stationary, and a specific approach must be considered. Heteroskedasticity is also often
+connected to financial data because one can find periods of high and low volatility markets
+\parencite[Chap. 3]{Tsay2005_AnalysisFinancialTime}. Models that can handle such time series are called Conditional
+Heteroskedastic Models will be the main topic of discussion in this thesis.

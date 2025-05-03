@@ -1,41 +1,41 @@
-This thesis connected financial time-series data analysis with bayesian models for conditional volatility.
-The first part focused on introducing time series analysis and what are their specifics in terms of statistical
-properties. Emphasis is also put on the definition of time series data and it's properties, such as stationarity or
-mean function. Time series introduction follows conditional heteroskedastic models, a method of capturing volatility of
-various time series data through two main methodologies. Models ARCH and GARCH which assume that volatility can be
-explained by squared historical residuals and historical conditional heteroskedasticity are introduced, their
-assumptions are explained and their practicality is motivated through various papers that apply models on real data.
-Models of stochastic volatility that work with a latent variable are further introduced and their use is also motivated
-through real-life research. Various modifications, such as GARCH-M models, are also mentioned as they are relevant
-in non-stationary time-series dat analysis.
+This thesis connected financial time-series data analysis with Bayesian models for conditional volatility. The first
+part focused on introducing time series analysis and their specifics regarding statistical properties. Emphasis is also
+put on the definition of time series data and properties, such as stationarity or mean function. Time series
+introduction follows conditional heteroskedastic models, which capture the volatility of various time series data
+through two main methodologies. Models ARCH and GARCH, which assume that volatility can be explained by squared
+historical residuals and historical conditional heteroskedasticity, are introduced, their assumptions are explained and
+their practicality is motivated through various papers that apply models on real data. Models of stochastic volatility
+that work with a latent variable are further introduced and their use is also motivated through real-life research.
+Various modifications, such as GARCH-M models, are also mentioned as they are relevant in non-stationary time-series
+data analysis.
 
-Second part focuses on bayesian statistics and introduces the concept of subjective and objective probability through
-the historical development of both approaches. A comparison between both approaches is described and both benefits as
-well as drawbacks of bayesian statistics are discussed. An emphasis is also put on ways how to describe the posterior
-distribution or the quality of convergence. Sampling methods are motivated through the Bayes' theorem and it's
-simplified kernel version. This is followed by an overview of several simulation methods that are able to draw
-samples from a posterior distribution that is not analytically tractable. All six sampling methods are explained and
-their specifics are defined. Their use is introduced through literature review that either applies specific algorithms
-or compares the between them. An important distinction between precise and approximate methods is highlighted as they
-are applicable in different domains. The second chapter finishes with an overview of literature review that
-investigates how has been models of conditional heteroskedasticity applied alongside the bayesian mindset.
+The second part focuses on Bayesian statistics and introduces the concept of subjective and objective probability
+through the historical development of both approaches. A comparison between both approaches is described, and both
+benefits and drawbacks of Bayesian statistics are discussed. An emphasis is also put on describing the posterior
+distribution or convergence quality. Sampling methods are motivated through Bayes' theorem and it has a simplified
+kernel version. This topic is followed by an overview of several simulation methods that can draw samples from a
+posterior distribution that is not analytically tractable. All six sampling methods are explained, and their specifics
+are defined. Their use is introduced through a literature review that either applies specific algorithms or compares
+them between them. An important distinction between precise and approximate methods is highlighted as they are
+applicable in different domains. The second chapter finishes with an overview of the literature review that
+investigates how models of conditional heteroskedasticity have applied alongside the Bayesian mindset.
 
-The final part applies all three models on time series data. Initially, all three models are used on the closing price
+The final part applies all three models to time series data. Initially, all three models are used on the closing price
 of NVDA stock that is inspected through autocorrelation functions to investigate whether heteroskedasticity or
-volatility clustering might be problematic. After that, prior distribution are set and the models are estimated using
-the Stan software. Different orders of ARCH and GARCH models are compared and a single best one is selected. The best
+volatility clustering might be problematic. After that, prior distributions are set, and the models are estimated using
+the Stan software. Different orders of ARCH and GARCH models are compared, and a single best one is selected. The best
 models based on visual analysis and the Leave-One-Out Cross-Validation score are ARCH$(5)$ and GARCH$(5, 1)$, which are
-then interpreted using bayesian tools. Only one model of stochastic volatility is estimated, however, it can be seen
-that it performs the best out of all other models. The SV model is able to capture well volatility clusters, high
-volatility peaks and does not overestimate volatility after big jumps.
+then interpreted using Bayesian tools. Only one stochastic volatility model is estimated; however, it can be seen that
+it performs the best out of all other models. The SV model can capture high volatility clusters and high volatility
+peaks and does not overestimate volatility after big jumps.
 
-The second time series analysis focuses on the closing price of TUI1.DE and after initial exploratory analysis employs
-only the SV model. The prior distribution is identical to the first analysis, because their limitations are shared.
-Interestingly, the estimated posterior distributions are very similar, which suggest that the underlying volatility
-between NVDA and TUI1.DE might be related. The model is able to capture well periods of volatility clustering and does
-not overestimate periods where volatility is relatively high.
+The second time series analysis focuses on the closing price of TUI1.DE and, after initial exploratory analysis employs
+only the SV model. The prior distribution is identical to the first analysis because their limitations are shared.
+Interestingly, the estimated posterior distributions are very similar, which suggests that the underlying volatility
+between NVDA and TUI1.DE might be related. The model can capture well periods of volatility clustering and does not
+overestimate periods where volatility is relatively high.
 
 This thesis could be extended by comparing different models on the raw closing price instead of focusing on the log
-returns. This would enable out-of-sample predictions of the price, which could be sometimes more beneficial. Another
-improvement would be by implementing a LFO-CV validation technique that can potentially better asses the quality of
-individual models.
+returns. This improvement would enable out-of-sample price predictions, which could sometimes be more beneficial.
+Another improvement would be implementing an LFO-CV validation technique that can better assess individual models'
+quality.

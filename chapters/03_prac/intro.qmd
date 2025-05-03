@@ -1,71 +1,73 @@
-The practical part of this thesis focuses on the application of ARCH$(p)$, GARCH$(p, q)$ and SV models on financial
-time series data. First, the prior distributions are visually described and their meaningfulness is argued. To estimate
-the models, custom Stan programs are written and printed in Appendix @sec-app-stan. All models are defined such that
-the stationarity requirements are met. This is done through a simplex vector whose values sum to one. To fulfill the
-requirement that the sum of coefficients is less than one without implying that their sum must but equal to one, a
-slack variable is introduced. For example, a model with $p$ parameters defines a simplex vector of length $p + 1$. To
-further evaluate model quality, in-sample predictions and log-likelihoods are computed. Since the primary aim of this
-thesis is to explore and explain the underlying volatility structure rather than to make out-of-sample forecasts,
-potential data leakage due to the use of the full time range is not considered problematic.
+This thesis's practical part focuses on applying ARCH$(p)$, GARCH$(p, q)$, and SV models on financial time series data.
+First, the prior distributions are visually described, and their meaningfulness is argued. To estimate volatility
+models, custom Stan programs are written and printed in Appendix @sec-app-stan. All models are defined such that the
+stationarity requirements are met. Condition is met using a simplex vector whose values sum to one. A slack variable is
+introduced to fulfill the requirement that the sum of coefficients is less than one without implying that their sum
+must be equal to one. For example, a model with $p$ parameters defines a simplex vector of length $p + 1$. To further
+evaluate model quality, in-sample predictions, and log-likelihoods are computed. Since the primary aim of this thesis
+is to explore and explain the underlying volatility structure rather than to make out-of-sample forecasts, potential
+data leakage due to the use of the full-time range is not considered problematic.
 
-When writing and defining the Stan scripts, readability and clear instructions are preferred over optimization. This
-ensures that the code is clear to non-Stan users, however it might suffer from low efficiency. If optimization and
-speed is of importance, several R packages provide code that is optimized for quick and reliable estimate of
-stochasticity. In general bayesian models can be modeled using the `{brms}` that provides functions for generalized
-linear and non-linear multivariate and multilevel models. It's main advantage is that users do not have to know
-explicit Stan syntax and can define bayesian models using R syntax \parencite{Burkner2018_AdvancedBayesianMultilevel}.
-Specifically for GARCH models, `{bayesGARCH}` provides functions with optimized workflows that are able to estimate
-GARCH$(1, 1)$ model with Student's innovations \parencite{Ardia2008_FinancialRiskManagement}. Finally, procedures in
-`{stochvol}` are described as *\enquote{Efficient algorithms for fully Bayesian estimation of stochastic volatility
-(SV) models with and without asymmetry (leverage)}* \parencite{HosszejniKastner2021_ModelingUnivariateMultivariate}.
+When writing and defining the Stan scripts, readability and clear instructions are preferred over-optimization. This
+approach ensures that the code is clear to non-Stan users; however, it might suffer from low efficiency. If
+optimization and speed are important, several R packages provide code optimized for quick and reliable estimates of
+stochasticity. Bayesian models can be modeled using the `{brms}` that provides functions for generalized linear and
+non-linear multivariate and multilevel models. Its main advantage is that users do not have to know explicit Stan
+syntax and can define Bayesian models using R syntax \parencite{Burkner2018_AdvancedBayesianMultilevel}. Specifically
+for GARCH models, `{bayesGARCH}` provides functions with optimized workflows that can estimate GARCH$(1, 1)$ model with
+Student's innovations \parencite{Ardia2008_FinancialRiskManagement}. Finally, procedures in `{stochvol}` are described
+as *\enquote{Efficient algorithms for fully Bayesian estimation of stochastic volatility (SV) models with and without
+asymmetry (leverage)}* \parencite{HosszejniKastner2021_ModelingUnivariateMultivariate}.
 
-In this thesis, various models of every class are estimated, studied and the single best model is selected. Comparison
-of bayesian models is a large topic in bayesian statistics (e.g. \parencite{George2005_BayesianModelSelection},
-\parencite{Wasserman2000_BayesianModelSelection}). Other then visual inspection, this thesis will leverage the `{loo}`
-package \parencite{YaoEtAl2017_UsingStackingAverage} that is able to efficiently estimate the Leave-One-Out
-Cross-Validation (LOO-CV) for individual models and then estimate the theoretical Expected Log pointwise Predictive
-Density (ELPD) \parencite{VehtariEtAl2017_PracticalBayesianModel}. Even though simple[^cv] cross-validation is
-typically used with cross-sectional models, it is possible to combine it with bayesian time series analysis.
-\parencite{MatamorosTorres2020_VarstanPackageBayesian} implements LOO-CV with other metrics in R package `{varstan}`
-for TSD analysis with the intent to dynamically choose models and priors. In rate-time models,
-\parencite{RuizMaraggiEtAl2022_UsingBayesianLeaveOneOut} uses LOO-CV and compares it to Leave-Future-Out
-Cross-Validation (LFO-CV) and finds that results based on both metrics offer similar results in model comparison.
+In this thesis, various models of every class are estimated and studied, and the single best model is selected.
+Comparison of Bayesian models is a large topic in Bayesian statistics (e.g.,
+\parencite{George2005_BayesianModelSelection}, \parencite{Wasserman2000_BayesianModelSelection}). Other than visual
+inspection, this thesis will leverage the `{loo}` package \parencite{YaoEtAl2017_UsingStackingAverage} that can
+efficiently estimate the Leave-One-Out Cross-validation (LOO-CV) for individual models and then estimate the
+theoretical Expected Log pointwise Predictive Density (ELPD) \parencite{VehtariEtAl2017_PracticalBayesianModel}. Even
+though simple[^cv] cross-validation is typically used with cross-sectional models, combining it with Bayesian time
+series analysis is possible. \parencite{MatamorosTorres2020_VarstanPackageBayesian} implements LOO-CV with other
+metrics in R package `{varstan}` for TSD analysis with the intent to dynamically choose models and priors. In rate-time
+models, \parencite{RuizMaraggiEtAl2022_UsingBayesianLeaveOneOut} uses LOO-CV and compares it to Leave-Future-Out
+Cross-validation (LFO-CV) finds that results based on both metrics offer similar results in model comparison.
 \parencite{GronauWagenmakers2019_RejoinderMoreLimitations} discusses the use of LOO-CV and LFO-CV and notes that since
-LOO-CV assumes that the data is independent, simple cross-validation is *\enquote{theoretically unsatisfactory when
+LOO-CV assumes that the data is independent, and simple cross-validation is *\enquote{theoretically unsatisfactory when
 applied to time series data}*. However, they further argue that all data form a time series and have a temporal order.
-The use of LOO-CV on time series data can hence be controversial. The use of LFO-CV can become computationally
-exhaustive because it requires refitting the model for every evaluation.
+The use of LOO-CV on time series data can hence be controversial. Using LFO-CV can become computationally exhaustive
+because it requires refitting the model for every evaluation.
 \parencite{BurknerEtAl2020_ApproximateLeavefutureoutCrossvalidation} proposes approximate LFO-CV that
-*\enquote{drastically reduces the computational costs while also providing informative diagnostics about the quality of
-the approximation}.*
+*\enquote{drastically reduces the computational costs while providing informative diagnostics about the approximation
+quality}.*
 
-[^cv]: Note that there are versions of cross-validation that are able to handle time series data, but these
-require special handling of time dependence to prevent data leakage.
+[^cv]: Note that there are versions of cross-validation that can handle time series data, but these require special
+handling of time dependence to prevent data leakage.
 
-This thesis uses LOO-CV instead of LFO-CV or approximate LFO-CV for two main reasons. First, to use LFO-CV on a
-time-series with a lot of data points is very computationally expensive. [^refit]. Because this
-thesis will estimate 18 different models, the comparison would not be possible. As such, approximately LFO-CV is a
-natural replacement that could be used. It's implementation in Stan is not trivial and it's use is mainly through the
-`{brms}` package, described in a `{loo}` vignette[^vig]. Hence the LOO-CV is used instead.
+This thesis uses LOO-CV instead of LFO-CV or approximate LFO-CV for two main reasons. First, using LFO-CV on a time
+series with many data points is very computationally expensive. [^refit]. The comparison would be impossible because
+this thesis will estimate 18 different models. As such, approximately LFO-CV is a natural replacement that could be
+used. Its implementation in Stan is not trivial, and it is used mainly through the `{brms}` package, described in a
+`{loo}` vignette[^vig]. Hence, the LOO-CV is used instead.
 
 [^refit]: This number can vary based on different models.
 
-[^vig]: [https://mc-stan.org/loo/articles/loo2-lfo.html#step-ahead-predictions-leaving-out-all-future-values](https://mc-stan.org/loo/articles/loo2-lfo.html#step-ahead-predictions-leaving-out-all-future-values)
+[^vig]:
+[https://mc-stan.org/loo/articles/loo2-lfo.html#step-ahead-predictions-leaving-out-all-future-values](https://mc-stan.org/loo/articles/loo2-lfo.html#step-ahead-predictions-leaving-out-all-future-values)
 
-To make sure that the models have successfully converged, ESS and the Shrinkage factors are compared and validated. Then
-the posterior distributions are described and a single best model is selected. The three best models from every class
-are then compared, interpreted and their efficiency is discussed.
+ESS and the Shrinkage factors are compared and validated to ensure the models have successfully converged. Then, the
+posterior distributions are described, and a single best model is selected. The three best models from every class are
+then compared and interpreted, and their efficiency is discussed.
 
 The estimation is done using Stan \parencite[ver. 2.32.2]{CarpenterEtAl2017_StanProbabilisticProgramming} connected to
 R \parencite[ver. 4.4.3]{RCoreTeam2023_LanguageEnvironmentStatistical}. The data from financial markets are downloaded
 using package `{quantmod}` \parencite[ver. 0.4.27]{RyanUlrich2025_QuantmodQuantitativeFinancial} which uses Yahoo
-Finance in the background. The time span for every model is a three-year window from 31st of March, 2022 to 31st of
-March, 2025. The data are collected daily, however, financial markets are usually closed on holidays or weekends. The
+Finance in the background. The period for every model is a three-year window from the 31st of March 2022 to the 31st of
+March, 2025. The data are collected daily; however, financial markets are usually closed on holidays or weekends. The
 raw closing prices are transformed to log returns defined in @eq-log-returns. Visualizations are provided either with
 package `{zoo}` \parencite[ver. 1.8.14]{ZeileisGrothendieck2005_ZooS3Infrastructure}, `{ggplot2}`
-\parencite[ver. 3.5.2]{Wickham2016_Ggplot2ElegantGraphics} or base R functions. Tables are transformed from R structure to LaTeX using
-`{knitr}` \parencite[ver. 1.50]{Xie2014_KnitrComprehensiveTool}. R language communicates with the Stan software using
-`{rstan}` \parencite[ver. 2.32.7]{StanDevelopmentTeam2024_RStanInterfaceStan} that can be used for estimation and
-sampling. Data are transformed using packages `{dplyr}` \parencite[ver. 1.1.4]{WickhamEtAl2023_DplyrGrammarData},
-`{tidyr}` \parencite[ver. 1.3.1]{WickhamEtAl2024_TidyrTidyMessy} and `{purrr}`
+\parencite[ver. 3.5.2]{Wickham2016_Ggplot2ElegantGraphics} or base R functions. Tables are transformed from R structure
+to LaTeX using `{knitr}` \parencite[ver. 1.50]{Xie2014_KnitrComprehensiveTool}. R language communicates with the Stan
+software using `{rstan}` \parencite[ver. 2.32.7]{StanDevelopmentTeam2024_RStanInterfaceStan} that can be used for
+estimation and sampling. Data are transformed using packages `{dplyr}`
+\parencite[ver. 1.1.4]{WickhamEtAl2023_DplyrGrammarData}, `{tidyr}`
+\parencite[ver. 1.3.1]{WickhamEtAl2024_TidyrTidyMessy} and `{purrr}`
 \parencite[ver. 1.0.4]{WickhamHenry2025_PurrrFunctionalProgramming}.

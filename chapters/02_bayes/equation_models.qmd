@@ -1,42 +1,52 @@
-Bayesian statistics defines a degree of belief that might be unique to every researcher. It represents the conditional probability distribution of estimated parameters $\theta$ given observed data $x$. This probability distribution is called the posterior distribution which can be computed using the Bayes' theorem \parencite[Page 35]{Marek2012_Pravdepodobnost} as 
+Bayesian statistics defines a degree of belief that might be unique to every researcher. It represents the conditional
+probability distribution of estimated parameters $\theta$ given observed data $x$. This probability distribution is
+called the posterior distribution, which can be computed using the Bayes' theorem
+\parencite[Page 35]{Marek2012_Pravdepodobnost} as
 
 $$
 P(\theta | x ) = \frac{P(\theta)P(x|\theta)}{P(x)}.
 $$ {#eq-bayes-eq}
 
-First is the prior degree of belief that is individual and is set before observing any new data. One can create their prior belief on common sense, past research or the domain knowledge. This initial belief is described with a probability distribution that is called the prior distribution, denoted as $P(\theta)$ where $P$ denotes either probability or density function and $\theta$ the unknown parameters. The second main component is based on the collected data and their likelihood, given the prior degree of belief. The likelihood, denoted as $P(x|\theta)$, represents the conditional probability of data $x$ given the prior belief about $\theta$. Given some prior belief, some
-data is more likely to occur than other. This combination of prior degree of belief and observed data allows researchers to
-update their degree of belief based on how it agrees with observations. The final component is called the predictive probability, denoted as $P(x)$ \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}.
+First is the prior degree of belief that is individual and is set before observing any new data. One can create their
+prior belief on common sense, past research, or domain knowledge. This initial belief is described with a probability
+distribution called the prior distribution, denoted as $P(\theta)$ where $P$ denotes either probability or density
+function and $\theta$ the unknown parameters. The second main component is based on the collected data and their
+likelihood, given the prior degree of belief. The likelihood, denoted as $P(x|\theta)$, represents the conditional
+probability of data $x$ given the prior belief about $\theta$. Given some prior beliefs, some data is more likely to
+occur than others. This combination of prior degree of belief and observed data allows researchers to update their
+degree of belief based on how it agrees with observations. The final component is the predictive probability, denoted
+as $P(x)$ \parencite[Chap. 6]{Hebak2013_StatistickeMysleniNastroje}.
 
-In research, it is often more suitable to talk about data and hypothesis. Equation @eq-bayes-eq is often rewritten to
+In research, it is often more suitable to talk about data and hypotheses. Equation @eq-bayes-eq is often rewritten to
 
 $$
 P(H|D) = \frac{P(H)P(D|H)}{P(D)},
 $$
 
-but the interpretation is identical. In practice, Equation @eq-bayes-eq is composed of probability functions and integrals.
+However, the interpretation is identical. In practice, Equation @eq-bayes-eq is composed of probability functions and
+integrals.
 
-In real data analysis, it is often needed to use prior distribution that is not conjugate. In complex models that require multiple
-prior distributions, represent some structure in data or work with latent variables, conjugacy is often not possible and analytical
-solution does not exist or it is impractical to derive them. To overcome this, sampling and simulation methods have been developed to
-sample observations from a posterior distribution with the need to know the explicit analytical solutions. These methods do not work
-with the Bayes' theorem in @eq-bayes-eq, but rather with its kernel 
+In real data analysis, a prior distribution that is not conjugate is often needed. In complex models that require
+multiple prior distributions, represent some structure in data, or work with latent variables, conjugacy is often not
+possible, and analytical solutions do not exist, or it is impractical to derive them. To overcome this, sampling and
+simulation methods have been developed to sample observations from a posterior distribution with the need to know the
+explicit analytical solutions. These methods do not work with Bayes' theorem in @eq-bayes-eq but rather with its kernel
 
 $$
 P(\theta | x ) \propto P(\theta)P(x|\theta).
 $$ {#eq-bayes-prop}
 
-Because the predictive probability, $P(x)$, is constant and does not dependent on the estimated parameters $\theta$, it servers as a
-normalization constant that can be excluded. This is represented in Equation @eq-bayes-prop where $\propto$ means that the posterior distribution
-is proportional to the combination of prior distribution $P(\theta)$ and likelihood of the data $P(x|\theta)$.
+Because the predictive probability, $P(x)$, is constant and not dependent on the estimated parameters $\theta$, it is a
+normalization constant that can be excluded. This version is represented in Equation @eq-bayes-prop, where $\propto$
+means that the posterior distribution is proportional to the combination of prior distribution $P(\theta)$ and
+likelihood of the data $P(x|\theta)$.
 
-The choice of the prior distribution depends on the knowledge that is known before the analysis. If, for example, it 
-is known that a parameter is surely strictly positive,
-distributions such as the chi-squared, gamma, exponential or inverse-gamma can be used. Another approach might be to estimate some
-transformation of a parameter. \parencite[Chap. 4.4]{McElreath2020_StatisticalRethinkingBayesian} chooses to model linear regression with
-$\ln \beta_j$, which can have any sign. After estimation, the samples from logarithmic posterior distribution can be 
-exponentiated, which yields a positive effect of $x_j$ through $\exp \beta_j$. If the prior information is limited, different approaches
-exist. One of them is the Jeffreys' invariance
-principle that states that \enquote{any rule for determining the prior density for $P(\theta)$ should yield an equivalent result if applied
-to a transformed parameter} \parencite[Chap. 2.8]{Gelman2014_BayesianDataAnalysis}.
-
+The choice of the prior distribution depends on the knowledge that is known before the analysis. If, for example, it is
+known that a parameter is strictly positive, distributions such as the chi-squared, gamma, exponential, or
+inverse-gamma can be used. Another approach might be to estimate some transformation of a parameter.
+\parencite[Chap. 4.4]{McElreath2020_StatisticalRethinkingBayesian} chooses to model linear regression with $\ln
+\beta_j$, which can have any sign. After estimation, the samples from logarithmic posterior distribution can be
+exponentiated, which yields a positive effect of $x_j$ through $\exp \beta_j$. If the prior information is limited,
+different approaches exist. One of them is the Jeffreys' invariance principle that states that \enquote{any rule for
+determining the prior density for $P(\theta)$ should yield an equivalent result if applied to a transformed parameter}
+\parencite[Chap. 2.8]{Gelman2014_BayesianDataAnalysis}.

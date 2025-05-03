@@ -1,33 +1,37 @@
-ARCH model introduced in Equation @eq-var-arch was a \enquote{quantum jump} for modeling of stochasticity 
-\parencite[Chap. 5]{GewekeEtAl2013_OxfordHandbookBayesian}. It is natural to model such model in a bayesian framework. Given the equation shock
+ARCH model introduced in Equation @eq-var-arch was a \enquote{quantum jump} for modeling of stochasticity
+\parencite[Chap. 5]{GewekeEtAl2013_OxfordHandbookBayesian}. It is natural to model such a model in a Bayesian
+framework. Given the equation shock
 
 $$
 a_t = \sigma_t \epsilon_t,
 $$
 
-it is necessary to first set prior distribution for innovation $\epsilon_t$. It is traditionally assumed to have standard normal distribution, and
-in cases with fatter tails, the student distribution. This implies that the final model will need to estimate either the variance $\sigma^2_\epsilon$ or
-degrees of freedom $\nu_\epsilon$.
+it is necessary first to set prior distribution for innovation $\epsilon_t$. It is traditionally assumed to have
+standard normal distribution and in cases with fatter tails, the student distribution. Assuming these two distribution,
+the final model must estimate the variance $\sigma^2_\epsilon$ or degrees of freedom $\nu_\epsilon$.
 
-The conditional volatility $\sigma_t$ is deterministically composed of historical values and does not have any prior distribution specified. It is
-composed of intercept $\alpha_0$ and coefficients $\alpha_i$ for every squared historical residual that is considered, generally for $i = 1, \dots, m$.
-The prior distribution for every coefficient need to respect the non-negativity of volatility and conditions set in Section @sec-arch. 
+The conditional volatility $\sigma_t$ is deterministically composed of historical values and does not specify any prior
+distribution. It is composed of intercept $\alpha_0$ and coefficients $\alpha_i$ for every squared historical residual
+that is considered, generally for $i = 1, \dots, m$. The prior distribution for every coefficient must respect the
+non-negativity of volatility and conditions set in Section @sec-arch.
 
-\parencite[Chap. 1]{AriPapadopoulos2016_BayesianEstimationParameters} sets the prior distribution for $\alpha_0$ to be Gamma with parameters $r$ and 
-$\beta$. The gamma distribution is strictly positive and positively skewed. It represent the instantinuous volatility at time $t$. For other 
-coefficients $\alpha_1, \dots, \alpha_m$, they assume joint dirichlet prior distribution with parameters $\omega_1, \dots, \omega_m$. 
-Dirichlet distribution is a multivariate beta distribution whose coordinates in $m$-dimensional space always sum to one. This fulfills the assumptions
-for a stable ARCH mode and the individual coefficients are assumed to be independent. Authors set the distribution of $\epsilon$ to be normally
-distributed and conveniently call such model *Normal-ARCH(p)*. Interestingly, authors did not use MCMC methods but a Lindsey approximation that
-leverages Taylor series. As the authors themselves note, this method is not suitable for complicated models and an be used in a limited manner.
+\parencite[Chap. 1]{AriPapadopoulos2016_BayesianEstimationParameters} sets the prior distribution for $\alpha_0$ to be
+Gamma with parameters $r$ and $\beta$. The gamma distribution is strictly positive and positively skewed. It represents
+the instantaneous volatility at time $t$. For other coefficients $\alpha_1, \dots, \alpha_m$, they assume joint
+dirichlet prior distribution with parameters $\omega_1, \dots, \omega_m$. Dirichlet distribution is a multivariate beta
+distribution whose coordinates in $m$-dimensional space always sum to one. This distribution fulfills the assumptions
+for a stable ARCH mode, and the individual coefficients are assumed to be independent. Authors set the distribution of
+$\epsilon$ to be normally distributed and conveniently call such model *Normal-ARCH(p)*. Interestingly, the authors did
+not use MCMC methods but a Lindsey approximation that leverages the Taylor series. As the authors note, this method is
+unsuitable for complicated models and can be used in a limited manner.
 
-\parencite{KaufmannFruhwirth-Schnatter2002_BayesianAnalysisSwitching} analyses switching ARCH models and their use of the Dirichlet distribution 
-for coefficients $\alpha_1, \dots, \alpha_m$ is identical, as well as the use of normal distribution with parameter $\mu_\epsilon$ and 
-$\sigma^2_\epsilon$ for $\epsilon$. However, authors chose an Inverse-Gamma distribution for intercepts[^interps] $\alpha_0$ that is 
-also bound by zero. Compares to a gamma distribution, it has heavier tails and might be more suitable for models where extreme values are to be 
-expected.
+\parencite{KaufmannFruhwirth-Schnatter2002_BayesianAnalysisSwitching} analyses switching ARCH models and their use of
+the Dirichlet distribution for coefficients $\alpha_1, \dots, \alpha_m$ is identical, as well as the use of normal
+distribution with parameter $\mu_\epsilon$ and $\sigma^2_\epsilon$ for $\epsilon$. However, the authors chose an
+Inverse-Gamma distribution for intercepts[^interps] $\alpha_0$ bound by zero. Compared to a gamma distribution, it has
+heavier tails and might be more suitable for models where extreme values are to be expected.
 
 [^interps]: The model contains multiple intercepts because it *switches* them based on time.
 
-Both papers use custom, non-informative priors. Since this model is relatively non-complex, standard MCMC methods are sufficient. The implementation
-of ARCH model in Stan can be seen in Code \ref{code-arch}.
+Both papers use custom, non-informative priors. Since this model is relatively non-complex, standard MCMC methods are
+sufficient. The implementation of ARCH model in Stan can be seen in Code \ref{code-arch}.
