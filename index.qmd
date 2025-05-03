@@ -71,7 +71,8 @@
 \noindent
 \KlicovaSlova
 
-\bigskip\bigskip\bigskip\bigskip\bigskip
+\newpage
+
 \section*{Abstract}
 \noindent
 \AbstraktEN
