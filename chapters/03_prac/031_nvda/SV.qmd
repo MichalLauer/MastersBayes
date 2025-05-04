@@ -85,7 +85,7 @@ Table: NVDA/SV: Tabular posterior description for $\mu$. {#tbl-nvda-sv-post-mu}
 
 |Average |SD     |PI$_{0.055}$ |PI$_{0.945}$ |
 |:-------|:------|:--------|:--------|
-|0.6479  |0.5408 |0.0459   |1.6813   |
+|0.65  |0.54 |0.05   |1.68   |
 
 The average volatility is expected to be 0,65 with 89% PI of $(0.05, 1.68)$.Interestingly, this posterior interval is
 wider than the prior expectation. Finally, estimated degrees of freedom of both stochastic elements are in Figure
@@ -100,8 +100,8 @@ Table: NVDA/SV: Tabular description of posteriors for $\nu$. {#tbl-nvda-sv-post-
 
 |Parameter |Average |SD      |PI$_{0.055}$ |PI$_{0.945}$ |
 |:---------|:-------|:-------|:--------|:--------|
-| $\nu_\text{in}$ |30.4539 |10.9878 |15.8909  |50.3112  |
-| $\nu_\text{la}$ |37.9717 |11.6805 |22.0689  |58.8402  |
+| $\nu_\text{in}$ |30.45 |10.99 |15.89  |50.31  |
+| $\nu_\text{la}$ |37.97 |11.68 |22.07  |58.84  |
 
 The 89% PI highly overlaps, which suggests that the degrees of freedom for both stochastic processes are not so
 different. The results suggest that the model can capture large volatility with degrees of freedom around 30, and a

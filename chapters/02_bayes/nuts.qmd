@@ -11,10 +11,10 @@ enough, i.e., when simulating more steps would no longer increase the distance b
 initial value of $\theta_{t-1}$}.* The criterion that the authors propose is
 
 $$
-(\theta^* - \theta^{t-1}) \phi_t.
+(\theta^* - \theta_{t-1}) \phi_t.
 $$ {#eq-nuts-crit}
 
-The distance between proposal $\theta^*$ and the initial state $\theta^{t-1}$ is multiplied by the current momentum
+The distance between proposal $\theta^*$ and the initial state $\theta_{t-1}$ is multiplied by the current momentum
 $\phi_t$. Ideally, the algorithm should run until the criterion in Equation @eq-nuts-crit is less than zero and the
 proposal is \enquote{coming back in a circle}[^nuts-circle]. This condition is not computationally feasible and might
 not always be possible. The authors propose a new slice variable $u$, that is used during sampling and solves this

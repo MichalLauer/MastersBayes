@@ -18,10 +18,10 @@ Table: TUI1.DE/SV: Tabular description of posterior distributions. {#tbl-tui-pos
 
 |Parameter  |       E(X)|     Median|   PI$_{0.055}$|   PI$_{0.945}$|
 |:-----|----------:|----------:|----------:|----------:|
-|phi   |  0.9930303|  0.9933450|  0.9864251|  0.9985651|
-|mu    |  0.6555265|  0.5336914|  0.0491092|  1.6435460|
-|$\nu_\text{in}$ | 29.3891771| 27.8666424| 15.0945732| 48.7980843|
-|$\nu_\text{la}$ | 36.8931803| 35.3645663| 21.1282932| 57.2230703|
+|phi   |  0.99|  0.99 |  0.99|  0.99 |
+|mu    |  0.66|  0.53 |  0.05|  1.6 |
+|$\nu_\text{in}$ | 29.40 | 27.87 | 15.09 | 48.80 |
+|$\nu_\text{la}$ | 36.89 | 35.36 | 21.13 | 57.22 |
 
 The results are close to the SV model estimated on ticker NVDA. Similar posteriors may suggest that the effect of the
 underlying volatility is very similar. The stochastic process is displayed in Figure @fig-tui-sv-volatility.
