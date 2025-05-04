@@ -209,7 +209,7 @@ Although the models do not display large differences, and the standard error is 
 could be the ARCH$(5)$. Since the visual analysis also shows that the volatility of log returns is well captured, it is
 selected as the most optimal model. Its parameters are described in Table @tbl-nvda-arch-final.
 
-Table: NVDA/ARCH: Description of the final model.  {#tbl-nvda-arch-final}
+Table: NVDA/ARCH: Description of the final model. {#tbl-nvda-arch-final}
 
 |Parameter |E(X)   |Median |PI_lower |PI_upper |
 |:---------|:------|:------|:--------|:--------|

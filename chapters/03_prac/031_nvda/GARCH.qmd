@@ -97,7 +97,7 @@ The simplest model, GARCH$(5, 1)$, has fat tails. As the complexity increases, t
 towards zero. Shrinkage is probably caused again by the stationary constraint. The tabular description is in Table
 @tbl-nvda-garch-post-beta1.
 
-Table: NVDA/GARCH: Tabular posterior description for $\beta_1$.  {#tbl-nvda-garch-post-beta1}
+Table: NVDA/GARCH: Tabular posterior description for $\beta_1$. {#tbl-nvda-garch-post-beta1}
 
 |Statistics |GARCH(5, 1) |GARCH(5, 2) |GARCH(5, 3) |GARCH(5, 4) |GARCH(5, 5) |GARCH(5, 6) |GARCH(5, 7) |GARCH(5, 8) |
 |:----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
