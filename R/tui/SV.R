@@ -69,8 +69,8 @@ data <- list(
 a <- Sys.time()
 model <- get_model(data = data)
 print(Sys.time() - a)
-saveRDS(model, file = "./R/tui/data/SV.RDS")
-# models <- readRDS("./R/nvda/data/SV.RDS")
+# saveRDS(model, file = "./R/tui/data/SV.RDS")
+# model <- readRDS("./R/tui/data/SV.RDS")
 # Model statistics -------------------------------------------------------------
 as_tibble(
   summary(model, pars = c("phi", "mu", "nu_in", "nu_la"))$summary,
@@ -78,6 +78,8 @@ as_tibble(
 ) |>
   select(param, Rhat, n_eff) |>
   mutate(
+    Rhat = sprintf("%.2f", Rhat),
+    n_eff = format(n_eff, big.mark = " ", digits = 1),
     param = ordered(
       param,
       levels = c("phi", "mu", "nu_in", "nu_la")
@@ -161,11 +163,14 @@ df_pred <-
 
 df_pred |>
   ggplot(aes(x = Index)) +
-  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
-  geom_line(aes(y = true)) +
+  geom_ribbon(aes(ymin = l, ymax = u), fill = "gray80") +
+  geom_line(aes(y = true), color = "black") +
   theme_bw() +
   labs(
     title = TeX(r"(Comparison of posterior distributions for $\exp(h/2)$)"),
     subtitle = TeX(r"(with shaded 89% percentile interval)"),
     x = NULL, y = TeX(r"($\exp(h/2)$)")
   )
+
+ggsave(filename = "./img/tui/sv/posterior_prediction.png",
+       width = 1920, height = 1080, units = "px")

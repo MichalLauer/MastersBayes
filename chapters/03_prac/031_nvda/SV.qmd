@@ -52,10 +52,10 @@ Table: NVDA/SV: Shrinkage factors. {#tbl-nvda-sv-shrinkage-ess}
 
 |param | Shrinkage|      ESS|
 |:-----|---------:|--------:|
-|phi   | 1.0001542| 22926.94|
-|mu    | 1.0000140| 28228.91|
-|nu_in | 0.9999708| 34132.36|
-|nu_la | 1.0000390| 39875.37|
+|phi   | 1.00     |   22 926|
+|mu    | 1.00     |   28 228|
+|nu_in | 1.00     |   34 132|
+|nu_la | 1.00     |   39 875|
 
 The model was estimated on identical settings as previous models. The Shrinkage factor and ESS are both satisfactory.
 The chains merged adequately and the smallest ESS is sufficient for further statistical inference. The posterior

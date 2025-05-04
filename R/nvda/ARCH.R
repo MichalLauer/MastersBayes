@@ -223,6 +223,7 @@ pmap(models, \(p, name, model) {
   bind_rows() |>
   select(name, param, Rhat) |>
   mutate(
+    Rhat = sprintf("%.2f", Rhat),
     param = ordered(
       param,
       levels = c("nu", "alpha0", paste0("alpha[", models$p, "]")))
@@ -245,6 +246,7 @@ pmap(models, \(p, name, model) {
   bind_rows() |>
   select(name, param, n_eff) |>
   mutate(
+    n_eff = format(n_eff, big.mark = " ", digits = 1),
     param = ordered(param,
                     levels = c("nu", "alpha0",
                                paste0("alpha[", models$p, "]")))
@@ -525,8 +527,8 @@ df_pred <-
 
 df_pred |>
   ggplot(aes(x = Index)) +
-  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
-  geom_line(aes(y = true)) +
+  geom_ribbon(aes(ymin = l, ymax = u), fill = "gray80") +
+  geom_line(aes(y = true), color = "black") +
   facet_wrap(vars(Model), nrow = 2) +
   theme_bw() +
   labs(
@@ -583,8 +585,8 @@ models |>
 df_pred |>
   filter(Model == "ARCH(5)") |>
   ggplot(aes(x = Index)) +
-  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
-  geom_line(aes(y = true)) +
+  geom_ribbon(aes(ymin = l, ymax = u), fill = "gray80") +
+  geom_line(aes(y = true), color = "black") +
   theme_bw() +
   labs(
     title = TeX(r"(Most optimal model: ARCH(5))"),

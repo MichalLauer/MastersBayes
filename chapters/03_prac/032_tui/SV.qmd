@@ -6,10 +6,10 @@ Table: TUI1.DE/SV: Shrinkage factors and ESS. {#tbl-tui-sv-shrinkage-ess}
 
 |Parameter | Shrinkage|      ESS|
 |:-----|---------:|--------:|
-|phi   | 0.9998893| 22171.49|
-|mu    | 1.0000194| 31179.89|
-|$\nu_\text{in}$ | 0.9999342| 31692.03|
-|$\nu_\text{la}$ | 1.0000120| 38679.67|
+|phi   | 1.00     |   22 171|
+|mu    | 1.00     |   31 179|
+|$\nu_\text{in}$ | 1.00| 31 692|
+|$\nu_\text{la}$ | 1.00| 38 679|
 
 The Shrinkage factor suggests that chains have merged successfully and high ESS that statistical inference is viable.
 The overview of all posterior distributions can be seen in Table @tbl-tui-post.
