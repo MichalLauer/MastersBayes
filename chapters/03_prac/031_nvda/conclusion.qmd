@@ -1,4 +1,4 @@
-Visual inspection provides a significant insight into the quality of estimated volatility to compare models. Comparing
+Visual inspection provides a significant insight into the quality of estimated volatility. Comparing
 Figures @fig-nvda-arch-post-final, @fig-nvda-garch-post-final, and @fig-nvda-sv-prediction, it is clear that the
 stochastic model can estimate underlying asset volatility most reliably. The process can react well to periods of low
 and high volatility and extreme values observed in the middle of years 2023 and 2024. The comparison is done on
@@ -19,4 +19,4 @@ Stan sampler threw warnings that the final chains might be missing some importan
 many iterations (64 000) and a large warm-up period (8 000), the model could not converge. These diagnostics imply that
 any inference was very unreliable and undesirable. After removing the $\sigma$ parameter and setting the standard
 deviation to a fixed value, the convergence ran without any issues and finished relatively quickly. The model with
-fixed standard deviation also fits the data fairly well.
+fixed standard deviation also fits the data fairly well and additional complexity might not be needed after all.

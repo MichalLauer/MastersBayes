@@ -16,7 +16,7 @@ The overview of all posterior distributions can be seen in Table @tbl-tui-post.
 
 Table: TUI1.DE/SV: Tabular description of posterior distributions. {#tbl-tui-post}
 
-|Parameter  |       E(X)|     Median|   PI_lower|   PI_upper|
+|Parameter  |       E(X)|     Median|   PI$_{0.055}$|   PI$_{0.945}$|
 |:-----|----------:|----------:|----------:|----------:|
 |phi   |  0.9930303|  0.9933450|  0.9864251|  0.9985651|
 |mu    |  0.6555265|  0.5336914|  0.0491092|  1.6435460|
@@ -24,9 +24,9 @@ Table: TUI1.DE/SV: Tabular description of posterior distributions. {#tbl-tui-pos
 |$\nu_\text{la}$ | 36.8931803| 35.3645663| 21.1282932| 57.2230703|
 
 The results are close to the SV model estimated on ticker NVDA. Similar posteriors may suggest that the effect of the
-underlying volatility is very similar. The stochastic process is displayed in Figure @fig-nvda-tui-sv-volatility.
+underlying volatility is very similar. The stochastic process is displayed in Figure @fig-tui-sv-volatility.
 
-![TUI1.DE/SV: Estimated volatility.](./img/tui/sv/posterior_volatility.png){#fig-nvda-tui-sv-volatility}
+![TUI1.DE/SV: Estimated volatility.](./img/tui/sv/posterior_volatility.png){#fig-tui-sv-volatility}
 
 There can be increases and decreases in volatility over time, which suggests volatility clustering. Further, the model
 can see peaks of volatility and the following decrease. A comparison between volatility and log returns is in Figure

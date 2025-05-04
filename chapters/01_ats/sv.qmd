@@ -13,7 +13,7 @@ $$ {#eq-main-sv}
 
 where $\epsilon_t \sim N(0, \sigma^2_\epsilon)$. The main difference is that the shock is not described
 deterministically by squared historical shocks and conditional variance but rather by a latent variable $h_t$
-representing the natural variance logarithm. This is because variance can only be non-negative, and modeling the log
+representing the natural logarithm of variance. This is because variance can only be non-negative, and modeling the log
 variance enforces this assumption. It can then be described by
 
 $$
@@ -36,7 +36,7 @@ $$
 p_t = \exp\left({h_t\over2} \right)\epsilon_t.
 $$
 
-An autoregressive process describes the latent variable
+An autoregressive process describes the latent variable as
 
 $$
 h_{t+1} = \mu + \phi(h_t - \mu) + \eta_t,
@@ -45,7 +45,7 @@ $$
 where $\mu$ represents the average log volatility, $\phi$ the log volatility persistence and $\eta\sim N(0,
 \sigma^2_\eta)$. For the latent variable to be stationary, it is sufficient that $|\phi| < 1$
 \parencite{Kim1998_StochasticVolatilityLH}. The addition of another random shock in the form of $\eta_t$ makes the SV
-model more flexible, and this can capture more complex relationships. The estimation of latent variable $h_t$ is
+model more flexible, which can capture more complex relationships. The estimation of latent variable $h_t$ is
 non-trivial, and several methods have been developed, including Kalman filtering and Markov Chain Monte Carlo methods.
 Like GARCH models, the simple SV model cannot capture the effect of positive and negative spikes
 \parencite[Chap. 3.12]{Tsay2005_AnalysisFinancialTime}. However, additional extensions have been developed to capture

@@ -29,8 +29,9 @@ integrals.
 In real data analysis, a prior distribution that is not conjugate is often needed. In complex models that require
 multiple prior distributions, represent some structure in data, or work with latent variables, conjugacy is often not
 possible, and analytical solutions do not exist, or it is impractical to derive them. To overcome this, sampling and
-simulation methods have been developed to sample observations from a posterior distribution with the need to know the
-explicit analytical solutions. These methods do not work with Bayes' theorem in @eq-bayes-eq but rather with its kernel
+simulation methods have been developed to sample observations from a posterior distribution without the need to know
+the explicit analytical solutions. These methods do not work with Bayes' theorem in @eq-bayes-eq but rather with its
+kernel
 
 $$
 P(\theta | x ) \propto P(\theta)P(x|\theta).
@@ -47,6 +48,6 @@ inverse-gamma can be used. Another approach might be to estimate some transforma
 \parencite[Chap. 4.4]{McElreath2020_StatisticalRethinkingBayesian} chooses to model linear regression with $\ln
 \beta_j$, which can have any sign. After estimation, the samples from logarithmic posterior distribution can be
 exponentiated, which yields a positive effect of $x_j$ through $\exp \beta_j$. If the prior information is limited,
-different approaches exist. One of them is the Jeffreys' invariance principle that states that \enquote{any rule for
-determining the prior density for $P(\theta)$ should yield an equivalent result if applied to a transformed parameter}
+different approaches exist. One of them is the Jeffreys' invariance principle that states that *\enquote{any rule for
+determining the prior density for $P(\theta)$ should yield an equivalent result if applied to a transformed parameter}*
 \parencite[Chap. 2.8]{Gelman2014_BayesianDataAnalysis}.

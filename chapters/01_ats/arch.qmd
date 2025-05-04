@@ -1,6 +1,6 @@
 Log returns in financial TSD analysis are serially uncorrelated but dependent. Figure @fig-log-ret-dep, taken from
 \parencite[Fig. 3.1]{Tsay2005_AnalysisFinancialTime}, shows log returns of Intel Corporation from January 1973 to
-December 2003.
+December 2003 analyzed using the ACF function.
 
 ![Various transformation of log returns of Intel Corporation \parencite{Tsay2005_AnalysisFinancialTime}](./img/log-ret-dep.png){#fig-log-ret-dep}
 
@@ -32,27 +32,20 @@ where $\epsilon_t$ represents a sequence of identically and independently distri
 and $\sigma^2 = 1$ and $\sigma_t$ is an autoregressive process
 
 $$
-\sigma^2_t = \alpha_0 + \sum_{i=1}^m \alpha_i a_{t-i}^2.
+\sigma^2_t = \alpha_0 + \sum_{i=1}^p \alpha_i a_{t-i}^2.
 $$ {#eq-var-arch}
 
-Put together, the model is called the Autoregressive Conditional Heteroskedasticity (ARCH) model of order $m$. Equation
-@eq-var-arch states that the variance at time $t$ is affected by squared residuals in the previous $m$ periods. This
+Put together, the model is called the Autoregressive Conditional Heteroskedasticity (ARCH) model of order $p$. Equation
+@eq-var-arch states that the variance at time $t$ is affected by squared residuals in the previous $p$ periods. This
 implies that if the volatility has been high, the volatility at time $t$ is also expected to be high. On the contrary,
 the expected volatility at time $t$ is rather small in periods of low volatility. It is important to realize that high
 volatility does not necessarily imply high realized variability. The probability of very high or very low returns is
 greater but not guaranteed \parencite[Chap. 3.4]{Tsay2005_AnalysisFinancialTime}.
 
 The random variable $\epsilon_t$ is often assumed to follow standard normal distribution. The student distribution
-might be more suitable if the time series experiences heavy tails. Since the expected value of such distributions is
-zero, the expected return at time $t$ is not affected, and it holds that
-
-$$
-E(p_t) = E(\mu_t) + E(a_t) = E(\mu_t).
-$$
-
-
-Because $\sigma^2$ is variance, it must be greater than zero, and as such, $\alpha_0 > 0$ and $\alpha_i \geq 0$ for $i
-\in \mathbb{N}$.
+might be more suitable if the time series experiences heavy. Because $\sigma^2$ is a measure of variance, it must be
+greater than zero, and as such, $\alpha_0 > 0$ and $\alpha_i \geq 0$ for $i \in \mathbb{N}$. Furthermore, stationary
+ARCH$(p)$ model requires that $\sum_{i=1}^p \alpha_i < 1$.
 
 In frequentist statistics, several ways exist to estimate the correct order of ARCH$(p)$. One of them is the Ljung-Box
 statistic $Q(m)$ computed from the squared residuals $a_i^2$. Another popular method is the Lagrange multiplier test,
@@ -73,14 +66,14 @@ $$
 These residual shocks are then used in the ARCH$(p)$ model to forecast future volatility as
 
 $$
-\hat \sigma_{t+1}^2 = \hat \alpha_0 + \sum_{i=1}^m \hat \alpha_i \hat a^2_{t - i + 1}.
+\hat \sigma_{t+1}^2 = \hat \alpha_0 + \sum_{i=1}^p \hat \alpha_i \hat a^2_{t - i + 1}.
 $$
 
 Forecasting equation can be generalized for arbitrary $\ell$-step ahead prediction \parencite[Chap. 3.4.3]
 {Tsay2005_AnalysisFinancialTime}
 
-\parencite[Chap. 3.4.2]{Tsay2005_AnalysisFinancialTime} summarizes the downsides of such models. One  
-is the assumption that positive and negative spikes of residuals have the same effect on the current volatility.
-Research has found this is false, and squared historical shocks might not reflect the true shock correctly. ARCH models
-also tend to overestimate volatility in cases where a single shock has been observed. Simple ARCH models respond slowly
-to quick changes and might not perform best.
+\parencite[Chap. 3.4.2]{Tsay2005_AnalysisFinancialTime} summarizes the downsides of such models. One is the assumption
+that positive and negative spikes of residuals have the same effect on the current volatility. Research has found this
+is false, and squared historical shocks might not reflect the true shock correctly. ARCH models also tend to
+overestimate volatility in cases where a single shock has been observed. Simple ARCH models respond slowly to quick
+changes and might not perform best.

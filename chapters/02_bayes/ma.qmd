@@ -13,14 +13,14 @@ $$
 
 Variance is often denoted as a \enquote{step} that will be taken for the next sample. Large variance implies large
 jumps between individual samples, while small variance can increase autocorrelation, and the chain might not converge
-efficiently. The choice of variance, hence, depends on the specific model at hand. After a new sample is generated from
+efficiently. The choice of variance depends on the specific model at hand. After a new sample is generated from
 the proposal distribution, it is compared to the last sample $\theta_{t-1}$ using a simple ratio of posterior densities
 
 $$
 r = \frac{
  P(\theta^*|y)
 }{
- P(\theta^{t-1}|y)
+ P(\theta_{t-1}|y)
 },
 $$ {#eq-ma}
 
@@ -34,7 +34,7 @@ $$
 \text{prob}(\theta_t = \theta^*) = \min(1, r).
 $$
 
-If the proposal is accepted, a new sample from the proposal distribution condition on the new sample $\theta^*$ is
+If the proposal is accepted, a new sample from the proposal distribution conditioned on the new sample $\theta^*$ is
 generated. If not, a new sample $\theta_t$ is simply the previous sample $\theta_{t-1}$ and a new proposal conditioned
 on $\theta_{t-1}$ is generated.
 

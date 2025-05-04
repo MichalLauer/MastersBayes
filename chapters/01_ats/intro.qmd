@@ -9,6 +9,5 @@ this requirement is automatically violated.
 \parencite{HindlsEtAl2018_StatistikaEkonomii} states that analysis of time series data is the most important analysis
 for economic data. All economic data is *somehow* dependent on its past values, and this dependence needs to be
 reflected. One way of analyzing a time series is by forecasting future values, which can be done using either point
-estimates or confidence intervals. Another approach, that is considered in this thesis, is the forecast of future
-volatility. Because many popular techniques, such as the Black–Scholes model, assume homoskedasticity, it is only
-natural to model the underlying volatility.
+estimates or confidence intervals. Because many popular techniques, such as the Black–Scholes model, assume
+homoskedasticity, it is only natural to model the underlying volatility.

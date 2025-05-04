@@ -1,5 +1,5 @@
-The important characteristic of MCMC methods, such as HA, MHA, HMC, or NUTS, is that they converge to the true
-posterior distribution. If the convergence is fast and accurate, generated samples are representative enough for
+The important characteristic of MCMC methods, such as HA, MHA, GS, HMC, or NUTS, is that they converge to the true
+posterior distribution. If the convergence is reliable and accurate, generated samples are representative enough for
 statistical inference. The sampling speed might sometimes be problematic, and even with the most advanced samplers, the
 inference might take a relatively long time. The speed may be more crucial than the accuracy, and researchers may
 prefer speed and quick inference with no guarantees that the model represents the exact posterior distribution. This

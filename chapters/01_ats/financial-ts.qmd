@@ -1,6 +1,6 @@
-Financial data and time series analysis can be loosely defined as *analysis that is concerned with the theory and
-practice of asset valuation over time* \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}. A key feature
-distinguishing financial TSD from other domains is volatility, which originates from both un unified theory and
+Financial data and time series analysis can be loosely defined as *\enquote{analysis that is concerned with the theory and
+practice of asset valuation over time}* \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}. A key feature
+distinguishing financial TSD from other domains is volatility, which originates from both nonunified theory and
 variable data. A simple term, such as asset volatility, can have different definitions, complicating statistical
 analysis and empirical research. Data volatility is also hardly measurable, and data that changes quickly (such as
 returns or closing price) can experience periods of different volatility

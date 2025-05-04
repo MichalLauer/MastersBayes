@@ -25,12 +25,12 @@ r = \frac{
 $$ {#eq-mha}
 
 The function $J_t$ in Equation @eq-mha denotes the proposal distribution at iteration $t$. In a simple MA, the ratio of
-the two conditional proposal distributions is equal to 1 and can be then excluded. In the case of asymmetrical proposal
+the two conditional proposal distributions is equal to 1 and can be excluded. In the case of asymmetrical proposal
 distributions, this is not true, and the ratio needs to be corrected by this factor. The rest of the procedure is the
 same as for the MA.
 
 In general, \parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje} suggest that the only condition for the MHA to
-generate stationary chains are where the transition probabilities between two states are proportional to the posterior
+generate stationary chains is that the transition probabilities between two states are proportional to the posterior
 densities, formally put as
 
 $$

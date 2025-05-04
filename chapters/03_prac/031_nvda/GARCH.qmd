@@ -133,12 +133,11 @@ can be read from top-to-bottom and it is interesting to see that they are largel
 The red GARCH$(5, 1)$ model is similar to the best ARCH$(5)$ model, but the conditional volatility of the first lag is
 preserved. As the complexity increases, individual volatility shocks have longer tails, and their effect on additional
 observations increases. This effect can be observed between 2023 and 2024 when the biggest spike occurs. In the first
-model, the volatility sharply drops after just a few time points. The bottom middle model considers a lag of 8
-Moreover, the single shock has a large effect on the volatility that follows. This property can also be observed at the
-beginning of the year 2025, where two large spikes happened. In the simplest model, the volatility sharply increases
-and decreases, preventing the effect from being heavily affected. In contrast, the most complex model does not sharply
-decrease. The period between the two volatility jumps is expected to be more volatile because of the past volatility
-preserved in time.
+model, the volatility sharply drops after just a few time points. Moreover, a single shock has a large effect on the
+volatility that follows. This property can also be observed at the beginning of the year 2025, where two large spikes
+happened. In the simplest model, the volatility sharply increases and decreases, preventing the effect from being
+heavily affected. In contrast, the most complex model does not sharply decrease. The period between the two volatility
+jumps is expected to be more volatile because of the past volatility preserved in time.
 
 To check stationary assumptions, Figure @fig-nvda-garch-post-sum provides a comparison of posterior distributions that
 represent the total sum of coefficients.
@@ -170,9 +169,12 @@ Table: NVDA/GARCH: Comparison of models using ELPD. {#tbl-nvda-garch-post-loo}
 
 All the models perform very similarly, and no model is the best. The model with the largest ELPD against the best model
 is GARCH$(5, 8)$, but the standard error is quite large, and the results are inconclusive. The most optimal model is
-the GARCH$(5, 1)$ based on two reasons. First, since all models perform relatively similarly and all match the data
-well, there is no reason to pick a more complex model when a simple one is sufficient. Secondly, the literature review
-suggests that GARCH models of lower orders are usually preferred, supporting the choice of a simple model. The final
-model is shown in Figure @fig-nvda-garch-post-final.
+considered to be the GARCH$(5, 1)$ based on two reasons. First, since all models perform relatively similarly and all
+match the data well, there is no reason to pick a more complex model when a simple one is sufficient. Secondly, the
+literature review suggests that GARCH models of lower orders are usually preferred, supporting the choice of a simple
+model. The final model is shown in Figure @fig-nvda-garch-post-final.
 
 ![NVDA/GARCH: Final model GARCH(5, 1).](./img/nvda/garch/posterior_final.png){#fig-nvda-garch-post-final}
+
+The model is able to capture volatility changes in a good detail. It is able to react to period of small
+and low volatility and generally does not overestimate volatility after periods of market stress. 

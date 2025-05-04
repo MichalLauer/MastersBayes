@@ -1,8 +1,8 @@
-Models of conditionally homoskedastic models have been developed to combat heteroskedasticity and time-variant
-volatility. One of the most popular and traditional models assumes that the volatility at time $t$ can be determined by
+Conditional heteroskedastic models can been used to combat time-variant volatility and volatility clustering. One of
+the most popular and traditional models assumes that the volatility at time $t$ can be computed deterministically by
 its past values. Typically, these models are represented by autoregressive functions of squared residuals and
-historical variance. Although harder to estimate, this method has proven beneficial, especially in TSD analysis
-\parencite{FernandezRodriguez2020_ModelingVolatilityReturns}.
+historical conditional variance. Although harder to estimate, this method has proven beneficial, especially in TSD
+analysis \parencite{FernandezRodriguez2020_ModelingVolatilityReturns}.
 
 A newer approach assumes that the volatility at time $t$ is modeled through a latent variable that is also
 autoregressively updated. This method has become popular because of its ability to capture more complex relationships

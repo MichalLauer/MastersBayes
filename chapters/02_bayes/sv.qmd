@@ -1,10 +1,9 @@
 The use of SV models in Bayesian statistics is natural for several reasons. First, the flexibility to define various
-prior distributions to parameters can improve efficiency, speed, and estimation quality. Using MCMC to estimate the
-posterior distribution is also employed in frequentist statistics.
+prior distributions to parameters can improve efficiency, speed, and estimation quality.
 \parencite{Ait-SahaliaKimmel2007_MaximumLikelihoodEstimation} combines Monte Carlo simulations with maximum likelihood
-estimates to derive option price volatility. Authors can derive a closed-form solution with desired statistical
-properties and be used in real data analysis. \parencite{AndersenEtAl1999_EfficientMethodMoments} combines Monte Carlo
-simulations with methods of moments, an extensive study that evaluates the sensitivity to sample size.
+estimates to derive option price volatility. Authors derive a closed-form solution with desired statistical
+properties that can be used in real data analysis. \parencite{AndersenEtAl1999_EfficientMethodMoments} combines Monte Carlo
+simulations with methods of moments in an extensive study that evaluates the sensitivity to sample size.
 
 SV models are also popular amongst Bayesian time series analysis.
 \parencite{YangEtAl2021_AnalysisVolatilityCharacteristics} uses SV-N and SV-T models to explore the characteristics of

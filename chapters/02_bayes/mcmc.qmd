@@ -30,8 +30,8 @@ of the posterior distribution, such as the expected value, median, mode, or any 
 
 [^mc-stan]: Stationarity in Markov Chains differs from stationarity in Time series.
 
-Several methods use the MCMC methodology. The most popular methods are the Metropolis-Hastings algorithm, The
-Metropolis Algorithm and the Gibbs Sampler are later explored in this thesis. Although MCMC sampling is guaranteed to
+Several methods use the MCMC methodology. The most popular methods are the Metropolis-Hastings Algorithm, The
+Metropolis Algorithm and the Gibbs Sampler which later explored in this thesis. Although MCMC sampling is guaranteed to
 converge to the posterior distribution, full convergence is the limit of an infinitely long chain. Chains with finite
 length can describe the posterior distribution with arbitrary precision. It is important to correctly define the MCMC
 simulation and monitor the quality of convergence. \parencite[Chap. 7.5]{Kruschke2015_DoingBayesianData} defines three
@@ -55,7 +55,7 @@ Bayesian linear regression, bayesian hierarchical model, estimation of state-spa
 The quality of chains is very important and is explored in several books, such as
 \parencite{Kruschke2015_DoingBayesianData} or \parencite{Gelman2014_BayesianDataAnalysis}, or papers that aim to
 optimize the bayesian workflow \parencite{GelmanEtAl2020_BayesianWorkflow}. The estimated parameters should not change
-very much after the chain has stabilized. Plotting some central tendency of the estimated parameter against the
+very much after the chain has stabilized. Plotting central tendencies of the estimated parameter against the
 iteration can be a simple visual check of whether the estimate has stabilized. Charts can be further improved by
 generating multiple chains and observing whether all chains converge to the same value. Similarly, plotting histograms
 of the estimated parameters from multiple chains should show high overlap. The difference between chains can also be

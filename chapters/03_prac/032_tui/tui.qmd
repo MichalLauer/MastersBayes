@@ -18,7 +18,7 @@ The charts show historical spikes in ACF and PACF functions, suggesting that vol
 Only the SV model will be used to model the underlying volatility for a couple of reasons. First, research presented in
 the theoretical part suggests that SV models are more suitable for many TSD analyses because of their high flexibility
 through two stochastic processes. Secondly, analysis of NVDA showed that the SV model can capture the underlying
-volatility more precisely. That visual analysis showed that it outperformed volatility prediction from both ARCH and
+volatility more precisely. Visual analysis showed that it outperformed volatility prediction from both ARCH and
 GARCH models. Finally, including another full comparison of various ARCH/GARCH/SV models would have minimal benefit
 because the interpretation of Bayesian models has been thoroughly introduced in the last chapters. Doing so would also
 significantly exceed the page count requirements of this thesis.

@@ -1,9 +1,9 @@
-Extension of ARCH models are generalized ARCH models introduced in Section @sec-garch. Its conditional variance, given
+Extension of ARCH models are GARCH models introduced in Section @sec-garch. Its conditional variance, given
 in Equation @eq-var-garch, can be relatively easily defined using Bayesian methods. The assumption about random
 component $\epsilon$ is identical to the ARCH model, and usually, either the normal distribution or the student
 distribution is selected. The main difference lies in additional $\beta$ coefficients representing the lagged
 conditional variance effect. Requirements outlined in Section @sec-garch also add that for a stable GARCH model, the
-sum of paired coefficients at lag $i$ must be less than one.
+sum of all coefficients must be less than one.
 \parencite[Chap. 5.1]{GewekeEtAl2013_OxfordHandbookBayesian} notes that this condition can be met by discarding draws
 that do not fulfill this assumption; however, this might not be very efficient.
 
@@ -12,7 +12,7 @@ must be a proper probability distribution that decreases faster than $1/\nu$. Ot
 integrate \parencite[Chap. 5.1]{GewekeEtAl2013_OxfordHandbookBayesian}. Some authors use the right side of a truncated
 Cauchy distribution, which decreases faster. However, student distribution could be worrisome if the estimated degrees
 of freedom are small. In such cases, some central moments do not exist, and a mixture of normal normal distributions is
-more suitable \parencite 2.2]{VirbickaiteEtAl2015_BAYESIANINFERENCEMETHODS}.
+more suitable \parencite[Chap. 2.2]{VirbickaiteEtAl2015_BAYESIANINFERENCEMETHODS}.
 
 The prior distribution for parameters $\alpha$ and $\beta$ varies.
 \parencite{BauwensLubrano1998_BayesianInferenceGARCH} uses flat uniform priors and

@@ -30,10 +30,10 @@ The whole model could be defined as:
 
 $$
 \begin{aligned}
-p_t &\sim \sqrt \sigma_t \epsilon_t \\
+p_t &\sim \sqrt \sigma_t^2 \epsilon_t \\
 \epsilon_t &\sim T(\nu) \\
 \nu &\sim \Gamma(\alpha = 4, \beta = 0.4) \\
-\sigma^2_t &= \alpha_0 + \sum_{i=1}^m \alpha_i p^2_{t - i} \\
+\sigma^2_t &= \alpha_0 + \sum_{i=1}^p \alpha_i p^2_{t - i} \\
 \alpha_0 &\sim \Gamma(\alpha = 2, \beta = 4) \\
 \alpha_i &\sim B(2, 2)
 \end{aligned}
@@ -77,15 +77,12 @@ Table: NVDA/ARCH: ESS. {#tbl-nvda-arch-ess}
 |alpha[8] |        -|        -|        -|        -|        -|        -|        -| 26909.11|
 
 All parameters across all models have ESS greater than 13 000 and thus the inference should reliably describe the
-posterior distribution. Stan recorded no chain divergence, which means the chains are very similar.
-
-Since all models assume to be shock distributed with Student distribution, the parameter $\nu$ is of interest. Figure
-@fig-nvda-arch-post-nu shows all posterior distributions by model.
+posterior distribution. Since all models assume to be shock distributed with Student distribution, the parameter $\nu$
+is of interest. Figure @fig-nvda-arch-post-nu shows all posterior distributions by model.
 
 ![NVDA/ARCH: Posterior distribution for $\nu$.](./img/nvda/arch/posterior_nu.png){#fig-nvda-arch-post-nu}
 
-All posterior distributions look very similar, and their central tendencies are described in Table
-@tbl-nvda-arch-post-nu.
+All posterior distributions look very similar, and their tendencies are described in Table @tbl-nvda-arch-post-nu.
 
 Table: NVDA/ARCH: Tabular posterior description for $\nu$. {#tbl-nvda-arch-post-nu}
 
@@ -129,10 +126,10 @@ The posterior distributions for coefficients $\alpha_1$ are shown in Figure @fig
 ![NVDA/ARCH: Posterior distribution for $\alpha_1$.](./img/nvda/arch/posterior_alpha1.png){#fig-nvda-arch-post-alpha1}
 
 The posterior distribution for model ARCH$(1)$ expects the largest effect of first squared residuals. As the lags
-increase, the effect shrinks. Shrinkage could be attributed to the restriction; with more parameters, every effect is
-\enquote{allowed} smaller effect. The posterior distribution for coefficient $\alpha_1$ is also narrower for higher
-orders, which could be attributed again to the constraint. The posterior description across all models is provided in
-Table @tbl-nvda-arch-post-alpha1
+increase, the effect shrinks. Shrinkage could be attributed to the stationarity restriction; with more parameters,
+every effect is \enquote{allowed} smaller effect. The posterior distribution for coefficient $\alpha_1$ is also
+narrower for higher orders, which could be attributed again to the constraint. The posterior description across all
+models is provided in Table @tbl-nvda-arch-post-alpha1
 
 Table: NVDA/ARCH: Tabular posterior description for $\alpha_1$. {#tbl-nvda-arch-post-alpha1}
 
@@ -143,7 +140,7 @@ Table: NVDA/ARCH: Tabular posterior description for $\alpha_1$. {#tbl-nvda-arch-
 |PI$_{0.055}$   |0.07    |0.05    |0.04    |0.04    |0.03    |0.03    |0.03    |0.03    |
 |PI$_{0.945}$   |0.22    |0.19    |0.17    |0.17    |0.17    |0.16    |0.16    |0.17    |
 
-The expected effect decreases with more lags, and for $m \geq 5$ is around 0.09. The same thing can be observed in some
+The expected effect decreases with more lags, and for $p \geq 5$ is around 0.09. The same thing can be observed in some
 other parameters in Figure @fig-nvda-arch-post-alpha-i
 
 ![NVDA/ARCH: Posterior distribution for $\alpha_i$.](./img/nvda/arch/posterior_alpha_i.png){#fig-nvda-arch-post-alpha-i}
@@ -188,7 +185,7 @@ Figure @fig-nvda-arch-post-prediction compares all models and their log returns.
 
 ![NVDA/ARCH: Predictions across all models.](./img/nvda/arch/posterior_prediction.png){#fig-nvda-arch-post-prediction}
 
-Simple models up to $m = 4$ are flat and do not have sufficient complexity to capture the underlying volatility. All
+Simple models up to $p = 4$ are flat and do not have sufficient complexity to capture the underlying volatility. All
 other models look similar and capture low and high volatility periods. Formal comparison using LOO-CV is available in
 Figure @tbl-nvda-arch-post-loo.
 
@@ -211,7 +208,7 @@ selected as the most optimal model. Its parameters are described in Table @tbl-n
 
 Table: NVDA/ARCH: Description of the final model. {#tbl-nvda-arch-final}
 
-|Parameter |E(X)   |Median |PI_lower |PI_upper |
+|Parameter |E(X)   |Median |PI$_{0.055}$ |PI$_{0.945}$  |
 |:---------|:------|:------|:--------|:--------|
 |alpha0    |0.0004 |0.0004 |0.0003   |0.0006   |
 |alpha[1]  |0.0934 |0.0887 |0.0333   |0.1679   |
@@ -222,7 +219,7 @@ Table: NVDA/ARCH: Description of the final model. {#tbl-nvda-arch-final}
 |nu        |7.1932 |7.0006 |5.1758   |9.7911   |
 
 The expected and median values are fairly close in every parameter, implying no skewed posterior distribution. The
-instantaneous volatility is very close to zero and has a small effect. There is a 89% probability, it lies between
+instantaneous volatility is very close to zero and has a small effect. There is a 89% probability it lies between
 0.003 and 0.006. The effect of the first lag is most probably between 0.0333 and 0.1679. The biggest expected effect is
 the fifth lag with 89% PI of $(0.0501, 0.2004)$. The model can be fully seen in Figure @fig-nvda-arch-post-final.
 
