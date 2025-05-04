@@ -26,12 +26,19 @@ $$
 However, the interpretation is identical. In practice, Equation @eq-bayes-eq is composed of probability functions and
 integrals.
 
+The choice of prior belief been historicaly limited by the tractability of the model. Before sampling software has been
+adopted, models needed to be conjugate. This means that combinig the likelihood function and the prior distribution
+gives rise to a posterior distribution that has known analytical solution. In the past, selection of specific functions
+and distributions that are conjugate has been favorable because of their simplicity. If there are better functions or
+distribution for the analysis that are not conjugate, the posterior distribution might not have tractable solution and
+thus the analysis becomes difficult. General definition of conjugate prior distributions is offered in
+\parencite[Chap. 2.4]{Gelman2014_BayesianDataAnalysis}.
+
 In real data analysis, a prior distribution that is not conjugate is often needed. In complex models that require
 multiple prior distributions, represent some structure in data, or work with latent variables, conjugacy is often not
-possible, and analytical solutions do not exist, or it is impractical to derive them. To overcome this, sampling and
-simulation methods have been developed to sample observations from a posterior distribution without the need to know
-the explicit analytical solutions. These methods do not work with Bayes' theorem in @eq-bayes-eq but rather with its
-kernel
+possible, and analytical solutions do not exist. To overcome this, simulation methods have been developed to sample
+observations from a posterior distribution without the need to know the explicit analytical solutions. These methods do
+not work with Bayes' theorem in @eq-bayes-eq but rather with its kernel
 
 $$
 P(\theta | x ) \propto P(\theta)P(x|\theta).
