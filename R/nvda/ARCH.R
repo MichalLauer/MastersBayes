@@ -532,9 +532,9 @@ df_pred |>
   facet_wrap(vars(Model), nrow = 2) +
   theme_bw() +
   labs(
-    title = TeX(r"(Comparison of posterior distributions for $\sigma$)"),
+    title = TeX(r"(Comparison of posterior distributions)"),
     subtitle = TeX(r"(with shaded 89% percentile interval)"),
-    x = NULL, y = TeX(r"($\sigma$)")
+    x = NULL, y = TeX(r"($p$)")
   )
 
 ggsave(filename = "./img/nvda/arch/posterior_prediction.png",

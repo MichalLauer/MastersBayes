@@ -167,9 +167,9 @@ df_pred |>
   geom_line(aes(y = true), color = "black") +
   theme_bw() +
   labs(
-    title = TeX(r"(Comparison of posterior distributions for $\exp(h/2)$)"),
+    title = TeX(r"(Comparison of posterior distributions)"),
     subtitle = TeX(r"(with shaded 89% percentile interval)"),
-    x = NULL, y = TeX(r"($\exp(h/2)$)")
+    x = NULL, y = TeX(r"($p$)")
   )
 
 ggsave(filename = "./img/tui/sv/posterior_prediction.png",

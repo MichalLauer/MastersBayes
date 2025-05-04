@@ -397,9 +397,9 @@ df_pred |>
   facet_wrap(vars(Model), nrow = 2) +
   theme_bw() +
   labs(
-    title = TeX(r"(Comparison of posterior distributions for $\sigma$)"),
+    title = TeX(r"(Comparison of posterior distributions)"),
     subtitle = TeX(r"(with shaded 89% percentile interval)"),
-    x = NULL, y = TeX(r"($\sigma$)")
+    x = NULL, y = TeX(r"($p$)")
   )
 
 ggsave(filename = "./img/nvda/garch/posterior_prediction.png",
@@ -427,8 +427,8 @@ models |>
   ( \(x) {
     extract(x$model[[1]], pars = c(
       "nu", "alpha0",
-      paste0("alpha[", seq_len(unique(models$p)), "]"),
-      paste0("beta[", models$q, "]")
+      paste0("alpha[", seq_len(unique(x$p)), "]"),
+      paste0("beta[", x$q, "]")
     ))
   })() |>
   as_tibble() |>
