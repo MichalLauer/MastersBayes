@@ -293,7 +293,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/03_prac/031_nvda/conclusion.qmd >}}
 
-## TUI1.DE
+## Ticker TUI1.DE
 
 {{< include chapters/03_prac/032_tui/tui.qmd >}}
 

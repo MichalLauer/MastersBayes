@@ -142,9 +142,9 @@ Table: NVDA/GARCH: Tabular posterior description for $\beta_1$. {#tbl-nvda-garch
 :::
 
 The expectation gradually decreases, and the 89% PI changes from $(0.03, 0.29)$ to $(0.01, 0.14)$. The same the effect
-can be observed with other coefficients in Figure @fig-nvda-garch-post-beta1 and Table @tbl-nvda-garch-post-beta-i.
+can be observed with other coefficients in Figure @fig-nvda-garch-post-betai and Table @tbl-nvda-garch-post-beta-i.
 
-![NVDA/GARCH: Posterior distribution for $\beta_1$.](./img/nvda/garch/posterior_beta1.png){#fig-nvda-garch-post-beta1}
+![NVDA/GARCH: Posterior distribution for $\beta_i$.](./img/nvda/garch/posterior_beta_i.png){#fig-nvda-garch-post-betai}
 
 
 ::: {.unnumbered}
@@ -153,7 +153,7 @@ can be observed with other coefficients in Figure @fig-nvda-garch-post-beta1 and
 
 Table: NVDA/GARCH: Expected $\beta_i$ for all models. {#tbl-nvda-garch-post-beta-i}
 
-| $\alpha_i$ |GARCH\newline(5, 1) |GARCH\newline(5, 2) |GARCH\newline(5, 3) |GARCH\newline(5, 4) |GARCH\newline(5, 5) |GARCH\newline(5, 6) |GARCH\newline(5, 7)|GARCH\newline(5, 8) |
+| $\beta_i$ |GARCH\newline(5, 1) |GARCH\newline(5, 2) |GARCH\newline(5, 3) |GARCH\newline(5, 4) |GARCH\newline(5, 5) |GARCH\newline(5, 6) |GARCH\newline(5, 7)|GARCH\newline(5, 8) |
 |:-------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
 |i = 1 |0.14        |0.12        |0.10        |0.09        |0.08        |0.07        |0.07        |0.06        |
 |i = 2 |-           |0.13        |0.11        |0.09        |0.08        |0.07        |0.07        |0.06        |
@@ -171,7 +171,7 @@ Reading left-to-right, the effect of every additional order is expected to be sm
 can be read from top-to-bottom and it is interesting to see that they are largely the same. Figure
 @fig-nvda-garch-post-volatility shows the total estimated volatility in time across all models.
 
-![NVDA/GARCH: Posterior distribution for $\beta_1$.](./img/nvda/garch/posterior_volatility.png){#fig-nvda-garch-post-volatility}
+![NVDA/GARCH: Estimated volatility across all models.](./img/nvda/garch/posterior_volatility.png){#fig-nvda-garch-post-volatility}
 
 The red GARCH$(5, 1)$ model is similar to the best ARCH$(5)$ model, but the conditional volatility of the first lag is
 preserved. As the complexity increases, individual volatility shocks have longer tails, and their effect on additional

@@ -6,8 +6,8 @@ Table: TUI1.DE/SV: Shrinkage factors and ESS. {#tbl-tui-sv-shrinkage-ess}
 
 |Parameter | Shrinkage|      ESS|
 |:-----|---------:|--------:|
-|phi   | 1.00     |   22 171|
-|mu    | 1.00     |   31 179|
+|$\phi$   | 1.00     |   22 171|
+|$\mu$    | 1.00     |   31 179|
 |$\nu_\text{in}$ | 1.00| 31 692|
 |$\nu_\text{la}$ | 1.00| 38 679|
 
@@ -18,8 +18,8 @@ Table: TUI1.DE/SV: Tabular description of posterior distributions. {#tbl-tui-pos
 
 |Parameter  |       E(X)|     Median|   PI$_{0.055}$|   PI$_{0.945}$|
 |:-----|----------:|----------:|----------:|----------:|
-|phi   |  0.99|  0.99 |  0.99|  0.99 |
-|mu    |  0.66|  0.53 |  0.05|  1.6 |
+|$\phi$   |  0.99|  0.99 |  0.99|  0.99 |
+|$\mu$    |  0.66|  0.53 |  0.05|  1.6 |
 |$\nu_\text{in}$ | 29.40 | 27.87 | 15.09 | 48.80 |
 |$\nu_\text{la}$ | 36.89 | 35.36 | 21.13 | 57.22 |
 
