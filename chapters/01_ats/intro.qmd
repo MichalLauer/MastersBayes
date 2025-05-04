@@ -1,11 +1,13 @@
-Analysis of time series data (TSD) can be more complicated that analysis of cross sectional data because of the time dimension that is inherently introduced.
-Methods on data without time dependence often assume random sampling and identical, independent distribution of every data point. An example can be the 
-MLR3 requirement defined in \parencite{Wooldridge2020_IntroductoryEconometricsModern} for Multiple Linear Regression estimated with Ordinary Least
-Squares. It states that in order to get unbiased estimates $\hat\theta$ of the true population parameters $\theta$, every data points needs to be 
-independent. In time series data, a point at time $t$ is dependent on values up-to time $t-1$ and this requirement is automatically violated.
+Analysis of time series data (TSD) can be more complicated than analysis of cross-sectional data because of the time
+dimension that is inherently introduced. Methods on data without time dependence often assume random sampling and
+identical, independent distribution of every data point. An example can be the MLR3 requirement defined in
+\parencite{Wooldridge2020_IntroductoryEconometricsModern} for Multiple Linear Regression estimated with Ordinary Least
+Squares. It states that to get unbiased estimates $\hat\theta$ of the true population parameters $\theta$, every data
+point needs to be independent. In time series data, a point at time $t$ is dependent on values up to time $t-1$, and
+this requirement is automatically violated.
 
-\parencite{HindlsEtAl2018_StatistikaEkonomii} states that analysis of time series data is the most important analysis for economic data. All economic
-data is *somehow* dependent on its past values and this dependence need to be reflected. One way of analyzing a time series is by forecasting future
-values. This can be done using either point estimates or confidence intervals. Another approach, that is considered in this thesis, is the forecast
-of future volatility. Because a lot of popular techniques, such as the Black–Scholes model, assume homoskedasticity , it is only natural to model
-the underlying volatility.
+\parencite{HindlsEtAl2018_StatistikaEkonomii} states that analysis of time series data is the most important analysis
+for economic data. All economic data is *somehow* dependent on its past values, and this dependence needs to be
+reflected. One way of analyzing a time series is by forecasting future values, which can be done using either point
+estimates or confidence intervals. Because many popular techniques, such as the Black–Scholes model, assume
+homoskedasticity, it is only natural to model the underlying volatility.

@@ -1,26 +1,26 @@
-Financial data and time series analysis can be loosely defined as *analysis that is concerned with the theory and 
-practice of asset valuation over time* \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}. Key feature that distinguishes 
-financial TSD from other domains is volatility, which originates from both not unified theory and variable data.
-A simple term, such as asset volatility, can have different definitions, which complicates statistical analysis
-and empirical research. The volatility of data itself is also hardly measurable and data that changes quickly
-(such as returns or closing price) can experience periods of different volatility 
+Financial data and time series analysis can be loosely defined as *\enquote{analysis that is concerned with the theory and
+practice of asset valuation over time}* \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}. A key feature
+distinguishing financial TSD from other domains is volatility, which originates from both nonunified theory and
+variable data. A simple term, such as asset volatility, can have different definitions, complicating statistical
+analysis and empirical research. Data volatility is also hardly measurable, and data that changes quickly (such as
+returns or closing price) can experience periods of different volatility
 \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}.
 
-In financial statistical analysis, it is often beneficial to work with returns and not pure prices. In fact, most of
-the current research in finance is focused on returns \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}. They offer
-scale-free metric that measure how well a trader performs, no matter the volume. They have also good statistical
-properties which are beneficial in TSD analysis \parencite[Chap. 1.4]{CampbellEtAl1998_ECONOMETRICSFINANCIALMARKETS}.
+In financial statistical analysis, working with returns and not pure prices is often beneficial. Most of the current
+research in finance is focused on returns \parencite[Chap. 1]{Tsay2005_AnalysisFinancialTime}. They offer scale-free
+metrics that measure a trader's performance, no matter the volume. They also have good statistical properties
+beneficial in TSD analysis \parencite[Chap. 1.4]{CampbellEtAl1998_ECONOMETRICSFINANCIALMARKETS}.
 
-There are different methods on how to calculate returns \parencite[Chap. 1.1]{Tsay2005_AnalysisFinancialTime}. The simplest
-returns at time $t$ are called simple gross returns, and are denoted as
+There are different methods on how to calculate returns \parencite[Chap. 1.1]{Tsay2005_AnalysisFinancialTime}. The
+simplest returns at time $t$ are called simple gross returns and are denoted as
 
 $$
 1 + R_t = {P_t \over P_{t-1}},
 $$ {#eq-simple-returns}
 
 where $P_t$ denotes the price of the underlying asset at time $t$ and $R_t$ the net return. Equation @eq-simple-returns
-can also be interpreted as a simple growth index between two consecutive time periods. Extension of this are log 
-returns, which can be defined as
+can also be interpreted as a simple growth index between two consecutive periods. Extension of this are log returns,
+which can be defined as
 
 $$
 r_t =
@@ -30,8 +30,8 @@ r_t =
 $$ {#eq-log-returns}
 
 where $p_t$ denotes the natural logarithm of price at time $t$. This transformation is beneficial in two ways. First,
-it is simple to write the compound growth in time as a simple sum. Considering growth the past $h$ records, it can
-be computed that
+it is simple to write the compound growth in time as a simple sum. Considering the growth in the past $h$ records, it
+can be computed that
 
 $$
 \ln \left( {P_{t-h+1} \over P_{t-h}} * \dots * {P_{t-1} \over P_{t-2}} * {P_t \over P_{t-1}} \right) =
@@ -42,14 +42,13 @@ $$
 Another important property touches statistical analysis and the fact that natural logarithm is often easier to analyze
 \parencite[Chap. 1.1]{Tsay2005_AnalysisFinancialTime}.
 
-\parencite[Chap. 1]{Cont2007_VolatilityClusteringFinancial} provides an overview of some statistical properties that have been
-observed on financial returns. Volatility of a financial asset is positively correlated with it's traded volume.
-Volatility clustering is also usually observed and large changes are typically followed by large changes, while
-small changes are typically followed by small changes. These changes, however, can be in a different direction and
-relatively high returns or losses can be observed together. While these returns are typically not correlated, their
-absolute value experiences autocorrelation with slow decay. Finally, unconditional distribution of returns displays
-heavy tails.
+\parencite[Chap. 1]{Cont2007_VolatilityClusteringFinancial} provides an overview of some statistical properties
+observed on financial returns. The volatility of a financial asset is positively correlated with its traded volume.
+Volatility clustering is also usually observed, and large changes typically follow large changes, while small changes
+typically follow small changes. These changes, however, can be in a different direction, and relatively high returns or
+losses can be observed together. While these returns are typically not correlated, their absolute value experiences
+autocorrelation with slow decay. Finally, the unconditional distribution of returns displays heavy tails.
 
-If a financial time series experiences volatility clustering, it is inherently not stationary, as it's variance
-is not constant. As \parencite[Chap. 1]{Cont2007_VolatilityClusteringFinancial} suggests, this issue has lead to a development
-of new models that are specifically designed to handle periods of high and low time series volatility.
+If a financial time series experiences volatility clustering, it is inherently not stationary, as the variance is not
+constant. As \parencite[Chap. 1]{Cont2007_VolatilityClusteringFinancial} suggests this issue has led to the development
+of new models specifically designed to handle periods of high and low time series volatility.

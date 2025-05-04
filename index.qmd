@@ -71,7 +71,8 @@
 \noindent
 \KlicovaSlova
 
-\bigskip\bigskip\bigskip\bigskip\bigskip
+\newpage
+
 \section*{Abstract}
 \noindent
 \AbstraktEN
@@ -103,31 +104,30 @@
 \begin{multicols}{2}
 \raggedright
 \begin{description}
-\item [TSD] Time Series Data
-\item [AR] Autoregressive model
-\item [MA] Moving-Averages model
-\item [ARIMA] Autoregressive Integrated Moving-Averages model
-\item [ARCH] Autoregressive Conditional Heteroscedasticity
-\item [MLE] Maximum Likelihood Estimation
-\item [GARCH] Generalized Autoregressive Conditional Heteroscedasticity
-\item [EGARCH] Exponential generalized auto regressive conditional heteroscedasticity
-\item [GARCH-M] GARCH-in-Mean
-\item [SV] Stochastic Volatility
-\item [LLN] Law of Large Numbers
-\item [PI] Percentile Interval
-\item [HDI] Highest Density Interval
-\item [MCMC] Markov Chain Monte Carlo
-\item [ESS] Effective Sample Size
-\item [MA] Metropolis Algorithm
-\item [MHA] Metropolis-Hastings Algorithm
-\item [HMC] Hamiltonian Monte Carlo
-\item [NUTS] No-U-Turn Sampler
-\item [VI] Variational Inference
+  \item [ARCH] Autoregressive Conditional Heteroskedasticity
+  \item [EGARCH] Exponential generalized auto regressive conditional heteroskedasticity
+\item [ELPD] Log Pointwise Predictive Density
+  \item [ESS] Effective Sample Size
+  \item [GARCH] Generalized Autoregressive Conditional Heteroskedasticity
+  \item [GARCH-M] GARCH-in-Mean
+  \item [GS] Gibbs Sampler
+  \item [HDI] Highest Density Interval
+  \item [HMC] Hamiltonian Monte Carlo
 \item [KLD] Kullback–Leibler Divergence
+  \item [LLN] Law of Large Numbers
 \item [LOO-CV] Leave-One-Out Cross-Validation
-\item [ELPD] Log Pointwise Predictive Density 
+  \item [MA] Metropolis Algorithm
+  \item [MCMC] Markov Chain Monte Carlo
+  \item [MHA] Metropolis-Hastings Algorithm
+\item [MLE] Maximum Likelihood Estimation
+  \item [NUTS] No-U-Turn Sampler
+  \item [PI] Percentile Interval
+  \item [SV] Stochastic Volatility
+  \item [TSD] Time Series Data
+\item [VI] Variational Inference
 \end{description}
 \end{multicols}
+
 ```
 
 ```{r setup, include=FALSE}
@@ -225,7 +225,7 @@ knitr::opts_chunk$set(
 
 {{< include chapters/02_bayes/descrip.qmd >}}
 
-## Bayesian' theorem and models
+## Bayes' theorem and models
 
 {{< include chapters/02_bayes/equation_models.qmd >}}
 

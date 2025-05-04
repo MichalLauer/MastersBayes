@@ -1,37 +1,41 @@
-This thesis combines two domains which are growing in their popularity, complexity and importance. The first is 
-bayesian statistics, a novel approach to statistical modeling and probability that is considered to be
-subjective rather than objective. The second matter is regarding volatility modeling where heteroskedasticity
-of time series needs to be considered.
+This thesis combines two domains that are growing in popularity, complexity, and importance. The first is Bayesian
+statistics, a novel approach to statistical modeling that considers probability to be subjective rather than objective.
+The second matter is regarding volatility modeling where heteroskedasticity of time series needs to be considered.
 
-Bayesian statistics allows building models and drawin conclusions using already known facts or studies. Instead of focusing
-solely on the relative frequency of some event, bayesian methods can incorporate prior knowledge about the estimated
-parameters through a probability distribution that represents a degree of belief before observing any new data.
-It also naturally allows the researcher to quantify uncertainity through a posterior distribution that can be used
-to create probabilistic statements about the estimated parameters. In small samples, bayesian methods use prior
-knowledge to improve estimation of unknown parameters and can offer better results than estimates that relly
-on asymptotic properties.
+Bayesian statistics allows building models and drawing conclusions using already known facts or studies. Instead of
+focusing solely on the relative frequency of some event, bayesian methods can incorporate prior knowledge about the
+estimated parameters through a probability distribution representing a degree of belief before observing any new data.
+It also naturally allows the researcher to quantify uncertainty through a posterior distribution that can be used to
+create probabilistic statements about the estimated parameters. In small samples, bayesian methods use prior knowledge
+to improve the quality of estimates and can offer better results than estimates that rely on asymptotic
+properties.
 
-Analysis of volatility of financial markets in the current digital world is important and \parencite{Liu2024NavigatingTF} provides at least 2 domains
-where this might be beneficial. Assessing the volatility of markets can help with portfolio optimization and risk management. Studies
-found that the inclusion of GARCH models, which are the topic of this thesis, has lead to a 20 % decrease in portfolio volatility. This
-further helps management and traders mitigate potential losses and improve decision making. Another popular domain are derivative markets
-for futures or options where setting the right price is crucial. Historically, option pricing uses methods such as the Black Scholes model,
-which assumes that the variance of the underlying asset is constant. This assumption does not always hold in practice, and the need to support
-heteroskedasticity in financial time series arose.
+Analysis of the volatility of financial markets in the current digital world is important, and
+\parencite{Liu2024NavigatingTF} provides at least two domains where this might be beneficial. Assessing the volatility
+of markets can help with portfolio optimization and risk management. Studies found that the inclusion of GARCH models,
+which are the topic of this thesis, has led to a 20% decrease in portfolio volatility. This further helps management
+and traders mitigate potential losses and improve decision-making. Another popular domain is derivative markets for
+futures or options, where setting the right price is crucial. Historically, option pricing uses methods such as the
+Black-Scholes model, which assumes that the variance of the underlying asset is constant. This assumption does not
+always hold in practice, and the need to support heteroskedasticity in financial time series arose.
 
-The bridge between novel bayesian statistical thinking and financial markets that can affect everyday life is interesting in several ways. First,
-some advanced models that are capable of measuring volatility in financial markets are hard to estimate and bayesian methods naturally arise,
-especially in the case of stochastic volatility. Furthermore, bayesian statistics offer information not only point and interval estimates, but in a 
-full posterior distribution from which arbitrary points, quantiles and intervals are computable. This supports advanced decision making and 
-offers more information about the estimated quantities. The probabilistic interpretation that can also be more natural and helpful rather than
-\enquote{imaginary repetitions in identical conditions}.
+The connection between Bayesian statistical thinking and financial markets is interesting in several ways. First, some
+advanced models capable of measuring volatility are hard to estimate, and Bayesian methods naturally arise, especially
+in the case of stochastic volatility. Furthermore, Bayesian statistics provides richer information than traditional
+methods by generating a complete posterior distribution, not just point or interval estimates. From this distribution,
+you can calculate any desired points, quantiles, or intervals. This comprehensive approach enables more sophisticated
+decision-making and provides deeper insights into the quantities being estimated. Additionally, Bayesian probability
+interpretations are often more intuitive and practical than the traditional frequentist concept of \enquote{imaginary
+repetitions in identical conditions}.
 
-This thesis has two main parts. The theoretical part contains description of financial markets, volatility models and 
-their application in bayesian statistics. These 
-models are then used in practical part on time series from financial markets, where the underlying volatility is captured. The structure is divided
-into three main chapters. First chapter explores financial time serie and their statistical characteristics. Classical models which are used
-throughout the thesis are also defined and described. The second part focuses on bayesian statistics. First, the ideas behind bayesian statistics
-are introduced as well as model definition, statistical inference and the creation of posterior distributions. After that, different sampling methods
-are used which are crucial in models where analytical posterior distribution is not tractable. Finally, the application of volatility models
-and bayesian statistics is drawn using available studies and surveys. The last chapter focuses on data analysis in R 
-\parencite{RCoreTeam2023_LanguageEnvironmentStatistical} and Stan \parencite{CarpenterEtAl2017_StanProbabilisticProgramming}.
+This thesis has two main parts. The theoretical part describes financial markets, volatility models, and their
+application in Bayesian statistics. These models are then used in the practical part on time series from financial
+markets, where the underlying volatility is captured. The structure is divided into three main chapters. The first
+chapter explores financial time series and their statistical characteristics. Classical models which are used
+throughout the thesis are also defined and described. The second part focuses on Bayesian statistics. First, the ideas
+behind Bayesian statistics are introduced, as well as model definitions, statistical inferences, and the creation of
+posterior distributions. After that, different sampling methods are used, which are crucial in models where analytical
+posterior distribution is not tractable. Finally, the application of volatility models and Bayesian statistics is shown
+using available studies and surveys. The last chapter focuses on data analysis in R
+\parencite{RCoreTeam2023_LanguageEnvironmentStatistical} and Stan
+\parencite{CarpenterEtAl2017_StanProbabilisticProgramming}.

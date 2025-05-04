@@ -1,19 +1,20 @@
-Another approach to volatility modeling is to leave the assumption that volatility at time $t$ can be deterministically described by previous shocks and conditional variance. Instead, one can model volatility through a latent variable
-that is stochastic and unobserved. This idea is employed in Stochastic volatility (SV) models, which are special 
-types of state-space models \parencite[Chap. 11.2]{Tsay2005_AnalysisFinancialTime}.
+Another approach to volatility modeling is to leave the assumption that volatility at time $t$ can be deterministically
+described by previous shocks and conditional variance. Instead, one can model volatility through a latent variable that
+is stochastic and unobserved. This idea is employed in Stochastic volatility (SV) models, special types of state-space
+models \parencite[Chap. 11.2]{Tsay2005_AnalysisFinancialTime}.
 
-The initial equation is similar to the ARCH Equation  @eq-var-arch and GARCH Equation @eq-var-garch, where the log of
-returns $p_t$ is described
-by the mean equation at time $t$ and shock at time $t$. For SV models, the log returns are assumed to be centered and
+The initial equation is similar to the ARCH Equation @eq-var-arch and GARCH Equation @eq-var-garch, where the log of
+returns $p_t$ is described by the mean equation at time $t$ and shock at time $t$. For SV models, the log returns are
+assumed to be centered and
 
 $$
 p_t = \sigma_t \epsilon_t,
 $$ {#eq-main-sv}
 
-where $\epsilon_t \sim N(0, \sigma^2_\epsilon)$. The main difference is that the shock is not described deterministically by
-squared historical shocks and conditional variance, but rather by a latent variable $h_t$ that represents the natural logarithm of
-variance. This is because variance can only be non-negative, and modeling the log variance enforces this assumption. It can then
-be described by
+where $\epsilon_t \sim N(0, \sigma^2_\epsilon)$. The main difference is that the shock is not described
+deterministically by squared historical shocks and conditional variance but rather by a latent variable $h_t$
+representing the natural logarithm of variance. This is because variance can only be non-negative, and modeling the log
+variance enforces this assumption. It can then be described by
 
 $$
 \ln \sigma^2 = h_t.
@@ -24,8 +25,8 @@ The volatility can be expressed by
 $$
 \begin{aligned}
 \ln \sigma^2 &= h_t \\
-\sigma^2     &= \exp(h_t) \\
-\sigma       &= \exp\left({h_t\over2} \right).
+\sigma^2 &= \exp(h_t) \\
+\sigma &= \exp\left({h_t\over2} \right).
 \end{aligned}
 $$
 
@@ -35,17 +36,18 @@ $$
 p_t = \exp\left({h_t\over2} \right)\epsilon_t.
 $$
 
-The latent variable is described by an autoregressive process
+An autoregressive process describes the latent variable as
 
 $$
 h_{t+1} = \mu + \phi(h_t - \mu) + \eta_t,
 $$
 
-where $\mu$ represents the average log volatility, $\phi$ the log volatility persistence and $\eta\sim N(0, \sigma^2_\eta)$. For the 
-latent variable to be stationary, it is sufficient that $|\phi| < 1$ \parencite{Kim1998_StochasticVolatilityLH}. The addition of
-another random shocks in the form of $\eta_t$ makes the SV model more flexible and this can capture more complex relationships.
-The estimation of latent variable $h_t$ is non-trivial and several methods have been developed, including Kalman filtering and
-Markov Chain Monte Carlo methods. Similar to GARCH models, the simple SV model is unable to capture the effect of positive
-and negative spikes \parencite[Chap. 3.12]{Tsay2005_AnalysisFinancialTime}. However, additional extensions have been developed
-to capture the asymmetric property in financial TSD. Similarly to the GARCH-M model, a SV-in-Mean model is introduced
-in \parencite{Abanto-ValleEtAl2011_StochasticVolatilityMean} that utilizes the volatility to directly influence returns.
+where $\mu$ represents the average log volatility, $\phi$ the log volatility persistence and $\eta\sim N(0,
+\sigma^2_\eta)$. For the latent variable to be stationary, it is sufficient that $|\phi| < 1$
+\parencite{Kim1998_StochasticVolatilityLH}. The addition of another random shock in the form of $\eta_t$ makes the SV
+model more flexible, which can capture more complex relationships. The estimation of latent variable $h_t$ is
+non-trivial, and several methods have been developed, including Kalman filtering and Markov Chain Monte Carlo methods.
+Like GARCH models, the simple SV model cannot capture the effect of positive and negative spikes
+\parencite[Chap. 3.12]{Tsay2005_AnalysisFinancialTime}. However, additional extensions have been developed to capture
+the asymmetric property in financial TSD. Similarly to the GARCH-M model, an SV-in-Mean model is introduced in
+\parencite{Abanto-ValleEtAl2011_StochasticVolatilityMean} that utilizes the volatility to influence returns directly.

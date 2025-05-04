@@ -82,6 +82,7 @@ pmap(models, \(p, q, name, model) {
   bind_rows() |>
   select(Model, param, Rhat) |>
   mutate(
+    Rhat = sprintf("%.2f", Rhat),
     param = ordered(
       param,
       levels = c("nu", "alpha0",
@@ -107,6 +108,7 @@ pmap(models, \(p, q, name, model) {
   bind_rows() |>
   select(Model, param, n_eff) |>
   mutate(
+    n_eff = format(n_eff, big.mark = " ", digits = 1),
     param = ordered(
       param,
       levels = c("nu", "alpha0",
@@ -116,7 +118,7 @@ pmap(models, \(p, q, name, model) {
     )
   ) |>
   pivot_wider(
-    names_from = name,
+    names_from = Model,
     values_from = n_eff
   ) |>
   arrange(param) |>
@@ -390,14 +392,14 @@ df_pred <-
 
 df_pred |>
   ggplot(aes(x = Index)) +
-  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
-  geom_line(aes(y = true)) +
+  geom_ribbon(aes(ymin = l, ymax = u), fill = "gray80") +
+  geom_line(aes(y = true), color = "black") +
   facet_wrap(vars(Model), nrow = 2) +
   theme_bw() +
   labs(
-    title = TeX(r"(Comparison of posterior distributions for $\sigma$)"),
+    title = TeX(r"(Comparison of posterior distributions)"),
     subtitle = TeX(r"(with shaded 89% percentile interval)"),
-    x = NULL, y = TeX(r"($\sigma$)")
+    x = NULL, y = TeX(r"($p$)")
   )
 
 ggsave(filename = "./img/nvda/garch/posterior_prediction.png",
@@ -425,8 +427,8 @@ models |>
   ( \(x) {
     extract(x$model[[1]], pars = c(
       "nu", "alpha0",
-      paste0("alpha[", seq_len(unique(models$p)), "]"),
-      paste0("beta[", models$q, "]")
+      paste0("alpha[", seq_len(unique(x$p)), "]"),
+      paste0("beta[", x$q, "]")
     ))
   })() |>
   as_tibble() |>
@@ -450,8 +452,8 @@ models |>
 df_pred |>
   filter(Model == "GARCH(5, 1)") |>
   ggplot(aes(x = Index)) +
-  geom_ribbon(aes(ymin = l, ymax = u), alpha = 0.7) +
-  geom_line(aes(y = true)) +
+  geom_ribbon(aes(ymin = l, ymax = u), fill = "gray80") +
+  geom_line(aes(y = true), color = "black") +
   theme_bw() +
   labs(
     title = TeX(r"(Most optimal model: GARCH(5, 1))"),

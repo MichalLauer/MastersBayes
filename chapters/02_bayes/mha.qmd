@@ -1,34 +1,37 @@
-The MA requires the proposal distribution to be symmetric. The Metropolis-Hastings algorithm (MHA) relaxes this assumption and let's
-the proposal distribution be any proper probability distribution. \parencite[Chap. 11.2]{Gelman2014_BayesianDataAnalysis} denotes
-that asymmetric proposal distributions can help with convergence and speed in complicated models. Asymmetric proposal distribution is
-also more appropriate for parameters that itself have asymmetric distribution, such as the variance or standard deviation, whose
-values are bound at zero \parencite[9.2.1]{McElreath2020_StatisticalRethinkingBayesian}. 
+The MA requires the proposal distribution to be symmetric. The Metropolis-Hastings algorithm (MHA) relaxes this
+assumption and lets the proposal distribution be any proper probability distribution.
+\parencite[Chap. 11.2]{Gelman2014_BayesianDataAnalysis} denotes that asymmetric proposal distributions can help with
+convergence and speed in complicated models. Asymmetric proposal distribution is also more appropriate for parameters
+with asymmetric distribution, such as the variance or standard deviation, whose values are bound at zero
+\parencite[9.2.1]{McElreath2020_StatisticalRethinkingBayesian}.
 
-The main difference is how the ratio of densities is computed. Because of the additional asymmetry, the
-densities need to be normalized and 
+The main difference is how the ratio of densities is computed. Because of the additional asymmetry, the densities need
+to be normalized and
 
 $$
 r = \frac{
-    P(\theta^*|y) / J_t(\theta^* | \theta_{t-1})
+ P(\theta^*|y) / J_t(\theta^* | \theta_{t-1})
 }{
-    P(\theta_{t-1}|y) / J_t(\theta_{t-1} | \theta^*)
+ P(\theta_{t-1}|y) / J_t(\theta_{t-1} | \theta^*)
 } = \frac{
-    P(\theta^*|y)
+ P(\theta^*|y)
 }{
-    P(\theta_{t-1}|y)
+ P(\theta_{t-1}|y)
 } \frac{
-    J_t(\theta_{t-1} | \theta^*)
+ J_t(\theta_{t-1} | \theta^*)
 }{
-    J_t(\theta^* | \theta_{t-1})
+ J_t(\theta^* | \theta_{t-1})
 }.
 $$ {#eq-mha}
 
-The function $J_t$ in Equation @eq-mha denotes the proposal distribution at iteration $t$. In a simple MA, the ratio of the two conditional
-proposal distributions is equal to 1 and can be then excluded. In the case of asymmetrical proposal distributions, this is not true,
-and the ratio needs to be corrected by this factor. The rest of the procedure is the same as for the MA.
+The function $J_t$ in Equation @eq-mha denotes the proposal distribution at iteration $t$. In a simple MA, the ratio of
+the two conditional proposal distributions is equal to 1 and can be excluded. In the case of asymmetrical proposal
+distributions, this is not true, and the ratio needs to be corrected by this factor. The rest of the procedure is the
+same as for the MA.
 
-In general, \parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje} suggest that the only condition for the MHA to generate
-stationary chains is that the transition probabilities between two states are proportional to the posterior densities, formally put as
+In general, \parencite[Chap. 6.8]{Hebak2013_StatistickeMysleniNastroje} suggest that the only condition for the MHA to
+generate stationary chains is that the transition probabilities between two states are proportional to the posterior
+densities, formally put as
 
 $$
 P(\theta^*|y) J_t(\theta^* | \theta_{t-1}) = P(\theta_{t-1}|y) J_t(\theta_{t-1} | \theta^*).

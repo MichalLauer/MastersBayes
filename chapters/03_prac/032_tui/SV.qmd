@@ -1,38 +1,38 @@
-Because the prior distributions introduced in Chapter @sec-nvda-sv are generally acceptable for bayesian TSD analysis,
-the same vague priors will be used. Overview of convergence quality through the Shrinkage factor and ESS is available
-in Table @tbl-tui-sv-shrinkage-ess.
+The same vague priors will be used because the prior distributions introduced in Chapter @sec-nvda-sv are generally
+acceptable for Bayesian TSD analysis. An overview of convergence quality through the Shrinkage factor and ESS is
+available in Table @tbl-tui-sv-shrinkage-ess.
 
 Table: TUI1.DE/SV: Shrinkage factors and ESS. {#tbl-tui-sv-shrinkage-ess}
 
-|Parameter | Shrinkage|      ESS|
+|Parameter | Shrinkage|      ESS|
 |:-----|---------:|--------:|
-|phi   | 0.9998893| 22171.49|
-|mu    | 1.0000194| 31179.89|
-|$\nu_\text{in}$ | 0.9999342| 31692.03|
-|$\nu_\text{la}$ | 1.0000120| 38679.67|
+|phi   | 1.00     |   22 171|
+|mu    | 1.00     |   31 179|
+|$\nu_\text{in}$ | 1.00| 31 692|
+|$\nu_\text{la}$ | 1.00| 38 679|
 
 The Shrinkage factor suggests that chains have merged successfully and high ESS that statistical inference is viable.
 The overview of all posterior distributions can be seen in Table @tbl-tui-post.
 
 Table: TUI1.DE/SV: Tabular description of posterior distributions. {#tbl-tui-post}
 
-|Parameter  |       E(X)|     Median|   PI_lower|   PI_upper|
+|Parameter  |       E(X)|     Median|   PI$_{0.055}$|   PI$_{0.945}$|
 |:-----|----------:|----------:|----------:|----------:|
-|phi   |  0.9930303|  0.9933450|  0.9864251|  0.9985651|
-|mu    |  0.6555265|  0.5336914|  0.0491092|  1.6435460|
-|$\nu_\text{in}$ | 29.3891771| 27.8666424| 15.0945732| 48.7980843|
-|$\nu_\text{la}$ | 36.8931803| 35.3645663| 21.1282932| 57.2230703|
+|phi   |  0.99|  0.99 |  0.99|  0.99 |
+|mu    |  0.66|  0.53 |  0.05|  1.6 |
+|$\nu_\text{in}$ | 29.40 | 27.87 | 15.09 | 48.80 |
+|$\nu_\text{la}$ | 36.89 | 35.36 | 21.13 | 57.22 |
 
-It is interesting that the results are very close to the SV model estimated on ticker NVDA. This may suggest that the
-underlying volatility is very similar. The stochastic process is displayed on Figure @fig-nvda-tui-sv-volatility.
+The results are close to the SV model estimated on ticker NVDA. Similar posteriors may suggest that the effect of the
+underlying volatility is very similar. The stochastic process is displayed in Figure @fig-tui-sv-volatility.
 
-![TUI1.DE/SV: Estimated volatility.](./img/tui/sv/posterior_volatility.png){#fig-nvda-tui-sv-volatility}
+![TUI1.DE/SV: Estimated volatility.](./img/tui/sv/posterior_volatility.png){#fig-tui-sv-volatility}
 
-There can be seen increases and decreases in volatility in time which may suggest volatility clustering. Further,
-the model is able to peaks of volatility as well as the decrease that follows. Comparison between volatility and
-log returns is on Figure @fig-tui-sv-prediction.
+There can be increases and decreases in volatility over time, which suggests volatility clustering. Further, the model
+can see peaks of volatility and the following decrease. A comparison between volatility and log returns is in Figure
+@fig-tui-sv-prediction.
 
 ![TUI1.DE/SV: Volatility prediction.](./img/tui/sv/posterior_prediction.png){#fig-tui-sv-prediction}
 
-The chart further shows that the estimated volatility fits well to the log returns. Periods of high and low
-volatility all overall captured in the percentile intervals. The SV model fits the data fairly well.
+The chart further shows that the estimated volatility fits well with the log returns. High and low volatility periods
+are all captured in the percentile intervals. The SV model fits the data fairly well.

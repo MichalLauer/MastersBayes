@@ -1,48 +1,53 @@
-The Metropolis Algorithm (MA) published in 1953 \parencite{MetropolisEtAl1953_EquationStateCalculations} has been very influential in the 
-popularization of bayesian statistics because of it's simplicity and relative efficiency in bayesian models and is explored in
-\parencite[Chap. 11.2]{Gelman2014_BayesianDataAnalysis} or \parencite[Chap. 7]{Kruschke2015_DoingBayesianData}. The algorithm first needs an
-initial draw that will be used. Since the stationary distribution of Markov Chain does not depend on the starting value, it can be any
-possible value whose posterior density is greater than 0. Then, a symmetric proposal distribution is required that generates new samples, conditional on 
-the last observed sample, to create a Markov Chain. A popular choice can be normal distribution that is centered around the last sample with 
-user defined variance, so
+The Metropolis Algorithm (MA) published in 1953 \parencite{MetropolisEtAl1953_EquationStateCalculations} has been very
+influential in the popularization of Bayesian statistics because of it is simplicity and relative efficiency in
+Bayesian models and is explored in \parencite[Chap. 11.2]{Gelman2014_BayesianDataAnalysis} or
+\parencite[Chap. 7]{Kruschke2015_DoingBayesianData}. The algorithm first needs an initial draw that will be used. Since
+the stationary distribution of the Markov Chain does not depend on the starting value, it can be any possible value
+whose posterior density is greater than 0. Then, a symmetric proposal distribution is required that generates new
+samples, conditional on the last observed sample, to create a Markov Chain. A popular choice can be a normal
+distribution that is centered around the last sample with user-defined variance, so
 
 $$
 \theta^* \sim N(\mu = \theta_{t-1}, \sigma^2).
 $$
 
-Variance is often denoted as a \enquote{step} that will be taken for the next sample. Large variance implies large jumps between individual samples,
-while small variance can increase autocorrelation and the chain might not 
-converge efficiently. The choice of variance hence depends on the specific model at hand. After a new sample is generated from the proposal 
-distribution, it is compared to the last sample $\theta_{t-1}$ using a simple ratio of posterior densities
+Variance is often denoted as a \enquote{step} that will be taken for the next sample. Large variance implies large
+jumps between individual samples, while small variance can increase autocorrelation, and the chain might not converge
+efficiently. The choice of variance depends on the specific model at hand. After a new sample is generated from
+the proposal distribution, it is compared to the last sample $\theta_{t-1}$ using a simple ratio of posterior densities
 
 $$
 r = \frac{
-    P(\theta^*|y)
+ P(\theta^*|y)
 }{
-    P(\theta^{t-1}|y)
+ P(\theta_{t-1}|y)
 },
 $$ {#eq-ma}
 
-where $P$ denotes the density of the posterior distribution for $\theta^*$, defined in Equation @eq-bayes-prop.
-If the ratio is greater than 1, it means that the density of the proposed sample $\theta^*$ is larger than the density of $\theta_{t-1}$ and the sample is
-accepted with probability of 1. If the ratio is smaller, the density of the proposed sample is smaller than the density of the last sample
-and the probability of accepting the new sample is $r$. The decision whether the new sample is accepted or not can defined as
+where $P$ denotes the density of the posterior distribution for $\theta^*$, defined in Equation @eq-bayes-prop. If the
+ratio is greater than 1, the density of the proposed sample $\theta^*$ is larger than the density of $\theta_{t-1}$,
+and the sample is accepted with a probability of 1. If the ratio is smaller, the density of the proposed sample is
+smaller than that of the last sample, and the probability of accepting the new sample is $r$. The decision of whether
+the new sample is accepted or not can defined as
 
 $$
 \text{prob}(\theta_t = \theta^*) = \min(1, r).
 $$
 
-If the proposal is accepted, a new sample from the proposal distribution, condition on the new sample $\theta^*$ is generated. If not, a new sample 
-$\theta_t$ is simply the previous sample $\theta_{t-1}$ and a new proposal conditioned on $\theta_{t-1}$ is generated.
+If the proposal is accepted, a new sample from the proposal distribution conditioned on the new sample $\theta^*$ is
+generated. If not, a new sample $\theta_t$ is simply the previous sample $\theta_{t-1}$ and a new proposal conditioned
+on $\theta_{t-1}$ is generated.
 
-While this procedure is capable of sampling from the posterior distribution, it might not always be the best choice. One of its main
-problems is the efficiency in complex parameter spaces where the size of the step needs to be carefully tuned.
-\parencite{MbalawataEtAl2013_AdaptiveMetropolisAlgorithm} notes that the simple MA can be greatly improved with a careful tuning of the
-step size. If a Gaussian proposal distribution is used, \parencite{GelmanEtAl1996_EfficientMetropolisJumping} found that under specific settings,
-the optimal covariance matrix $\Sigma$ that is defined by a researcher should be multiplied by a coefficient $\lambda = 2.38^2/d$, where $d$ is the dimension of the matrix.
+While this procedure can sample from the posterior distribution, it might not always be the best choice. One of its
+main problems is the efficiency in complex parameter spaces where the step size needs to be carefully tuned.
+\parencite{MbalawataEtAl2013_AdaptiveMetropolisAlgorithm} notes that the simple MA can be greatly improved with careful
+tuning of the step size. If a Gaussian proposal distribution is used,
+\parencite{GelmanEtAl1996_EfficientMetropolisJumping} found that under specific settings, the optimal covariance matrix
+$\Sigma$ that a researcher defines should be multiplied by a coefficient $\lambda = 2.38^2/d$, where $d$ is the
+dimension of the matrix.
 
-To make the algorithm itself more efficient, special Adaptive Metropolis Algorithms have been developed that are able to either select
-an optimal symmetrical proposal distribution or update the covariance matrix of such distribution. This approach allows the user to
-more efficiently explore the parameter space of complex bayesian models. The final chains are more stable, suffer from smaller autocorrelation and
-offer better ESS. The description of more adaptive algorithms, discussion of other algorithms and comparison can be found 
-in \parencite{LiangEtAl2010_AdvancedMarkovChain}.
+To make the algorithm more efficient, special Adaptive Metropolis Algorithms have been developed that can either select
+an optimal symmetrical proposal distribution or update the covariance matrix of such distribution. This approach allows
+the user to explore the parameter space of complex Bayesian models more efficiently. The final chains are more stable,
+suffer from smaller autocorrelation, and offer better ESS. The description of more adaptive algorithms, discussion of
+other algorithms, and comparison can be found in \parencite{LiangEtAl2010_AdvancedMarkovChain}.

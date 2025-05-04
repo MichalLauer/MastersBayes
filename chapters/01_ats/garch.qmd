@@ -1,41 +1,39 @@
-The variance for ARCH$(p)$  model given in Equation @eq-var-arch is simple and effective, but sometimes not adequate for 
-real data. General autoregressive conditional heteroskedasticity (GARCH) model, proposed by Boreslav 
-\parencite{Bollerslev1986_GeneralizedAutoregressiveConditional}, is
-more flexible and offer better long-term memory for forecasting \parencite{AL-Najjar2016_ModellingEstimationVolatility}. GARCH
-models extend ARCH shock by lagged estimated variance. In general, the GARCH model of order p and q can be
-written as 
+The variance for the ARCH$(p)$ model given in Equation @eq-var-arch is simple and effective but sometimes inadequate
+for real data. The general autoregressive conditional heteroskedasticity (GARCH) model, proposed by
+\parencite{Bollerslev1986_GeneralizedAutoregressiveConditional}, is more flexible and offers better long-term memory
+for forecasting \parencite{AL-Najjar2016_ModellingEstimationVolatility}. GARCH models extend ARCH shock by lagged
+estimated conditional variance. In general, the GARCH model of order p and q can be written as
 
 $$
 p_t = \mu_t + a_t,
 $$
 
-where the shock $a_t$ is made up by deterministic component $\sigma_t$ and stochastic component $\epsilon_t$. 
-The main difference is in $\sigma_t$, which is given by \parencite[Eq. 2]{AL-Najjar2016_ModellingEstimationVolatility} as
+where the shock $a_t$ is made up by deterministic component $\sigma_t$ and stochastic component $\epsilon_t$. The main
+difference is in $\sigma_t$, which is given by \parencite[Eq. 2]{AL-Najjar2016_ModellingEstimationVolatility} as
 
 $$
 \sigma_t^2 = \alpha_0 + \sum_{i=1}^p \alpha_i a^2_{t-i} + \sum_{j=1}^q \beta_j \sigma_{t-j}^2.
 $$ {#eq-var-garch}
 
-The main difference between ARCH$(p)$ model and GARCH$(p, q)$ model is the sum of past conditional
-variances given in Equation @eq-var-garch. In addition to the ARCH constrains, for the GARCH $\beta$ coefficients it must hold
-that $\beta_j \geq 0$ and $\sum_{i=1}^{\max (p, q)} (\alpha_i + \beta_i) < 1$. This condition implies that the 
-shock $a_t$ is finite and conditional variance $\sigma^2$ evolves over time 
-\parencite[Chap. 3.5]{Tsay2005_AnalysisFinancialTime}. 
+The main difference between ARCH$(p)$ model and GARCH$(p, q)$ model is the sum of past conditional variances given in
+Equation @eq-var-garch. Coefficient $\beta_i$ must be greater than zero and in addition to the ARCH stationarity
+constraints, it must hold that $\sum_{i=1}^p \alpha_i + \sum_{i=1}^q \beta_i < 1$. This condition
+implies that the shock $a_t$ is finite and conditional variance $\sigma^2$ evolves over time
+\parencite[Chap. 3.5]{Tsay2005_AnalysisFinancialTime}.
 
-New $\beta$ coefficients introduce complexity and assessing the order of GARCH model is a complex task. In practice,
-only lower orders are used. To estimate a GARCH model, a recursive method is feasible which first estimates a simple
-ARCH$(p)$ model. From the estimated residuals $a_t$ and conditional variance $\sigma^2_t$, new 
-GARCH$(p, q)$ model is computed. This creates new residuals $a_t$ and conditional variance $\sigma^2_t$, which can
-be used to fit a new GARCH$(p, q)$ model. This procedure is repeated until a stopping criterion is met. To forecast
-new values, the same procedure as for the ARCH model can be used and arbitrary $\ell$-step ahead prediction is 
-available \parencite[Chap. 3.5]{Tsay2005_AnalysisFinancialTime}
+New $\beta$ coefficients introduce additional complexity, and assessing the order of the GARCH model is a complex task.
+In practice, only lower orders are used. To estimate a GARCH model, a recursive method is feasible, which first
+estimates a simple ARCH$(p)$ model. From the estimated residuals $a_t$ and conditional variance $\sigma^2_t$, new
+GARCH$(p, q)$ model is computed. This process creates new residuals $a_t$ and conditional variance $\sigma^2_t$, which
+can be used to fit a new GARCH$(p, q)$ model. This procedure is repeated until a stopping criterion is met. The same
+procedure as for the ARCH model can be used to forecast new values, and arbitrary $\ell$-step ahead prediction is
+available in \parencite[Chap. 3.5]{Tsay2005_AnalysisFinancialTime}
 
 Although the GARCH$(p, q)$ model has some drawbacks, extensions have been developed to improve volatility forecasts.
-One popular extension is the Exponential generalized auto regressive conditional heteroskedasticity (EGARCH) model
-\parencite{Nelson1991_ConditionalHeteroskedasticityAsset},
-that is able to capture asymmetric shocks. This means that positive and negative jumps in returns can have various
-effect on the implied forecasted volatility. Another extensions, GARCH-in-Mean (GARCH-M)
-\parencite{EngleEtAl1987_EstimatingTimeVarying}, uses the calculated 
-conditional volatility from GARCH model as a predictor to forecast returns. Overview of other, more specific
-extensions that might be appropriate in specific domains, are covered in \parencite{AL-Najjar2016_ModellingEstimationVolatility} or
-\parencite{Tsay2005_AnalysisFinancialTime}.
+One popular extension is the Exponential generalized autoregressive conditional heteroskedasticity (EGARCH) model
+\parencite{Nelson1991_ConditionalHeteroskedasticityAsset}, which can capture asymmetric shocks. This asymmetric
+property means that positive and negative jumps in returns can have various effects on the implied forecasted
+volatility. Another extension, GARCH-in-Mean (GARCH-M) \parencite{EngleEtAl1987_EstimatingTimeVarying}, uses the
+calculated conditional volatility from the GARCH model as a predictor to forecast returns. An overview of other, more
+specific extensions that might be appropriate in specific domains is covered in
+\parencite{AL-Najjar2016_ModellingEstimationVolatility} or \parencite{Tsay2005_AnalysisFinancialTime}.

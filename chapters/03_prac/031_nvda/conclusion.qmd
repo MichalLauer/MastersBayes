@@ -1,21 +1,22 @@
-To compare models, visual inspection provides a significant insight about the quality of estimated volatility.
-Comparing Figures @fig-nvda-arch-post-final, @fig-nvda-garch-post-final and @fig-nvda-sv-prediction, it is clear that
-the stochastic model is able to most reliably estimate underlying asset volatility. The process can react well to
-periods of low and high volatility as well as extreme values that can be observed in the middle of years 2023 and 2024.
-The comparison is done on in-sample predictions of log returns and thus the results might not properly reflect
-out-of-sample prediction quality.
+Visual inspection provides a significant insight into the quality of estimated volatility. Comparing
+Figures @fig-nvda-arch-post-final, @fig-nvda-garch-post-final, and @fig-nvda-sv-prediction, it is clear that the
+stochastic model can estimate underlying asset volatility most reliably. The process can react well to periods of low
+and high volatility and extreme values observed in the middle of years 2023 and 2024. The comparison is done on
+in-sample predictions of log returns, and thus, the results might not properly reflect out-of-sample prediction
+quality.
 
 The estimation times of the three best models are very similar and differ largely based on the device. For example,
-MacBook Pro M3 was able to estimate the best ARCH and GARCH model in around 5 - 6 minutes while the SV model took
-around 8. Estimation of ARCH and GARCH models was straight forward, but the SV model needed to be fine tuned and in
-more complex analysis or with more data, the model would need to be reparametrized and the sampling process fine-tuned.
+MacBook Pro M3 could estimate the best ARCH and GARCH model in 5 - 6 minutes, while the SV model took around 8.
+Estimation of ARCH and GARCH models was straightforward. However, the SV model needed to be fine-tuned, and in more
+complex analysis or with more data, the model would need to be reparametrized and the sampling process fine-tuned.
 Alternatively, introduced packages could also be used for more efficient estimation.
 
 The main issue encountered with the SV model was complexity through the variance parameter of student distribution. In
-Stan, it is possible to define Student distribution with degrees of freedom $\nu$, mean $\mu$ and standard deviation
-$\sigma$. In initial runs, SV model had additional parameter $\sigma$ to allow for larger flexibility through the
-latent variable. This definition was unable to fit, the ESS was small, Shrink factor often exceeded 1.5 and the Stan
-sampler threw warnings that the final chains might be missing some important samples through low BFMI. Even with a
-large number of iterations (64 000) and a large warm-up period (8 000), the model was unable to converge. This would
-imply that any inference was very unreliable and undesirable. After removing the $\sigma$ parameter and setting the
-standard deviation to a fixed value, the convergence run without any issues and finished relatively quickly. The model with fixed standard deviation also fits the data fairly well
+Stan, it is possible to define Student distribution with degrees of freedom $\nu$, mean $\mu$, and standard deviation
+$\sigma$. In initial runs, the SV model had additional parameter $\sigma$ to allow for larger flexibility through the
+latent variable. This definition was unable to fit, the ESS was small, the Shrink factor often exceeded 1.5, and the
+Stan sampler threw warnings that the final chains might be missing some important samples through low BFMI. Even with
+many iterations (64 000) and a large warm-up period (8 000), the model could not converge. These diagnostics imply that
+any inference was very unreliable and undesirable. After removing the $\sigma$ parameter and setting the standard
+deviation to a fixed value, the convergence ran without any issues and finished relatively quickly. The model with
+fixed standard deviation also fits the data fairly well and additional complexity might not be needed after all.
